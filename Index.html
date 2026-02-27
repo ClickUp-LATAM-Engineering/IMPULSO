@@ -1,0 +1,2609 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMPULSO Click Up | Apresentação</title>
+    <!-- Fontes: Playfair (Manifesto), Montserrat & Inter (Método), System (Resto) -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Paleta Apple UI (Base) */
+            --bg-body: #F5F5F7;
+            --bg-surface: rgba(255, 255, 255, 0.75);
+            --bg-sidebar: rgba(245, 245, 247, 0.5);
+            --text-primary: #1D1D1F;
+            --text-secondary: #86868B;
+            --border-color: rgba(210, 210, 215, 0.5);
+            
+            /* TEMA PADRÃO (PT - Brasil) */
+            --theme-primary: #008A44; 
+            --theme-secondary: #FFC000;
+            --theme-tertiary: #00B359; 
+            --theme-gradient: linear-gradient(135deg, var(--theme-primary) 0%, var(--theme-secondary) 100%);
+            
+            /* Tipografia */
+            --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-method-head: 'Montserrat', sans-serif;
+            --font-method-body: 'Inter', sans-serif;
+            
+            /* Sombras e Raios */
+            --radius-app: 24px;
+            --radius-card: 18px;
+            --radius-button: 8px;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.08);
+            
+            /* Transições */
+            --ease-apple: cubic-bezier(0.25, 0.1, 0.25, 1);
+
+            /* Language toggles for images */
+            .img-es { display: none !important; }
+            body.lang-es .img-pt { display: none !important; }
+            body.lang-es .img-es { display: block !important; }
+            body.lang-en .img-pt { display: none !important; }
+            body.lang-en .img-es { display: block !important; } /* Fallback to ES as per instruction */
+
+            /* =========================================
+               SOP CARD MODULE 2 COLORS
+               ========================================= */
+            --sop-primary: #FF5E00;   
+            --sop-secondary: #00E5FF; 
+            --sop-success: #10B981;   
+            --sop-danger: #EF4444;    
+            --sop-bg: #FFFFFF;
+            --sop-text-main: #1F2937;
+            --sop-text-muted: #4B5563;
+            --sop-border: #E5E7EB;
+
+            /* =========================================
+               SOP CARD MODULE 3 COLORS (ACCELERATE & EXECUTION)
+               ========================================= */
+            --sop-accel-primary: #ff007a;
+            --sop-accel-secondary: #39FF14;
+            --sop-exec-primary: #3B41E3; /* Azul Royal */
+            --sop-exec-secondary: #F43F5E; /* Rosa/Vermelho Vibrante */
+
+            /* =========================================
+               SOP CARD MODULE 4 COLORS (REPORTING)
+               ========================================= */
+            --sop-rep-primary: #00E676; /* Verde Brilhante */
+            --sop-rep-secondary: #78909C; /* Cinza/Azulado */
+
+            /* =========================================
+               SOP CARD MODULE 5 COLORS (GOVERNANCE)
+               ========================================= */
+            --sop-gov-primary: #FF0B3A; /* Vermelho/Carmesim */
+            --sop-gov-secondary: #FFB3C6; /* Vermelho Claro/Rosado */
+        }
+
+        /* TEMA ESPANHOL (ES) */
+        body.lang-es {
+            --theme-primary: #05B3F4; 
+            --theme-secondary: #FFC400; 
+            --theme-tertiary: #ED2939; 
+            --theme-gradient: linear-gradient(135deg, var(--theme-primary) 0%, var(--theme-tertiary) 100%);
+        }
+
+        /* TEMA INGLÊS (EN) */
+        body.lang-en {
+            --theme-primary: #8A2BE2; 
+            --theme-secondary: #FF00FF; 
+            --theme-tertiary: #4B0082; 
+            --theme-gradient: linear-gradient(135deg, var(--theme-primary) 0%, var(--theme-secondary) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='40' viewBox='0 0 100 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 20 Q 25 0 50 20 T 100 20 V 40 H 0 Z' fill='%231D1D1F' fill-opacity='0.02'/%3E%3Cpath d='M0 20 Q 25 40 50 20 T 100 20 V 0 H 0 Z' fill='%23FFFFFF' fill-opacity='0.2'/%3E%3C/svg%3E");
+            background-size: 150px;
+            color: var(--text-primary);
+            font-family: var(--font-stack);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2vw;
+            position: relative;
+            transition: all 1s ease;
+        }
+
+        /* --- Aurora Tropical --- */
+        .aurora-container {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 0; overflow: hidden; pointer-events: none;
+        }
+        .aurora {
+            position: absolute; border-radius: 50%; filter: blur(100px);
+            opacity: 0.4; animation: drift 20s infinite alternate ease-in-out;
+            transition: background-color 1.5s ease;
+        }
+        .aurora-1 { width: 50vw; height: 50vw; background: var(--theme-primary); top: -20%; left: -10%; }
+        .aurora-2 { width: 60vw; height: 60vw; background: var(--theme-secondary); bottom: -30%; right: -10%; animation-delay: -5s; }
+        .aurora-3 { width: 40vw; height: 40vw; background: var(--theme-tertiary); top: 30%; left: 40%; animation-delay: -10s; opacity: 0.35; }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(8vw, 8vh) scale(1.1); }
+        }
+
+        /* --- Tipografia Apple Padrão --- */
+        h1, h2, h3 { font-weight: 600; letter-spacing: -0.02em; }
+        h1 { font-size: 3rem; line-height: 1.1; margin-bottom: 0.5rem; letter-spacing: -0.04em; }
+        h2 { font-size: 1.5rem; color: var(--text-secondary); font-weight: 400; margin-bottom: 1.5rem; }
+        p { font-size: 1.1rem; line-height: 1.5; color: var(--text-primary); }
+
+        /* --- Layout Principal --- */
+        .app-window {
+            display: flex; width: 100%; max-width: 1600px; height: 95vh;
+            background: var(--bg-surface); backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px); border-radius: var(--radius-app);
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.4) inset, var(--shadow-lg);
+            overflow: hidden; border: 1px solid var(--border-color);
+            position: relative; z-index: 10;
+        }
+
+        /* --- Sidebar --- */
+        .sidebar {
+            width: 280px; background: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color); padding: 2.5rem 1.5rem;
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+
+        .brand-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 2.5rem; padding-left: 0.8rem;
+        }
+
+        .brand h2 {
+            font-size: 1.4rem; font-weight: 700; letter-spacing: -0.03em;
+            background: var(--theme-gradient); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; transition: background 1.5s ease;
+        }
+
+        .brand-logo {
+            width: 48px; height: 48px; border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            background-color: white;
+            padding: 8px;
+        }
+
+        .nav-items { display: flex; flex-direction: column; gap: 0.2rem; }
+        .nav-btn {
+            background: transparent; border: none; color: var(--text-primary);
+            font-family: var(--font-stack); font-weight: 500; font-size: 1rem;
+            text-align: left; cursor: pointer; padding: 0.8rem 1rem;
+            border-radius: var(--radius-button); transition: all 0.2s var(--ease-apple);
+        }
+        .nav-btn:hover { background: rgba(0, 0, 0, 0.04); }
+        .nav-btn.active {
+            background: var(--theme-gradient); color: #FFFFFF;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* --- Submenu (O Método) --- */
+        .sub-nav-container {
+            display: none;
+            flex-direction: column;
+            gap: 0.3rem;
+            padding-left: 1.2rem;
+            margin-top: 0.3rem;
+            margin-bottom: 0.5rem;
+            border-left: 2px solid rgba(0,0,0,0.05);
+            margin-left: 1rem;
+        }
+        .sub-nav-container.open {
+            display: flex;
+        }
+        .sub-nav-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-secondary);
+            font-family: var(--font-stack);
+            font-weight: 500;
+            font-size: 0.85rem;
+            text-align: left;
+            cursor: pointer;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            transition: all 0.3s var(--ease-apple);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .sub-nav-btn:hover {
+            background: rgba(0, 0, 0, 0.02);
+            color: var(--text-primary);
+        }
+        .sub-nav-btn.active-sub {
+            color: var(--theme-primary);
+            font-weight: 800;
+            background: transparent;
+            border: 1px solid transparent;
+            box-shadow: none;
+            text-shadow: 0 0 8px var(--theme-primary), 0 0 15px var(--theme-primary);
+        }
+
+        .segmented-control {
+            display: flex; background: rgba(118, 118, 128, 0.12);
+            padding: 2px; border-radius: 8px; margin-top: 2rem;
+        }
+        .seg-btn {
+            flex: 1; background: transparent; border: none; padding: 6px 0;
+            font-size: 0.85rem; font-weight: 600; color: var(--text-primary);
+            border-radius: 6px; cursor: pointer; transition: all 0.2s var(--ease-apple);
+        }
+        .seg-btn.active {
+            background: #FFFFFF; color: var(--theme-primary);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.12), 0 3px 1px rgba(0,0,0,0.04);
+        }
+
+        /* --- Área de Conteúdo --- */
+        .content-area {
+            flex: 1; padding: 2.5rem 3.5rem; overflow-y: auto; position: relative; scroll-behavior: smooth;
+        }
+        .tab-content { display: none; opacity: 0; transform: translateY(10px); }
+        .tab-content.active {
+            display: flex; flex-direction: column; opacity: 1;
+            transform: translateY(0); transition: all 0.4s var(--ease-apple); height: 100%;
+        }
+
+        /* --- ABA 1: MANIFESTO --- */
+        .manifesto-container {
+            position: relative; width: 100%; min-height: 450px; border-radius: var(--radius-card);
+            overflow: hidden; background-color: #001A26; 
+            /* Modificado a rio.png */
+            background-image: linear-gradient(rgba(0, 26, 38, 0.50), rgba(0, 138, 68, 0.2)), url('rio.png');
+            background-size: cover; background-position: center; border: 1px solid var(--border-color);
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.5); display: flex; justify-content: center;
+            align-items: center; padding: 3rem 1rem; margin-top: 1.5rem; transition: all 0.8s ease;
+        }
+        body.lang-es .manifesto-container {
+            background-color: #1A1A24; 
+            background-image: linear-gradient(rgba(10, 15, 30, 0.30), rgba(5, 179, 244, 0.15)), url('adoquin.png');
+            box-shadow: inset 0 0 80px rgba(0,0,0,0.8), var(--shadow-md); min-height: 480px;
+        }
+        body.lang-en .manifesto-container {
+            background-color: #1A1A24; 
+            background-image: linear-gradient(rgba(10, 15, 30, 0.30), rgba(138, 43, 226, 0.15)), url('golden.png');
+            box-shadow: inset 0 0 80px rgba(0,0,0,0.8), var(--shadow-md); min-height: 480px;
+        }
+        .blob-mosaic { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; gap: 1.5rem; flex-wrap: wrap; width: 100%; transition: gap 0.5s ease; }
+        body.lang-es .blob-mosaic, body.lang-en .blob-mosaic { gap: 2rem; }
+        .manifesto-blob { position: relative; width: 220px; height: 220px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 1.5rem; cursor: pointer; transition: all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1); border: 1px solid transparent; }
+        body.lang-es .manifesto-blob, body.lang-en .manifesto-blob { height: 320px; padding: 2.5rem 1.5rem; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); color: #FFFFFF; border-radius: 120px 120px 15px 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .blob-1 { background: #FF007F; color: #FFF; border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: translateY(-20px); }
+        .blob-2 { background: #FFD700; color: #1D1D1F; border-radius: 40% 60% 70% 30% / 50% 60% 30% 60%; transform: translateY(30px); }
+        .blob-3 { background: #2ECC71; color: #1D1D1F; border-radius: 70% 30% 50% 50% / 30% 50% 70% 60%; transform: translateY(-10px); }
+        body.lang-es .blob-1, body.lang-en .blob-1 { background: rgba(5, 179, 244, 0.08); transform: translateY(-15px); }
+        body.lang-es .blob-2, body.lang-en .blob-2 { background: rgba(255, 196, 0, 0.08); transform: translateY(20px); }
+        body.lang-es .blob-3, body.lang-en .blob-3 { background: rgba(237, 41, 57, 0.08); transform: translateY(-5px); }
+        .manifesto-blob:hover { transform: scale(1.15) translateY(0); z-index: 10; border-radius: 40px; }
+        .blob-1:hover { box-shadow: 0 0 40px rgba(255, 0, 127, 0.9); }
+        .blob-2:hover { box-shadow: 0 0 40px rgba(255, 215, 0, 0.9); }
+        .blob-3:hover { box-shadow: 0 0 40px rgba(46, 204, 113, 0.9); }
+        body.lang-es .manifesto-blob:hover, body.lang-en .manifesto-blob:hover { transform: scale(1.05) translateY(-5px); border-radius: 120px 120px 15px 15px; }
+        body.lang-es .blob-1:hover, body.lang-en .blob-1:hover { background: rgba(5, 179, 244, 0.25); border-color: rgba(5, 179, 244, 0.6); box-shadow: 0 15px 35px rgba(5, 179, 244, 0.4); }
+        body.lang-es .blob-2:hover, body.lang-en .blob-2:hover { background: rgba(255, 196, 0, 0.25); border-color: rgba(255, 196, 0, 0.6); box-shadow: 0 15px 35px rgba(255, 196, 0, 0.4); }
+        body.lang-es .blob-3:hover, body.lang-en .blob-3:hover { background: rgba(237, 41, 57, 0.25); border-color: rgba(237, 41, 57, 0.6); box-shadow: 0 15px 35px rgba(237, 41, 57, 0.4); }
+        .blob-title { font-family: var(--font-stack); font-size: 1.6rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 0; transition: all 0.5s ease; }
+        body.lang-es .blob-title, body.lang-en .blob-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: #FFFFFF; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .blob-desc { font-size: 0.95rem; opacity: 0; max-height: 0; overflow: hidden; transition: all 0.6s ease; line-height: 1.5; font-weight: 500; margin-top: 0; }
+        body.lang-es .blob-desc, body.lang-en .blob-desc { color: rgba(255, 255, 255, 0.9); }
+        .manifesto-blob:hover .blob-title { margin-bottom: 1rem; transform: scale(0.9); }
+        .manifesto-blob:hover .blob-desc { opacity: 1; max-height: 150px; }
+
+
+        /* --- ABA 2: A TRAVESSIA (RESTAURADA) --- */
+        .bridge-visual {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-top: 3rem; background: rgba(255, 255, 255, 0.6);
+            padding: 3rem; border-radius: var(--radius-card);
+            border: 1px solid var(--border-color); cursor: crosshair;
+            transition: transform 0.4s var(--ease-apple), box-shadow 0.4s ease;
+        }
+        .bridge-visual:hover { transform: scale(1.02); box-shadow: var(--shadow-md); }
+        .bridge-point { text-align: center; flex: 1; position: relative; z-index: 2; }
+        .bridge-point span {
+            display: inline-flex; justify-content: center; align-items: center;
+            width: 80px; height: 80px; font-size: 2.5rem; margin-bottom: 1rem;
+            background: #FFFFFF; border-radius: 50%; box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color); transition: transform 0.4s var(--ease-apple);
+        }
+        .bridge-visual:hover .bridge-point span { transform: translateY(-5px); }
+        .bridge-point p { font-weight: 600; font-size: 1.1rem; color: var(--text-primary); }
+        .bridge-arrow { flex: 2; display: flex; flex-direction: column; align-items: center; color: var(--theme-primary); padding: 0 1rem; }
+        .bridge-arrow span { font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; transition: color 0.4s ease, transform 0.4s ease; }
+        
+        .energy-tube { width: 100%; height: 10px; background: rgba(0, 0, 0, 0.05); border-radius: 5px; position: relative; margin: 1.5rem 0; overflow: hidden; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
+        .energy-particle {
+            position: absolute; top: 0; left: -50%; width: 40%; height: 100%;
+            background: var(--theme-gradient); border-radius: 5px;
+            filter: drop-shadow(0 0 6px var(--theme-primary));
+            animation: energyFlow 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            transition: all 0.4s ease;
+        }
+        .bridge-visual:hover .energy-particle {
+            animation-duration: 0.8s; filter: drop-shadow(0 0 12px var(--theme-secondary)) brightness(1.2);
+            background: var(--theme-secondary); width: 60%;
+        }
+        .bridge-visual:hover .bridge-arrow span { color: var(--theme-secondary); transform: scale(1.05); }
+        @keyframes energyFlow { 0% { left: -50%; } 100% { left: 100%; } }
+
+
+        /* --- ABA 3: EL MÉTODO (COM TIMELINE E LIGHTBOX) --- */
+        .method-container {
+            font-family: var(--font-method-body); background: #FFFFFF;
+            border-radius: var(--radius-app); padding: 4rem;
+            color: #1D1D1F; box-shadow: var(--shadow-md);
+            border: 1px solid #E0E0E0; overflow-y: auto; height: 100%;
+            position: relative;
+        }
+
+        /* --- NEON TITLE STYLES --- */
+        .neon-title-pt {
+            color: #00FF7F;
+            text-shadow: 0 0 8px rgba(0, 255, 127, 0.6), 0 0 15px rgba(0, 255, 127, 0.3);
+            font-weight: 900 !important;
+        }
+        .neon-title-es {
+            color: #00FFFF;
+            text-shadow: 0 0 8px rgba(0, 255, 255, 0.6), 0 0 15px rgba(0, 255, 255, 0.3);
+            font-weight: 900 !important;
+        }
+        .neon-title-en {
+            color: #FF00FF;
+            text-shadow: 0 0 8px rgba(255, 0, 255, 0.6), 0 0 15px rgba(255, 0, 255, 0.3);
+            font-weight: 900 !important;
+        }
+
+        /* --- MODULE NAV CONTROLLER --- */
+        .module-nav-controller {
+            position: sticky;
+            top: -1rem;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            margin: 0 auto 2rem auto;
+            width: fit-content;
+        }
+        .nav-ctrl-btn {
+            background: var(--theme-gradient);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .nav-ctrl-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 12px var(--theme-primary);
+        }
+        #current-module-display {
+            font-family: var(--font-method-head);
+            font-size: 0.9rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-primary);
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .method-container h2, .method-container h3, .method-container h4 { font-family: var(--font-method-head); color: #111111; }
+        .method-header { margin-bottom: 3rem; border-bottom: 2px solid #F0F0F0; padding-bottom: 1.5rem; }
+        
+        .timeline-container { position: relative; padding-left: 2.5rem; margin-top: 2rem; }
+        .timeline-line { position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: #EAEAEA; }
+        
+        .module-card {
+            position: relative; background: #FFFFFF; border: 1px solid #E0E0E0;
+            border-radius: 12px; padding: 1.8rem 2.5rem; margin-bottom: 2.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02); transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .module-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.05); border-color: #D0D0D0; }
+        .module-card::before {
+            content: ''; position: absolute; left: -2.85rem; top: 2rem;
+            width: 14px; height: 14px; background: var(--theme-primary);
+            border-radius: 50%; border: 3px solid #FFFFFF;
+            box-shadow: 0 0 0 1px #E0E0E0; transition: background 1s ease;
+        }
+
+        .module-card h3 { font-size: 1.4rem; margin-bottom: 0.8rem; color: var(--text-primary); }
+        .module-card .narrative { font-size: 1rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem; }
+        
+        .slide-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+        
+        .slide-placeholder {
+            aspect-ratio: 16/9; width: 100%;
+            background: linear-gradient(135deg, #F9F9FB 0%, #EFEFEF 100%);
+            border: 1px dashed #CCCCCC; border-radius: 8px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: #888888; position: relative; overflow: hidden;
+            transition: all 0.3s ease; cursor: zoom-in;
+        }
+        .slide-placeholder:hover { border-color: var(--theme-primary); background: #F0F0F5; }
+        .slide-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+        .slide-placeholder.highlight { border: 1.5px solid var(--theme-primary); background: linear-gradient(135deg, #FFFFFF 0%, rgba(0, 138, 68, 0.03) 100%); box-shadow: 0 4px 12px rgba(0, 138, 68, 0.05); }
+        
+        .slide-placeholder svg { width: 32px; height: 32px; margin-bottom: 0.8rem; opacity: 0.4; stroke: currentColor; fill: none; stroke-width: 1.5; }
+        .slide-placeholder span { font-family: var(--font-method-head); font-size: 0.85rem; font-weight: 600; text-align: center; padding: 0 1rem; }
+
+        .key-deliverable { font-size: 0.95rem; background: #F5F5F7; padding: 1rem 1.5rem; border-radius: 6px; border-left: 3px solid var(--theme-primary); color: var(--text-primary); transition: border-color 1s ease; }
+        .key-deliverable strong { font-family: var(--font-method-head); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-secondary); display: block; margin-bottom: 0.3rem; }
+
+        /* --- MODAL (Lightbox) --- */
+        #image-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); z-index: 1000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
+        #image-modal.active { display: flex; opacity: 1; }
+        .modal-content-wrapper { max-width: 90%; max-height: 85%; position: relative; transform: scale(0.9); transition: transform 0.3s var(--ease-apple); }
+        #image-modal.active .modal-content-wrapper { transform: scale(1); }
+        #modal-image-view { width: 100%; height: auto; max-height: 85vh; object-fit: contain; border-radius: 12px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); }
+        #modal-placeholder-view { width: 80vw; max-height: 80vh; overflow-y: auto; background: #F5F5F7; border-radius: 12px; display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; padding: 2rem; text-align: left; }
+        .close-modal { position: absolute; top: 30px; right: 40px; color: #FFF; font-size: 3rem; cursor: pointer; opacity: 0.7; transition: all 0.2s; z-index: 1001; }
+        .close-modal:hover { opacity: 1; transform: scale(1.1); }
+        .modal-nav { position: absolute; top: 50%; transform: translateY(-50%); color: #FFF; font-size: 3rem; cursor: pointer; user-select: none; opacity: 0.5; transition: all 0.3s; z-index: 1002; padding: 1rem; }
+        .modal-nav:hover { opacity: 1; transform: translateY(-50%) scale(1.2); }
+        .prev-modal { left: 2%; }
+        .next-modal { right: 2%; }
+
+        /* =========================================
+           SOP CARD CORE STYLES (SHARED)
+           ========================================= */
+        .acc-sop-wrapper { width: 100%; margin: 1.5rem 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        .acc-sop-card { background-color: var(--sop-bg); border: 1px solid var(--sop-border); border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); overflow: hidden; display: flex; flex-direction: column; cursor: zoom-in; }
+        .acc-sop-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--sop-border); display: flex; align-items: center; justify-content: space-between; }
+        .acc-sop-badge { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.25rem 0.75rem; border-radius: 999px; }
+        .acc-sop-title { font-size: 1.4rem; font-weight: 900; margin: 0; letter-spacing: 0.02em; }
+        .acc-sop-section-banner { background-color: #F9FAFB; border-bottom: 1px solid var(--sop-border); padding: 0.5rem 1.5rem; font-size: 0.8rem; font-weight: 800; letter-spacing: 0.1em; color: var(--sop-text-muted); text-transform: uppercase; display: flex; align-items: center; gap: 0.5rem; }
+        .acc-sop-body { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; padding: 1.5rem; }
+        .acc-sop-col { display: flex; flex-direction: column; }
+        .acc-sop-col-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #F3F4F6; }
+        .acc-sop-icon { width: 24px; height: 24px; flex-shrink: 0; }
+        .acc-col-title-lg { font-size: 1.125rem; font-weight: 800; color: var(--sop-text-main); margin: 0; }
+        .acc-sop-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem; }
+        .acc-sop-list li { font-size: 0.9rem; line-height: 1.4; color: var(--sop-text-muted); position: relative; padding-left: 1.75rem; display: flex; align-items: center; }
+        .list-tools li::before { content: "○"; position: absolute; left: 0; color: #9CA3AF; font-size: 1.1rem; }
+        .list-goals li::before { content: "✓"; position: absolute; left: 0; color: var(--sop-success); font-weight: 900; font-size: 1.1rem; background: rgba(16, 185, 129, 0.15); width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 4px; }
+        .list-challenges li::before { content: "✕"; position: absolute; left: 0; color: var(--sop-danger); font-weight: 900; font-size: 0.9rem; }
+        .list-arrows li::before { content: "→"; position: absolute; left: 0; font-weight: 900; font-size: 1.2rem; }
+        .acc-quote-text { font-size: 0.95rem; line-height: 1.5; color: var(--sop-text-main); font-style: italic; margin: 0 0 1.25rem 0; padding-left: 1rem; border-left: 2px solid rgba(255, 94, 0, 0.3); }
+
+        /* INTAKE THEME (MODULE 2) */
+        .sop-theme-intake { border-left: 5px solid var(--sop-primary); }
+        .sop-theme-intake .acc-sop-badge { color: var(--sop-primary); background: rgba(255, 94, 0, 0.1); }
+        .sop-theme-intake .acc-sop-title { color: var(--sop-primary); text-shadow: 0 0 10px rgba(255, 94, 0, 0.5), 0 0 20px rgba(255, 94, 0, 0.3); }
+        .sop-theme-intake .acc-sop-section-banner::before { content: ""; display: inline-block; width: 8px; height: 8px; background-color: var(--sop-secondary); border-radius: 50%; box-shadow: 0 0 8px var(--sop-secondary); }
+        .sop-theme-intake .acc-sop-icon { color: var(--sop-secondary); }
+        .sop-theme-intake .list-arrows li::before { color: var(--sop-secondary); text-shadow: 0 0 5px rgba(0, 229, 255, 0.4); }
+
+        /* ACCELERATE THEME (MODULE 3) */
+        .sop-theme-accel { border-left: 5px solid var(--sop-accel-primary); margin-top: 1rem; }
+        .sop-theme-accel .acc-sop-title { color: var(--sop-accel-primary); text-shadow: 0 0 10px rgba(255, 0, 122, 0.6), 0 0 20px rgba(255, 0, 122, 0.4); }
+        .sop-theme-accel .acc-sop-badge { color: var(--sop-accel-primary); background: rgba(255, 0, 122, 0.1); }
+        .sop-theme-accel .acc-sop-icon { color: var(--sop-accel-secondary); }
+        .sop-theme-accel .acc-sop-list li { display: block; }
+        .sop-theme-accel .acc-sop-list li::before { content: "•"; color: var(--sop-accel-primary); font-weight: bold; font-size: 1.2rem; position: absolute; left: 0; top: -2px; }
+        .acc-col-title-sm { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--sop-text-muted); letter-spacing: 0.05em; margin: 0 0 0.25rem 0; }
+        .acc-sop-text { font-size: 0.875rem; line-height: 1.5; color: var(--sop-text-muted); margin: 0 0 1rem 0; }
+        .acc-sop-action { background: rgba(57, 255, 20, 0.1); border-left: 3px solid var(--sop-accel-secondary); padding: 0.75rem; font-size: 0.875rem; margin-top: auto; }
+        .acc-sop-action strong { color: #1F2937; display: block; margin-bottom: 0.25rem; }
+        .acc-sop-footer { padding: 1rem 1.5rem; background-color: rgba(255, 0, 122, 0.03); border-top: 1px solid var(--sop-border); }
+        .acc-sop-highlight { background: white; border: 1px dashed var(--sop-accel-primary); border-radius: 6px; padding: 1rem; text-align: center; }
+        .acc-sop-highlight p { margin: 0; font-size: 1rem; font-weight: 700; color: var(--sop-accel-primary); font-style: italic; }
+
+        /* EXECUTION THEME (MODULE 3 - REALITIES) */
+        .sop-theme-exec { border-left: 5px solid var(--sop-exec-primary); }
+        .sop-theme-exec .acc-sop-badge { color: var(--sop-exec-primary); background: rgba(59, 65, 227, 0.1); }
+        .sop-theme-exec .acc-sop-title { color: var(--sop-exec-primary); text-shadow: 0 0 10px rgba(59, 65, 227, 0.3); }
+        .sop-theme-exec .acc-sop-section-banner::before { content: ""; display: inline-block; width: 8px; height: 8px; background-color: var(--sop-exec-secondary); border-radius: 50%; box-shadow: 0 0 8px var(--sop-exec-secondary); }
+        .sop-theme-exec .acc-sop-icon { color: var(--sop-exec-secondary); }
+        .sop-theme-exec .list-arrows li::before { color: var(--sop-exec-secondary); text-shadow: 0 0 5px rgba(244, 63, 94, 0.4); }
+        .acc-quote-text { border-left: 2px solid rgba(244, 63, 94, 0.3); }
+
+        /* REPORTING THEME (MODULE 4) */
+        .sop-theme-rep { border-left: 5px solid var(--sop-rep-primary); }
+        .sop-theme-rep .acc-sop-badge { color: var(--sop-rep-primary); background: rgba(0, 230, 118, 0.1); }
+        .sop-theme-rep .acc-sop-title { color: var(--sop-rep-primary); text-shadow: 0 0 10px rgba(0, 230, 118, 0.4); }
+        .sop-theme-rep .acc-sop-section-banner::before { content: ""; display: inline-block; width: 8px; height: 8px; background-color: var(--sop-rep-secondary); border-radius: 50%; box-shadow: 0 0 8px var(--sop-rep-secondary); }
+        .sop-theme-rep .acc-sop-icon { color: var(--sop-rep-secondary); }
+        .sop-theme-rep .list-arrows li::before { color: var(--sop-rep-secondary); text-shadow: 0 0 5px rgba(120, 144, 156, 0.4); }
+        .sop-theme-rep .acc-quote-text { border-left: 2px solid rgba(120, 144, 156, 0.3); }
+
+        /* GOVERNANCE THEME (MODULE 5) */
+        .sop-theme-gov { border-left: 5px solid var(--sop-gov-primary); }
+        .sop-theme-gov .acc-sop-badge { color: var(--sop-gov-primary); background: rgba(255, 11, 58, 0.1); }
+        .sop-theme-gov .acc-sop-title { color: var(--sop-gov-primary); text-shadow: 0 0 10px rgba(255, 11, 58, 0.4); }
+        .sop-theme-gov .acc-sop-section-banner::before { content: ""; display: inline-block; width: 8px; height: 8px; background-color: #FFC107; border-radius: 50%; box-shadow: 0 0 8px #FFC107; }
+        .sop-theme-gov .acc-sop-icon { color: #FBBF24; } /* Ícones amarelos no cabeçalho das colunas */
+        .sop-theme-gov .acc-col-title-lg { font-size: 1.05rem; }
+        
+        .gov-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1.5rem; }
+        .gov-list li { position: relative; padding-left: 1.5rem; display: block; }
+        .gov-list li::before { content: "✦"; color: var(--sop-gov-primary); position: absolute; left: 0; top: 0; font-size: 1.2rem; line-height: 1; }
+        .gov-item-title { font-weight: 800; color: var(--sop-text-main); margin-bottom: 0.25rem; display: block; font-size: 0.95rem; }
+        .gov-item-desc { font-size: 0.85rem; color: var(--sop-text-muted); line-height: 1.4; display: block; }
+
+        .gov-transition-box { background: #374151; color: white; padding: 1rem; border-radius: 6px; margin-top: 1.5rem; border-left: 4px solid #FBBF24; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .gov-transition-badge { color: #FBBF24; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.5rem; }
+        .gov-transition-text { font-size: 0.85rem; line-height: 1.4; color: #E5E7EB; margin: 0; }
+        .gov-transition-text strong { color: white; }
+
+        .sop-theme-gov .acc-sop-footer { padding: 1.25rem 1.5rem; background-color: rgba(255, 11, 58, 0.02); border-top: 1px solid var(--sop-border); }
+        .gov-footer-highlight { border: 1px dashed var(--sop-gov-primary); border-radius: 6px; padding: 1.2rem; display: flex; gap: 1rem; align-items: flex-start; background: white; }
+        .gov-footer-icon { color: var(--sop-gov-primary); width: 32px; height: 32px; flex-shrink: 0; }
+        .gov-footer-content h4 { color: var(--sop-gov-primary); margin: 0 0 0.5rem 0; font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
+        .gov-footer-content p { margin: 0; font-size: 0.85rem; color: var(--sop-text-muted); line-height: 1.5; }
+        .gov-footer-content strong { color: var(--sop-text-main); }
+
+        /* =========================================
+           MODULE 4 - IMPACT LADDER & STATUS QUO
+           ========================================= */
+        .impact-ladder { display: flex; align-items: flex-end; gap: 1rem; min-height: 220px; margin-top: 1rem; }
+        .ladder-step { flex: 1; border-radius: 12px 12px 0 0; padding: 1.25rem; cursor: pointer; transition: all 0.4s var(--ease-apple); display: flex; flex-direction: column; justify-content: flex-start; position: relative; overflow: hidden; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 -4px 10px rgba(0,0,0,0.02); }
+        .ladder-step h5 { margin: 0; font-size: 1.05rem; font-weight: 800; z-index: 2; position: relative; }
+        .ladder-desc { margin-top: 0.75rem; font-size: 0.85rem; line-height: 1.5; opacity: 0; max-height: 0; transition: all 0.4s ease; z-index: 2; position: relative; }
+        .click-hint { position: absolute; bottom: 10px; right: 15px; font-size: 0.7rem; opacity: 0.6; text-transform: uppercase; letter-spacing: 1px; transition: opacity 0.3s ease; }
+        
+        .ladder-step.active .ladder-desc { opacity: 1; max-height: 200px; }
+        .ladder-step.active .click-hint { opacity: 0; }
+        .ladder-step:hover { transform: translateY(-5px); }
+
+        .step-1 { background: #F3F4F6; color: #4B5563; height: 60%; }
+        .step-2 { background: #05B3F4; color: #FFFFFF; height: 80%; }
+        .step-3 { background: #10B981; color: #FFFFFF; height: 100%; }
+
+        .status-quo-table { width: 100%; border-collapse: collapse; background: #FFFFFF; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); margin-top: 1rem; }
+        .status-quo-table th, .status-quo-table td { padding: 0.85rem 1.25rem; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; }
+        .status-quo-table th { background: #F9FAFB; color: var(--text-secondary); font-weight: 700; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px; }
+        .negative-impact { color: #EF4444; font-weight: 600; }
+        .total-row { background: rgba(239, 68, 68, 0.05); }
+        .total-row td { color: #EF4444; font-size: 1.1rem; border-bottom: none; }
+
+        .arr-button { display: inline-block; background: #1D1D1F; color: #FFF; padding: 1.2rem 2.5rem; border-radius: 8px; font-family: var(--font-method-head); font-weight: 700; font-size: 1.1rem; border: none; cursor: pointer; margin-top: 1.5rem; transition: background 0.3s ease, transform 0.2s ease; width: 100%; text-transform: uppercase; letter-spacing: 1px;}
+        .arr-button:hover { background: #10B981; transform: translateY(-3px); box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4); }
+
+        /* =========================================
+           TAB 4: SOLUTION LIBRARY (ARCHETYPES)
+           ========================================= */
+        .solution-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; margin-top: 2.5rem; }
+        .solution-card { background: #FFFFFF; border-radius: 16px; padding: 2rem; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: transform 0.3s var(--ease-apple), box-shadow 0.3s ease; position: relative; display: flex; flex-direction: column; }
+        .solution-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: #D0D0D0; }
+        
+        .card-icon { width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; color: white; }
+        .super-agent-icon { background: linear-gradient(135deg, #8A2BE2 0%, #4B0082 100%); box-shadow: 0 4px 12px rgba(138, 43, 226, 0.3); }
+        .certified-agent-icon { background: linear-gradient(135deg, #4F46E5 0%, #312E81 100%); box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); }
+        .pmo-icon { background: linear-gradient(135deg, #0EA5E9 0%, #1E3A8A 100%); box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3); }
+        .mkt-icon { background: linear-gradient(135deg, #F43F5E 0%, #9F1239 100%); box-shadow: 0 4px 12px rgba(244, 63, 94, 0.3); }
+        .grc-icon { background: linear-gradient(135deg, #10B981 0%, #064E3B 100%); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
+        
+        .blueprint-badge { position: absolute; top: 2rem; right: 2rem; font-size: 0.65rem; font-weight: 800; padding: 0.4rem 0.8rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .ai-badge { background: rgba(138, 43, 226, 0.1); color: #8A2BE2; }
+        .displace-badge { background: rgba(239, 68, 68, 0.1); color: #EF4444; border: 1px dashed rgba(239, 68, 68, 0.4); }
+        .shield-badge { background: rgba(16, 185, 129, 0.1); color: #10B981; }
+        
+        .solution-card h3 { font-size: 1.3rem; margin-bottom: 0.8rem; color: var(--text-primary); font-family: var(--font-method-head); }
+        .solution-card p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.5; margin: 0; }
+        
+        .placeholder-card { border: 2px dashed #CBD5E1; background: rgba(249, 250, 251, 0.5); cursor: pointer; align-items: center; text-align: center; justify-content: center; min-height: 250px; }
+        .placeholder-card:hover { background: rgba(249, 250, 251, 1); border-color: var(--theme-primary); }
+        .placeholder-icon { background: #E2E8F0; color: #94A3B8; margin-bottom: 1rem; box-shadow: none; transition: all 0.3s ease; }
+        .placeholder-card:hover .placeholder-icon { background: var(--theme-primary); color: white; transform: scale(1.1); }
+
+        .strategic-banner { margin-top: 3rem; background: linear-gradient(135deg, #1D1D1F 0%, #374151 100%); color: #fff; padding: 2rem 2.5rem; border-radius: 12px; display: flex; align-items: center; gap: 1.5rem; box-shadow: var(--shadow-md); }
+        .strategic-banner svg { width: 48px; height: 48px; color: #10B981; flex-shrink: 0; }
+        .banner-text { display: flex; flex-direction: column; gap: 0.3rem; }
+        .banner-text strong { font-size: 1.2rem; font-family: var(--font-method-head); }
+        .banner-text span { font-size: 1rem; color: #D1D5DB; }
+
+        /* =========================================
+           TAB 5: GOVERNANÇA (ALIGNED STYLE)
+           ========================================= */
+        .neon-foco {
+            color: #ff007a;
+            text-shadow: 0 0 8px rgba(255, 0, 122, 0.5), 0 0 15px rgba(255, 0, 122, 0.2);
+            font-weight: 900;
+        }
+
+        .gov-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 1rem;
+            flex: 1;
+            min-height: 0;
+        }
+        .gov-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-card);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s var(--ease-apple), box-shadow 0.3s ease;
+        }
+        .gov-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--theme-primary);
+        }
+        .gov-card h3 {
+            color: var(--text-primary);
+            font-family: var(--font-method-head);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .gov-card h3 svg {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            color: var(--theme-primary);
+        }
+        .gov-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin: 0;
+        }
+        .gov-mandate {
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--theme-primary);
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        /* =========================================
+           GLOBAL PARTNER LOGO (CLICK UP)
+           ========================================= */
+        .global-partner-logo {
+            position: absolute;
+            top: 2.5rem;
+            right: 3.5rem;
+            z-index: 100;
+            background: var(--bg-surface);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.5rem 1.2rem;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 48px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            pointer-events: none; /* Para no bloquear clics en elementos debajo */
+        }
+        .global-partner-logo img {
+            height: 24px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* =========================================
+           DYNAMIC STORY STAGE (HUD LA TRAVESÍA)
+           ========================================= */
+        .hud-wrapper {
+            margin-top: 4rem;
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Slider Styles */
+        .hud-slider-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .hud-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            outline: none;
+            transition: background 0.4s ease;
+        }
+        .hud-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #FFF;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.4s ease;
+            border: 3px solid var(--hud-color, #FFB300);
+        }
+        .hud-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.8rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.4s ease;
+        }
+        .slider-lbl-active {
+            color: var(--hud-color, #FFB300) !important;
+        }
+
+        /* HUD Container & Glassmorphism */
+        .hud-container {
+            display: flex;
+            gap: 2rem;
+            transition: opacity 0.4s var(--ease-apple), transform 0.4s var(--ease-apple);
+        }
+        .hud-container.hud-updating {
+            opacity: 0;
+            transform: scale(0.98);
+        }
+        
+        .hud-left {
+            flex: 1;
+            background: var(--bg-surface);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-card);
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+        .hud-main-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1.5rem;
+            color: var(--hud-color, #FFB300);
+            filter: drop-shadow(0 0 12px rgba(var(--hud-color-rgb, 255, 179, 0), 0.4));
+            transition: color 0.4s ease, filter 0.4s ease;
+        }
+        .hud-stage-title {
+            font-family: var(--font-method-head);
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        .hud-stage-sub {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .hud-right {
+            flex: 2;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.2rem;
+        }
+        .hud-widget {
+            background: var(--bg-surface);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hud-widget:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        .hud-widget-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        .hud-widget-header svg {
+            width: 16px;
+            height: 16px;
+        }
+        .hud-widget-val {
+            font-family: var(--font-method-head);
+            font-size: 2.2rem;
+            line-height: 1;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        .hud-widget-val.text-danger { color: #EF4444; }
+        .hud-widget-val.text-success { color: #10B981; }
+        .hud-widget-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.4rem;
+        }
+        .hud-widget-det {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        @media (max-width: 900px) { 
+            body { padding: 0; }
+            .app-window { height: auto; min-height: 100dvh; flex-direction: column; border-radius: 0; } 
+            .sidebar { width: 100%; border-bottom: 1px solid var(--border-color); padding: 1.5rem; } 
+            .slide-grid { grid-template-columns: 1fr; } 
+            .content-area { padding: 1.5rem; } 
+            .bridge-visual { flex-direction: column; gap: 2rem; } 
+            .energy-tube { width: 10px; height: 100px; margin: 0 1.5rem; } 
+            .energy-particle { width: 100%; height: 40%; left: 0; top: -50%; } 
+            .acc-sop-body { grid-template-columns: 1fr; }
+            .acc-sop-col { border-bottom: 1px dashed var(--sop-border); padding-bottom: 1.5rem; }
+            .acc-sop-col:last-child { border-bottom: none; padding-bottom: 0; }
+            
+            /* Responsive Module 4 Additions */
+            .impact-ladder { flex-direction: column; align-items: stretch; min-height: auto; }
+            .ladder-step { height: auto; border-radius: 8px; margin-bottom: 1rem; }
+            .status-quo-table th, .status-quo-table td { padding: 0.8rem; font-size: 0.85rem; }
+            .table-responsive { overflow-x: auto; width: 100%; }
+
+            /* Responsive Tab 4 */
+            .solution-grid { grid-template-columns: 1fr; }
+            .strategic-banner { flex-direction: column; text-align: center; padding: 1.5rem; }
+
+            /* Responsive Tab 5 */
+            .gov-grid { grid-template-columns: 1fr; grid-template-rows: auto; overflow-y: auto; }
+
+            /* Responsive HUD Travesia */
+            .hud-container { flex-direction: column; }
+            .hud-right { grid-template-columns: 1fr; }
+
+            /* Responsive Global Logo */
+            .global-partner-logo {
+                top: auto;
+                bottom: 1.5rem;
+                right: 1.5rem;
+                box-shadow: var(--shadow-md);
+                border-radius: 50px;
+            }
+
+            @keyframes energyFlow { 0% { top: -50%; } 100% { top: 100%; } } 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="aurora-container">
+        <div class="aurora aurora-1"></div>
+        <div class="aurora aurora-2"></div>
+        <div class="aurora aurora-3"></div>
+    </div>
+
+    <div class="app-window">
+        <!-- GLOBAL CLICKUP LOGO -->
+        <div class="global-partner-logo">
+            <img src="Logo-gradient-on-light.svg" alt="ClickUp Logo">
+        </div>
+
+        <aside class="sidebar">
+            <div>
+                <div class="brand-header">
+                    <div class="brand">
+                        <h2>IMPULSO<br><span>CLICK UP</span></h2>
+                    </div>
+                    <img src="Logomark-gradient.svg" alt="Logomark ClickUp" class="brand-logo">
+                </div>
+                <nav class="nav-items" id="nav-container"></nav>
+            </div>
+            <div class="segmented-control">
+                <button class="seg-btn active" id="btn-pt" onclick="setLang('pt')">PT</button>
+                <button class="seg-btn" id="btn-es" onclick="setLang('es')">ES</button>
+                <button class="seg-btn" id="btn-en" onclick="setLang('en')">EN</button>
+            </div>
+        </aside>
+
+        <main class="content-area" id="main-content">
+            <!-- Tab 0: HOME -->
+            <div class="tab-content active" id="tab-0">
+                <div style="height: 100%; min-height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                    <h1 style="font-size: 3.5rem; margin-bottom: 1rem; background: var(--theme-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" data-i18n="home_title"></h1>
+                    <p style="font-size: 1.5rem; color: var(--text-secondary); max-width: 600px;" data-i18n="home_sub"></p>
+                </div>
+            </div>
+
+            <!-- Tab 1: MANIFESTO -->
+            <div class="tab-content" id="tab-1">
+                <h1 data-i18n="t1_title"></h1>
+                <h2 data-i18n="t1_sub"></h2>
+                <div class="manifesto-container">
+                    <div class="blob-mosaic">
+                        <div class="manifesto-blob blob-1">
+                            <div class="blob-title" data-i18n="t1_b1_title"></div>
+                            <div class="blob-desc" data-i18n="t1_b1_desc"></div>
+                        </div>
+                        <div class="manifesto-blob blob-2">
+                            <div class="blob-title" data-i18n="t1_b2_title"></div>
+                            <div class="blob-desc" data-i18n="t1_b2_desc"></div>
+                        </div>
+                        <div class="manifesto-blob blob-3">
+                            <div class="blob-title" data-i18n="t1_b3_title"></div>
+                            <div class="blob-desc" data-i18n="t1_b3_desc"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: A TRAVESSIA -->
+            <div class="tab-content" id="tab-2">
+                <h1 data-i18n="t2_title"></h1>
+                <h2 data-i18n="t2_sub"></h2>
+                
+                <div class="bridge-visual">
+                    <div class="bridge-point">
+                        <span>🚶‍♂️</span>
+                        <p data-i18n="t2_walk"></p>
+                    </div>
+                    
+                    <div class="bridge-arrow">
+                        <span data-i18n="t2_phrase"></span>
+                        <div class="energy-tube">
+                            <div class="energy-particle"></div>
+                        </div>
+                    </div>
+
+                    <div class="bridge-point">
+                        <span>🏎️</span>
+                        <p data-i18n="t2_ferrari"></p>
+                    </div>
+                </div>
+
+                <!-- DYNAMIC STORY STAGE HUD -->
+                <div class="hud-wrapper">
+                    <div class="hud-slider-container">
+                        <input type="range" min="1" max="3" value="1" class="hud-slider" id="hud-slider">
+                        <div class="slider-labels">
+                            <span id="hud-lbl-lvl1" class="slider-lbl-active">Level 1</span>
+                            <span id="hud-lbl-lvl2">Level 2</span>
+                            <span id="hud-lbl-lvl3">Level 3</span>
+                        </div>
+                    </div>
+                    
+                    <div class="hud-container" id="hud-container">
+                        <!-- Columna Izquierda: Visual Metaphor -->
+                        <div class="hud-left" id="hud-left-card">
+                            <div id="hud-main-icon" class="hud-main-icon"></div>
+                            <h3 class="hud-stage-title" id="hud-stage-title"></h3>
+                            <p class="hud-stage-sub" id="hud-stage-sub"></p>
+                        </div>
+                        
+                        <!-- Columna Derecha: Data Grid -->
+                        <div class="hud-right">
+                            <!-- Widget 1: Contexto -->
+                            <div class="hud-widget">
+                                <div class="hud-widget-header">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                                    <span id="hud-lbl-ctx"></span>
+                                </div>
+                                <div class="hud-widget-val" id="hud-ctx-val"></div>
+                                <div class="hud-widget-title" id="hud-ctx-title"></div>
+                                <p class="hud-widget-det" id="hud-ctx-det"></p>
+                            </div>
+                            <!-- Widget 2: Gargalo -->
+                            <div class="hud-widget">
+                                <div class="hud-widget-header">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                    <span id="hud-lbl-gap"></span>
+                                </div>
+                                <div class="hud-widget-val text-danger" id="hud-gap-val"></div>
+                                <div class="hud-widget-title" id="hud-gap-title"></div>
+                                <p class="hud-widget-det" id="hud-gap-det"></p>
+                            </div>
+                            <!-- Widget 3: Solución -->
+                            <div class="hud-widget">
+                                <div class="hud-widget-header">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <span id="hud-lbl-sol"></span>
+                                </div>
+                                <div class="hud-widget-val text-success" id="hud-sol-val"></div>
+                                <div class="hud-widget-title" id="hud-sol-title"></div>
+                                <p class="hud-widget-det" id="hud-sol-det"></p>
+                            </div>
+                            <!-- Widget 4: ROI -->
+                            <div class="hud-widget">
+                                <div class="hud-widget-header">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                    <span id="hud-lbl-roi"></span>
+                                </div>
+                                <div class="hud-widget-val" id="hud-roi-val"></div>
+                                <div class="hud-widget-title" id="hud-roi-title"></div>
+                                <p class="hud-widget-det" id="hud-roi-det"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: EL MÉTODO (TIMELINE COMPLETA) -->
+            <div class="tab-content" id="tab-3">
+                <div class="method-container">
+                    <div class="module-nav-controller">
+                        <button class="nav-ctrl-btn" onclick="navigateModule(-1)">←</button>
+                        <span id="current-module-display" data-i18n="nav_ctrl_label">Módulo 1</span>
+                        <button class="nav-ctrl-btn" onclick="navigateModule(1)">→</button>
+                    </div>
+
+                    <div class="method-header">
+                        <h1 data-i18n="t3_main_title"></h1>
+                        <p data-i18n="t3_main_sub"></p>
+                    </div>
+
+                    <div class="timeline-container">
+                        <div class="timeline-line"></div>
+
+                        <!-- Módulo 1 -->
+                        <div class="module-card" id="modulo-1">
+                            <h3 data-i18n="t3_m1_title"></h3>
+                            <p class="narrative" data-i18n="t3_m1_narrative"></p>
+                            <div class="slide-placeholder">
+                                <img src="3PT.png" class="img-pt" alt="Módulo 1 PT">
+                                <img src="3ES.png" class="img-es" alt="Módulo 1 ES">
+                            </div>
+                            <div class="key-deliverable"><strong data-i18n="t3_lbl_key"></strong><span data-i18n="t3_m1_key"></span></div>
+                        </div>
+
+                        <!-- Módulo 2 -->
+                        <div class="module-card" id="modulo-2">
+                            <h3 data-i18n="t3_m2_title"></h3>
+                            <p class="narrative" data-i18n="t3_m2_narrative"></p>
+                            <div class="slide-grid">
+                                <div class="slide-placeholder">
+                                    <img src="actual.png" alt="AS-IS">
+                                </div>
+                                <div class="slide-placeholder highlight">
+                                    <img src="IER_PT.png" class="img-pt" alt="TO-BE PT">
+                                    <img src="IER_ES.png" class="img-es" alt="TO-BE ES">
+                                </div>
+                            </div>
+                            
+                            <!-- INTAKE SOP CARD INJECTION -->
+                            <div class="acc-sop-wrapper">
+                                <div class="acc-sop-card sop-theme-intake">
+                                    <div class="acc-sop-header">
+                                        <h2 class="acc-sop-title" data-i18n="sop_m2_title"></h2>
+                                        <span class="acc-sop-badge" data-i18n="sop_m2_badge"></span>
+                                    </div>
+                                    <div class="acc-sop-section-banner" data-i18n="sop_m2_sec1"></div>
+                                    <div class="acc-sop-body">
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header"><h3 class="acc-col-title-lg" data-i18n="sop_m2_col1"></h3></div>
+                                            <ul class="acc-sop-list list-tools">
+                                                <li data-i18n="sop_m2_t1"></li><li data-i18n="sop_m2_t2"></li><li data-i18n="sop_m2_t3"></li><li data-i18n="sop_m2_t4"></li>
+                                            </ul>
+                                        </div>
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header"><h3 class="acc-col-title-lg" data-i18n="sop_m2_col2"></h3></div>
+                                            <ul class="acc-sop-list list-goals">
+                                                <li data-i18n="sop_m2_g1"></li><li data-i18n="sop_m2_g2"></li><li data-i18n="sop_m2_g3"></li>
+                                            </ul>
+                                        </div>
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header"><h3 class="acc-col-title-lg" data-i18n="sop_m2_col3"></h3></div>
+                                            <ul class="acc-sop-list list-challenges">
+                                                <li data-i18n="sop_m2_c1"></li><li data-i18n="sop_m2_c2"></li><li data-i18n="sop_m2_c3"></li><li data-i18n="sop_m2_c4"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="acc-sop-section-banner" data-i18n="sop_m2_sec2"></div>
+                                    <div class="acc-sop-body">
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header">
+                                                <svg class="acc-sop-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                                                <h3 class="acc-col-title-lg" data-i18n="sop_m2_ask_t"></h3>
+                                            </div>
+                                            <p class="acc-quote-text" data-i18n="sop_m2_a1"></p><p class="acc-quote-text" data-i18n="sop_m2_a2"></p><p class="acc-quote-text" data-i18n="sop_m2_a3"></p>
+                                        </div>
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header">
+                                                <svg class="acc-sop-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                                <h3 class="acc-col-title-lg" data-i18n="sop_m2_listen_t"></h3>
+                                            </div>
+                                            <ul class="acc-sop-list list-arrows">
+                                                <li data-i18n="sop_m2_l1"></li><li data-i18n="sop_m2_l2"></li><li data-i18n="sop_m2_l3"></li>
+                                            </ul>
+                                        </div>
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header">
+                                                <svg class="acc-sop-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                                <h3 class="acc-col-title-lg" data-i18n="sop_m2_follow_t"></h3>
+                                            </div>
+                                            <p class="acc-quote-text" data-i18n="sop_m2_f1"></p><p class="acc-quote-text" data-i18n="sop_m2_f2"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END OF INTAKE SOP CARD INJECTION -->
+
+                            <div class="key-deliverable"><strong data-i18n="t3_lbl_deliverable"></strong><span data-i18n="t3_m2_key"></span></div>
+                        </div>
+
+                        <!-- Módulo 3 -->
+                        <div class="module-card" id="modulo-3">
+                            <h3 data-i18n="t3_m3_title"></h3>
+                            <p class="narrative" data-i18n="t3_m3_narrative"></p>
+                            <div class="slide-placeholder">
+                                <img src="futuro.png" alt="Estado Futuro">
+                            </div>
+                            
+                            <!-- ACCELERATE SOP CARD INJECTION -->
+                            <div class="acc-sop-wrapper">
+                                <div class="acc-sop-card sop-theme-accel">
+                                    <div class="acc-sop-header">
+                                        <h2 class="acc-sop-title">ClickUp ACCELERATE</h2>
+                                        <span class="acc-sop-badge" data-i18n="sop_m3_badge"></span>
+                                    </div>
+                                    <div class="acc-sop-body">
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header">
+                                                <svg class="acc-sop-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                                                <div><p class="acc-col-title-sm" data-i18n="sop_m3_col1_q"></p><h3 class="acc-col-title-lg" data-i18n="sop_m3_col1_title"></h3></div>
+                                            </div>
+                                            <p class="acc-sop-text" data-i18n="sop_m3_col1_desc"></p>
+                                            <div class="acc-sop-action"><strong data-i18n="sop_m3_col1_action_title"></strong><span data-i18n="sop_m3_col1_action_desc"></span></div>
+                                        </div>
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header">
+                                                <svg class="acc-sop-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+                                                <div><p class="acc-col-title-sm" data-i18n="sop_m3_col2_q"></p><h3 class="acc-col-title-lg" data-i18n="sop_m3_col2_title"></h3></div>
+                                            </div>
+                                            <ul class="acc-sop-list">
+                                                <li><strong data-i18n="sop_m3_col2_li1_strong"></strong> <span data-i18n="sop_m3_col2_li1_span"></span></li>
+                                                <li><strong data-i18n="sop_m3_col2_li2_strong"></strong> <span data-i18n="sop_m3_col2_li2_span"></span></li>
+                                                <li><strong data-i18n="sop_m3_col2_li3_strong"></strong> <span data-i18n="sop_m3_col2_li3_span"></span></li>
+                                            </ul>
+                                        </div>
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header">
+                                                <svg class="acc-sop-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                                <div><p class="acc-col-title-sm" data-i18n="sop_m3_col3_q"></p><h3 class="acc-col-title-lg" data-i18n="sop_m3_col3_title"></h3></div>
+                                            </div>
+                                            <ul class="acc-sop-list">
+                                                <li><strong data-i18n="sop_m3_col3_li1_strong"></strong> <span data-i18n="sop_m3_col3_li1_span"></span></li>
+                                                <li><strong data-i18n="sop_m3_col3_li2_strong"></strong> <span data-i18n="sop_m3_col3_li2_span"></span></li>
+                                                <li><strong data-i18n="sop_m3_col3_li3_strong"></strong> <span data-i18n="sop_m3_col3_li3_span"></span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="acc-sop-footer"><div class="acc-sop-highlight"><p data-i18n="sop_m3_footer_highlight"></p></div></div>
+                                </div>
+                            </div>
+                            <!-- END OF ACCELERATE SOP CARD INJECTION -->
+
+                            <!-- EXECUTION SOP CARD INJECTION -->
+                            <div class="acc-sop-wrapper">
+                                <div class="acc-sop-card sop-theme-exec">
+                                    <div class="acc-sop-header">
+                                        <h2 class="acc-sop-title" data-i18n="sop_m3_ex_title"></h2>
+                                        <span class="acc-sop-badge" data-i18n="sop_m3_ex_badge"></span>
+                                    </div>
+                                    <div class="acc-sop-section-banner" data-i18n="sop_m3_ex_sec1"></div>
+                                    <div class="acc-sop-body">
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header"><h3 class="acc-col-title-lg" data-i18n="sop_m3_ex_col1"></h3></div>
+                                            <ul class="acc-sop-list list-tools">
+                                                <li data-i18n="sop_m3_ex_t1"></li><li data-i18n="sop_m3_ex_t2"></li><li data-i18n="sop_m3_ex_t3"></li><li data-i18n="sop_m3_ex_t4"></li>
+                                            </ul>
+                                        </div>
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header"><h3 class="acc-col-title-lg" data-i18n="sop_m3_ex_col2"></h3></div>
+                                            <ul class="acc-sop-list list-goals">
+                                                <li data-i18n="sop_m3_ex_g1"></li><li data-i18n="sop_m3_ex_g2"></li><li data-i18n="sop_m3_ex_g3"></li>
+                                            </ul>
+                                        </div>
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header"><h3 class="acc-col-title-lg" data-i18n="sop_m3_ex_col3"></h3></div>
+                                            <ul class="acc-sop-list list-challenges">
+                                                <li data-i18n="sop_m3_ex_c1"></li><li data-i18n="sop_m3_ex_c2"></li><li data-i18n="sop_m3_ex_c3"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="acc-sop-section-banner" data-i18n="sop_m3_ex_sec2"></div>
+                                    <div class="acc-sop-body">
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header">
+                                                <svg class="acc-sop-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                                                <h3 class="acc-col-title-lg" data-i18n="sop_m3_ex_ask_t"></h3>
+                                            </div>
+                                            <p class="acc-quote-text" data-i18n="sop_m3_ex_a1"></p><p class="acc-quote-text" data-i18n="sop_m3_ex_a2"></p><p class="acc-quote-text" data-i18n="sop_m3_ex_a3"></p>
+                                        </div>
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header">
+                                                <svg class="acc-sop-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                                <h3 class="acc-col-title-lg" data-i18n="sop_m3_ex_listen_t"></h3>
+                                            </div>
+                                            <ul class="acc-sop-list list-arrows">
+                                                <li data-i18n="sop_m3_ex_l1"></li><li data-i18n="sop_m3_ex_l2"></li><li data-i18n="sop_m3_ex_l3"></li>
+                                            </ul>
+                                        </div>
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header">
+                                                <svg class="acc-sop-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                                <h3 class="acc-col-title-lg" data-i18n="sop_m3_ex_follow_t"></h3>
+                                            </div>
+                                            <p class="acc-quote-text" data-i18n="sop_m3_ex_f1"></p><p class="acc-quote-text" data-i18n="sop_m3_ex_f2"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END OF EXECUTION SOP CARD INJECTION -->
+
+                            <div class="key-deliverable"><strong data-i18n="t3_lbl_deliverable"></strong><span data-i18n="t3_m3_key"></span></div>
+                        </div>
+
+                        <!-- Módulo 4 -->
+                        <div class="module-card" id="modulo-4">
+                            <h3 data-i18n="t3_m4_title"></h3>
+                            <p class="narrative" data-i18n="t3_m4_narrative"></p>
+                            <div class="slide-placeholder">
+                                <img src="gancho_pt.png" class="img-pt" alt="Módulo 4 PT">
+                                <img src="gancho_es.png" class="img-es" alt="Módulo 4 ES">
+                            </div>
+                            
+                            <!-- REPORTING SOP CARD INJECTION -->
+                            <div class="acc-sop-wrapper">
+                                <div class="acc-sop-card sop-theme-rep">
+                                    <div class="acc-sop-header">
+                                        <h2 class="acc-sop-title" data-i18n="sop_m4_title"></h2>
+                                        <span class="acc-sop-badge" data-i18n="sop_m4_badge"></span>
+                                    </div>
+                                    <div class="acc-sop-section-banner" data-i18n="sop_m4_sec1"></div>
+                                    <div class="acc-sop-body">
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header"><h3 class="acc-col-title-lg" data-i18n="sop_m4_col1"></h3></div>
+                                            <ul class="acc-sop-list list-tools">
+                                                <li data-i18n="sop_m4_t1"></li><li data-i18n="sop_m4_t2"></li><li data-i18n="sop_m4_t3"></li><li data-i18n="sop_m4_t4"></li>
+                                            </ul>
+                                        </div>
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header"><h3 class="acc-col-title-lg" data-i18n="sop_m4_col2"></h3></div>
+                                            <ul class="acc-sop-list list-goals">
+                                                <li data-i18n="sop_m4_g1"></li><li data-i18n="sop_m4_g2"></li><li data-i18n="sop_m4_g3"></li>
+                                            </ul>
+                                        </div>
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header"><h3 class="acc-col-title-lg" data-i18n="sop_m4_col3"></h3></div>
+                                            <ul class="acc-sop-list list-challenges">
+                                                <li data-i18n="sop_m4_c1"></li><li data-i18n="sop_m4_c2"></li><li data-i18n="sop_m4_c3"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="acc-sop-section-banner" data-i18n="sop_m4_sec2"></div>
+                                    <div class="acc-sop-body">
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header">
+                                                <svg class="acc-sop-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                                                <h3 class="acc-col-title-lg" data-i18n="sop_m4_ask_t"></h3>
+                                            </div>
+                                            <p class="acc-quote-text" data-i18n="sop_m4_a1"></p><p class="acc-quote-text" data-i18n="sop_m4_a2"></p><p class="acc-quote-text" data-i18n="sop_m4_a3"></p>
+                                        </div>
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header">
+                                                <svg class="acc-sop-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                                <h3 class="acc-col-title-lg" data-i18n="sop_m4_listen_t"></h3>
+                                            </div>
+                                            <ul class="acc-sop-list list-arrows">
+                                                <li data-i18n="sop_m4_l1"></li><li data-i18n="sop_m4_l2"></li><li data-i18n="sop_m4_l3"></li>
+                                            </ul>
+                                        </div>
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header">
+                                                <svg class="acc-sop-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                                <h3 class="acc-col-title-lg" data-i18n="sop_m4_follow_t"></h3>
+                                            </div>
+                                            <p class="acc-quote-text" data-i18n="sop_m4_f1"></p><p class="acc-quote-text" data-i18n="sop_m4_f2"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END OF REPORTING SOP CARD INJECTION -->
+
+                            <div class="key-deliverable"><strong data-i18n="t3_lbl_deliverable"></strong><span data-i18n="t3_m4_key"></span></div>
+
+                            <!-- CFO IMPACT LADDER & STATUS QUO CALCULATOR -->
+                            <div class="impact-section" style="margin-top: 3rem;">
+                                <h4 data-i18n="m4_ladder_title" style="font-size: 1.2rem; margin-bottom: 1rem; color: var(--text-primary);"></h4>
+                                <div class="impact-ladder">
+                                    <div class="ladder-step step-1" onclick="this.classList.toggle('active')">
+                                        <h5 data-i18n="m4_l1_title"></h5>
+                                        <p class="ladder-desc" data-i18n="m4_l1_desc"></p>
+                                        <span class="click-hint" data-i18n="m4_click_hint"></span>
+                                    </div>
+                                    <div class="ladder-step step-2" onclick="this.classList.toggle('active')">
+                                        <h5 data-i18n="m4_l2_title"></h5>
+                                        <p class="ladder-desc" data-i18n="m4_l2_desc"></p>
+                                        <span class="click-hint" data-i18n="m4_click_hint"></span>
+                                    </div>
+                                    <div class="ladder-step step-3" onclick="this.classList.toggle('active')">
+                                        <h5 data-i18n="m4_l3_title"></h5>
+                                        <p class="ladder-desc" data-i18n="m4_l3_desc"></p>
+                                        <span class="click-hint" data-i18n="m4_click_hint"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="status-quo-section" style="margin-top: 3rem;">
+                                <h4 data-i18n="m4_calc_title" style="font-size: 1.2rem; margin-bottom: 1rem; color: var(--text-primary);"></h4>
+                                <div class="table-responsive">
+                                    <table class="status-quo-table">
+                                        <thead>
+                                            <tr>
+                                                <th data-i18n="m4_th_metric"></th>
+                                                <th data-i18n="m4_th_current"></th>
+                                                <th data-i18n="m4_th_impact"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td data-i18n="m4_tr1_c1"></td>
+                                                <td data-i18n="m4_tr1_c2"></td>
+                                                <td class="negative-impact" data-i18n="m4_tr1_c3"></td>
+                                            </tr>
+                                            <tr>
+                                                <td data-i18n="m4_tr2_c1"></td>
+                                                <td data-i18n="m4_tr2_c2"></td>
+                                                <td class="negative-impact" data-i18n="m4_tr2_c3"></td>
+                                            </tr>
+                                            <tr>
+                                                <td data-i18n="m4_tr3_c1"></td>
+                                                <td data-i18n="m4_tr3_c2"></td>
+                                                <td class="negative-impact" data-i18n="m4_tr3_c3"></td>
+                                            </tr>
+                                            <tr class="total-row">
+                                                <td colspan="2" data-i18n="m4_tr4_c1"></td>
+                                                <td data-i18n="m4_tr4_c2"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="closing-quote" style="margin-top: 1.5rem; padding: 1.5rem; background: rgba(0,0,0,0.02); border-left: 4px solid var(--theme-secondary); border-radius: 6px;">
+                                    <p style="font-style: italic; font-weight: 500;" data-i18n="m4_closing_quote"></p>
+                                </div>
+
+                                <button class="arr-button" data-i18n="m4_btn_sourcing"></button>
+                            </div>
+                            <!-- END OF CFO COMPONENTS -->
+                        </div>
+
+                        <!-- Módulo 5 -->
+                        <div class="module-card" id="modulo-5">
+                            <h3 data-i18n="t3_m5_title"></h3>
+                            <p class="narrative" data-i18n="t3_m5_narrative"></p>
+                            
+                            <!-- GOVERNANCE SOP CARD INJECTION -->
+                            <div class="acc-sop-wrapper">
+                                <div class="acc-sop-card sop-theme-gov">
+                                    <div class="acc-sop-header">
+                                        <h2 class="acc-sop-title" data-i18n="sop_m5_title"></h2>
+                                        <span class="acc-sop-badge" data-i18n="sop_m5_badge"></span>
+                                    </div>
+                                    <div class="acc-sop-section-banner" data-i18n="sop_m5_sec1"></div>
+                                    <div class="acc-sop-body">
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header">
+                                                <svg class="acc-sop-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                                <h3 class="acc-col-title-lg" data-i18n="sop_m5_col1_title"></h3>
+                                            </div>
+                                            <ul class="gov-list">
+                                                <li>
+                                                    <span class="gov-item-title" data-i18n="sop_m5_col1_i1_title"></span>
+                                                    <span class="gov-item-desc" data-i18n="sop_m5_col1_i1_desc"></span>
+                                                </li>
+                                                <li>
+                                                    <span class="gov-item-title" data-i18n="sop_m5_col1_i2_title"></span>
+                                                    <span class="gov-item-desc" data-i18n="sop_m5_col1_i2_desc"></span>
+                                                </li>
+                                            </ul>
+                                            <div class="gov-transition-box">
+                                                <div class="gov-transition-badge">
+                                                    <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                                    <span data-i18n="sop_m5_col1_box_badge"></span>
+                                                </div>
+                                                <p class="gov-transition-text" data-i18n="sop_m5_col1_box_text"></p>
+                                            </div>
+                                        </div>
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header">
+                                                <svg class="acc-sop-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                                <h3 class="acc-col-title-lg" data-i18n="sop_m5_col2_title"></h3>
+                                            </div>
+                                            <ul class="gov-list">
+                                                <li>
+                                                    <span class="gov-item-title" data-i18n="sop_m5_col2_i1_title"></span>
+                                                    <span class="gov-item-desc" data-i18n="sop_m5_col2_i1_desc"></span>
+                                                </li>
+                                                <li>
+                                                    <span class="gov-item-title" data-i18n="sop_m5_col2_i2_title"></span>
+                                                    <span class="gov-item-desc" data-i18n="sop_m5_col2_i2_desc"></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="acc-sop-col">
+                                            <div class="acc-sop-col-header">
+                                                <svg class="acc-sop-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                                                <h3 class="acc-col-title-lg" data-i18n="sop_m5_col3_title"></h3>
+                                            </div>
+                                            <ul class="gov-list">
+                                                <li>
+                                                    <span class="gov-item-title" data-i18n="sop_m5_col3_i1_title"></span>
+                                                    <span class="gov-item-desc" data-i18n="sop_m5_col3_i1_desc"></span>
+                                                </li>
+                                                <li>
+                                                    <span class="gov-item-title" data-i18n="sop_m5_col3_i2_title"></span>
+                                                    <span class="gov-item-desc" data-i18n="sop_m5_col3_i2_desc"></span>
+                                                </li>
+                                                <li>
+                                                    <span class="gov-item-title" data-i18n="sop_m5_col3_i3_title"></span>
+                                                    <span class="gov-item-desc" data-i18n="sop_m5_col3_i3_desc"></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="acc-sop-footer">
+                                        <div class="gov-footer-highlight">
+                                            <svg class="gov-footer-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                                            <div class="gov-footer-content">
+                                                <h4 data-i18n="sop_m5_footer_title"></h4>
+                                                <p data-i18n="sop_m5_footer_text"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END OF GOVERNANCE SOP CARD INJECTION -->
+
+                            <div class="key-deliverable" style="margin-top:1rem;"><strong data-i18n="t3_lbl_content"></strong><span data-i18n="t3_m5_key"></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 4: ARQUÉTIPOS (THE SOLUTION LIBRARY) -->
+            <div class="tab-content" id="tab-4">
+                <div class="method-container">
+                    <div class="method-header" style="border-bottom: none; padding-bottom: 0; margin-bottom: 1rem;">
+                        <h1 data-i18n="t4_main_title"></h1>
+                        <p data-i18n="t4_main_sub" style="font-size: 1.2rem; color: var(--text-secondary); max-width: 800px;"></p>
+                    </div>
+
+                    <div class="solution-grid">
+                        <!-- Super Agents -->
+                        <div class="solution-card">
+                            <div class="card-icon super-agent-icon">
+                                <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <span class="blueprint-badge ai-badge" data-i18n="t4_badge_ai"></span>
+                            <h3 data-i18n="t4_c1_title"></h3>
+                            <p data-i18n="t4_c1_desc"></p>
+                        </div>
+
+                        <!-- Certified Agents -->
+                        <div class="solution-card">
+                            <div class="card-icon certified-agent-icon">
+                                <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                            </div>
+                            <span class="blueprint-badge ai-badge" data-i18n="t4_badge_ai"></span>
+                            <h3 data-i18n="t4_c2_title"></h3>
+                            <p data-i18n="t4_c2_desc"></p>
+                        </div>
+
+                        <!-- Agile PMO Architect -->
+                        <div class="solution-card">
+                            <div class="card-icon pmo-icon">
+                                <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                            </div>
+                            <span class="blueprint-badge displace-badge" data-i18n="t4_badge_jira"></span>
+                            <h3 data-i18n="t4_c3_title"></h3>
+                            <p data-i18n="t4_c3_desc"></p>
+                        </div>
+
+                        <!-- Marketing Operations Hub -->
+                        <div class="solution-card">
+                            <div class="card-icon mkt-icon">
+                                <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path></svg>
+                            </div>
+                            <span class="blueprint-badge displace-badge" data-i18n="t4_badge_monday"></span>
+                            <h3 data-i18n="t4_c4_title"></h3>
+                            <p data-i18n="t4_c4_desc"></p>
+                        </div>
+
+                        <!-- GRC & Security Standard -->
+                        <div class="solution-card">
+                            <div class="card-icon grc-icon">
+                                <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <span class="blueprint-badge shield-badge" data-i18n="t4_badge_shield"></span>
+                            <h3 data-i18n="t4_c5_title"></h3>
+                            <p data-i18n="t4_c5_desc"></p>
+                        </div>
+
+                        <!-- Placeholder -->
+                        <div class="solution-card placeholder-card">
+                            <div class="card-icon placeholder-icon">
+                                <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                            </div>
+                            <h3 data-i18n="t4_c6_title"></h3>
+                            <p data-i18n="t4_c6_desc" style="color: #94A3B8;"></p>
+                        </div>
+                    </div>
+
+                    <div class="strategic-banner">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        <div class="banner-text">
+                            <strong data-i18n="t4_banner_strong"></strong>
+                            <span data-i18n="t4_banner_span"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 5: GOVERNANÇA -->
+            <div class="tab-content" id="tab-5" style="overflow: hidden;">
+                <h1 data-i18n="t5_title" style="margin-bottom: 0.2rem;"></h1>
+                <h2 data-i18n="t5_sub"></h2>
+                
+                <div class="gov-grid">
+                    <!-- Bloque 1 -->
+                    <div class="gov-card">
+                        <h3>
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            <span data-i18n="gov_b1_title"></span>
+                        </h3>
+                        <p data-i18n="gov_b1_content"></p>
+                        <div class="gov-mandate" data-i18n="gov_b1_mandate"></div>
+                    </div>
+                    <!-- Bloque 2 -->
+                    <div class="gov-card">
+                        <h3>
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                            <span data-i18n="gov_b2_title"></span>
+                        </h3>
+                        <p data-i18n="gov_b2_content"></p>
+                    </div>
+                    <!-- Bloque 3 -->
+                    <div class="gov-card">
+                        <h3>
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span data-i18n="gov_b3_title"></span>
+                        </h3>
+                        <p data-i18n="gov_b3_content"></p>
+                    </div>
+                    <!-- Bloque 4 -->
+                    <div class="gov-card">
+                        <h3>
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                            <span data-i18n="gov_b4_title"></span>
+                        </h3>
+                        <p data-i18n="gov_b4_content"></p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL LIGHTBOX -->
+    <div id="image-modal">
+        <div class="close-modal">&times;</div>
+        <div class="modal-nav prev-modal">&#10094;</div>
+        <div class="modal-nav next-modal">&#10095;</div>
+        <div class="modal-content-wrapper">
+            <img id="modal-image-view" src="" style="display:none;">
+            <div id="modal-placeholder-view" style="display:none;"></div>
+        </div>
+    </div>
+
+    <script>
+        const travesiaData = {
+            en: {
+                labels: { ctx: "Context", gap: "Bottleneck (Gap)", sol: "The Solution", roi: "ROI Narrative" },
+                levels: {
+                    1: {
+                        stage_title: "Daily Operation", stage_sub: "The Walking Phase",
+                        ctx_val: "Silos & Excel", ctx_title: "Fragmented Work", ctx_det: "Clients structuring work via WhatsApp and spreadsheets.",
+                        gap_val: "40%", gap_title: "Admin Debt", gap_det: "Weekly time lost in manual report updates.",
+                        sol_val: "Structure", sol_title: "Building the Road", sol_det: "100% focus on creating a central and integral workflow.",
+                        roi_val: "Cost $0", roi_title: "In Reporting", roi_det: "Eliminating manual labor justifies the base platform investment."
+                    },
+                    2: {
+                        stage_title: "Optimization", stage_sub: "The Driving Phase",
+                        ctx_val: "Workflow", ctx_title: "Unified Vehicle", ctx_det: "The road is built, work already flows in one single place.",
+                        gap_val: "Friction", gap_title: "Guest Abuse", gap_det: "Interdepartmental bottlenecks and lack of automation.",
+                        sol_val: "The Bridge", sol_title: "Cross-Dept Connection", sol_det: "Implementation of automations and advanced IER Mapping.",
+                        roi_val: "1.3x", roi_title: "ENT+ Multiplier", roi_det: "Tool consolidation. Enterprise positioning."
+                    },
+                    3: {
+                        stage_title: "High Performance", stage_sub: "The Ferrari Phase",
+                        ctx_val: "Ready Track", ctx_title: "Solid Database", ctx_det: "The team is mature, information is perfect and structured.",
+                        gap_val: "Scale", gap_title: "Strategic Limit", gap_det: "Need to multiply production without increasing headcount.",
+                        sol_val: "Innovation", sol_title: "Intelligence Agents", sol_det: "Certified Super Agents executing predictive flows.",
+                        roi_val: "Governance", roi_title: "Human Empowerment", roi_det: "The team governs the final result, AI executes the task."
+                    }
+                }
+            },
+            es: {
+                labels: { ctx: "Contexto", gap: "Gargalo (Gap)", sol: "La Solución", roi: "Narrativa ROI" },
+                levels: {
+                    1: {
+                        stage_title: "Operación Diaria", stage_sub: "The Walking Phase",
+                        ctx_val: "Silos & Excel", ctx_title: "Trabajo Fragmentado", ctx_det: "Clientes estructurando el trabajo por WhatsApp y planillas.",
+                        gap_val: "40%", gap_title: "Deuda Administrativa", gap_det: "Tiempo semanal perdido en actualización manual de reportes.",
+                        sol_val: "Estructura", sol_title: "Construcción de la Vía", sol_det: "Enfoque 100% en crear un flujo de trabajo central e íntegro.",
+                        roi_val: "Costo $0", roi_title: "En Reportabilidad", roi_det: "La eliminación del trabajo manual justifica la inversión base."
+                    },
+                    2: {
+                        stage_title: "Optimización", stage_sub: "The Driving Phase",
+                        ctx_val: "Workflow", ctx_title: "Vehículo Unificado", ctx_det: "La vía está construida, el trabajo ya fluye en un solo lugar.",
+                        gap_val: "Fricción", gap_title: "Abuso de Guests", gap_det: "Cuellos de botella interdepartamentales y falta de automatización.",
+                        sol_val: "El Puente", sol_title: "Conexión Cross-Dept", sol_det: "Implementación de automatizaciones y Mapeo IER avanzado.",
+                        roi_val: "1.3x", roi_title: "Multiplicador ENT+", roi_det: "Consolidación de herramientas. Posicionamiento Enterprise."
+                    },
+                    3: {
+                        stage_title: "Alto Rendimiento", stage_sub: "The Ferrari Phase",
+                        ctx_val: "Pista Lista", ctx_title: "Base de Datos Sólida", ctx_det: "El equipo está maduro, la información es perfecta y estructurada.",
+                        gap_val: "Escala", gap_title: "Límite Estratégico", gap_det: "Necesidad de multiplicar la producción sin aumentar el headcount.",
+                        sol_val: "Innovación", sol_title: "Agentes de Inteligencia", sol_det: "Super Agentes Certificados ejecutando flujos predictivos.",
+                        roi_val: "Gobierno", roi_title: "Empoderamiento Humano", roi_det: "El equipo gobierna el resultado final, la IA ejecuta la tarea."
+                    }
+                }
+            },
+            pt: {
+                labels: { ctx: "Contexto", gap: "Gargalo (Gap)", sol: "A Solução", roi: "Narrativa ROI" },
+                levels: {
+                    1: {
+                        stage_title: "Operação Diária", stage_sub: "A Fase de Caminhar",
+                        ctx_val: "Silos & Excel", ctx_title: "Trabalho Fragmentado", ctx_det: "Clientes estruturando o trabalho via WhatsApp e planilhas.",
+                        gap_val: "40%", gap_title: "Dívida Administrativa", gap_det: "Tempo semanal perdido em atualização manual de relatórios.",
+                        sol_val: "Estrutura", sol_title: "Construção da Via", sol_det: "Foco 100% em criar um fluxo de trabalho central e íntegro.",
+                        roi_val: "Custo $0", roi_title: "Em Relatórios", roi_det: "A eliminação do trabalho manual justifica a plataforma base."
+                    },
+                    2: {
+                        stage_title: "Otimização", stage_sub: "A Fase de Dirigir",
+                        ctx_val: "Workflow", ctx_title: "Veículo Unificado", ctx_det: "A via está construída, o trabalho já flui em um só lugar.",
+                        gap_val: "Fricção", gap_title: "Abuso de Guests", gap_det: "Gargalos interdepartamentais e falta de automação estrutural.",
+                        sol_val: "A Ponte", sol_title: "Conexão Cross-Dept", sol_det: "Implementação de automações e Mapeamento IER avançado.",
+                        roi_val: "1.3x", roi_title: "Multiplicador ENT+", roi_det: "Consolidação de ferramentas. Posicionamento Enterprise."
+                    },
+                    3: {
+                        stage_title: "Alto Desempenho", stage_sub: "A Fase Ferrari",
+                        ctx_val: "Pista Pronta", ctx_title: "Base de Dados Sólida", ctx_det: "A equipe está madura, a informação é perfeita e estruturada.",
+                        gap_val: "Escala", gap_title: "Limite Estratégico", gap_det: "Necessidade de multiplicar a produção sem aumentar o headcount.",
+                        sol_val: "Inovação", sol_title: "Agentes de Inteligência", sol_det: "Super Agentes Certificados executando fluxos predictivos.",
+                        roi_val: "Governo", roi_title: "Empoderamento Humano", roi_det: "A equipe governa o resultado final, a IA executa a tarefa."
+                    }
+                }
+            }
+        };
+
+        const hudIcons = {
+            1: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>`,
+            2: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>`,
+            3: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path></svg>`
+        };
+
+        const hudColors = {
+            1: { hex: '#FFB300', rgb: '255, 179, 0' },
+            2: { hex: '#00E5FF', rgb: '0, 229, 255' },
+            3: { hex: '#7B68EE', rgb: '123, 104, 238' }
+        };
+
+        const translations = {
+            en: {
+                nav: ["HOME", "MANIFESTO", "THE CROSSING", "THE METHOD", "ARCHETYPES", "GOVERNANCE"],
+                sub_nav: ["STRATEGY", "INTAKE", "EXECUTION", "REPORTING", "PTA"],
+                nav_ctrl_label: "Module 1",
+                home_title: "Welcome to IMPULSO",
+                home_sub: "ClickUp Methodology and Go-To-Market. Tailor-made for Latin America.",
+                t1_title: "Strategic Technical Leadership",
+                t1_sub: "Governance Fundamentals",
+                t1_b1_title: "AUTONOMY", t1_b1_desc: "Self-managing teams with structured freedom.",
+                t1_b2_title: "SCALE", t1_b2_desc: "Sustainable and modular growth.",
+                t1_b3_title: "VALUE", t1_b3_desc: "Continuous deliveries focused on real impact.",
+                t2_title: "The Crossing", t2_sub: "The Maturity Journey",
+                t2_walk: "Daily Operation", t2_ferrari: "High Performance", t2_phrase: "Continuous Optimization",
+                t3_main_title: "CLICKUP IMPULSO",
+                t3_main_sub: "Solution Architecture and Go-To-Market",
+                t3_lbl_key: "Key Point", t3_lbl_deliverable: "Deliverable", t3_lbl_content: "Content",
+                t3_m1_title: "Module 1: Strategy & Maturity Journey",
+                t3_m1_narrative: "The IER process triples closure rates through process engineering and executive alignment.",
+                t3_m1_key: "Client requirement: Infrastructure vs Innovation.",
+                t3_m2_title: "Module 2: Intake - Friction Mapping",
+                t3_m2_narrative: "Diagnostic of Administrative Debt and data fragmentation in operational silos.",
+                t3_m2_key: "Quantification of hours lost in manual processes.",
+                t3_m3_title: "Module 3: Execution - CLICKUP ACCELERATE",
+                t3_m3_narrative: "Building a Proof of Value (PoV) in real-time (2-4h) to validate technical adherence.",
+                t3_m3_key: "Formal architecture proposal aimed at workflow consolidation.",
+                t3_m4_title: "Module 4: Reporting - The Business Case",
+                t3_m4_narrative: "Translating technical architecture into financial value and iARR impact.",
+                t3_m4_key: "Executive Business Case aligned to CFO objectives.",
+                t3_m5_title: "Module 5: Governance & PTA Certification",
+                t3_m5_narrative: "Defining the Partner Technical Architect role and 48h technical SLA.",
+                t3_m5_key: "Handoff criteria and technical validation for ENT+ architectures.",
+                t5_title: "Regional Operation Contract",
+                t5_sub: "Regional Alliance Protocol",
+                gov_b1_title: "Intervention Criteria",
+                gov_b1_content: "Gerardo-as-a-Service 1:1 support is prioritized for high-complexity architectures, aligned with global standards.",
+                gov_b1_mandate: "Mandate: Standard sales cycles are led with Partner Autonomy, ensuring agile market response.",
+                gov_b2_title: "Ecosystem Mandate (100% Partner Power)",
+                gov_b2_content: "100% of LATAM deals are executed in collaboration with a Partner. Manufacturer and Partner unity is the only path to regional scale.",
+                gov_b3_title: "Performance SLA (Partner Accountability)",
+                gov_b3_content: "Partner commits to an initial technical response (Discovery/Demo) within 72 hours of sales request. Agility is the health indicator.",
+                gov_b4_title: "Initiativa <span class='neon-foco'>CLICK UP FOCO</span>",
+                gov_b4_content: "Commercial execution and license normalization is exclusively led by the Principal Channel Account Executives (CAEs) team.",
+                sop_m2_badge: "START THE WORK",
+                sop_m2_title: "Intake: Realities & Discovery",
+                sop_m2_sec1: "COMMON REALITIES",
+                sop_m2_col1: "Tools",
+                sop_m2_t1: "Slack / Teams", sop_m2_t2: "Email", sop_m2_t3: "Intake Forms", sop_m2_t4: "Spreadsheets",
+                sop_m2_col2: "Objectives",
+                sop_m2_g1: "Clear requests", sop_m2_g2: "Standard handoffs", sop_m2_g3: "Aligned expectations",
+                sop_m2_col3: "Challenges",
+                sop_m2_c1: "Vague briefings", sop_m2_c2: "Lack of context", sop_m2_c3: "Lack of ownership", sop_m2_c4: "Duplicated work",
+                sop_m2_sec2: "DISCOVERY",
+                sop_m2_ask_t: "Ask:",
+                sop_m2_a1: '"Walk me through how a new project or request usually starts."',
+                sop_m2_a2: '"Help me understand who is involved in defining or approving work."',
+                sop_m2_a3: '"Tell me how you organize or prioritize incoming work."',
+                sop_m2_listen_t: "Listen to identify:",
+                sop_m2_l1: "Intake clarity gaps", sop_m2_l2: "Prioritization pain points", sop_m2_l3: "Approval complexity",
+                sop_m2_follow_t: "Follow-up:",
+                sop_m2_f1: '"Where do things usually get lost or stuck?"',
+                sop_m2_f2: '"How does that affect deadlines or team focus?"',
+                sop_m3_badge: "STANDARD PROCEDURE",
+                sop_m3_col1_q: "What is it?",
+                sop_m3_col1_title: "The Construction Station",
+                sop_m3_col1_desc: "A high-intensity technical work session (2-4 hours) designed to transform theoretical architecture into a functional prototype in real-time.",
+                sop_m3_col1_action_title: "Hands-on-Keys",
+                sop_m3_col1_action_desc: "Partner builds, SE validates, Client selects.",
+                sop_m3_col2_q: "When to use?",
+                sop_m3_col2_title: "High Priority Filter",
+                sop_m3_col2_li1_strong: "Expansion Plays:",
+                sop_m3_col2_li1_span: "Accounts with multi-departmental growth potential.",
+                sop_m3_col2_li2_strong: "Innovation Roadmaps:",
+                sop_m3_col2_li2_span: "Projects requiring AI Agent validation and credit consumption.",
+                sop_m3_col2_li3_strong: "Strategic Selection:",
+                sop_m3_col2_li3_span: "Deals where the technical decision must be closed in a single session.",
+                sop_m3_col3_q: "Strategic Value",
+                sop_m3_col3_title: "The Closing Accelerator",
+                sop_m3_col3_li1_strong: "Doubt Elimination:",
+                sop_m3_col3_li1_span: "Tangible proof that ClickUp resolves 'Admin Debt'.",
+                sop_m3_col3_li2_strong: "Vendor Authority:",
+                sop_m3_col3_li2_span: "Positioning ClickUp as a strategic partner, not just a vendor.",
+                sop_m3_col3_li3_strong: "Multi-Year Commitment:",
+                sop_m3_col3_li3_span: "Provides the confidence needed to secure 24-month contracts.",
+                sop_m3_footer_highlight: "\"IER builds the road. ACCELERATE is the Ferrari test-drive.\"",
+                sop_m3_ex_badge: "DO THE WORK",
+                sop_m3_ex_title: "Execution: Realities & Discovery",
+                sop_m3_ex_sec1: "COMMON REALITIES",
+                sop_m3_ex_col1: "Tools",
+                sop_m3_ex_t1: "Asana", sop_m3_ex_t2: "Jira", sop_m3_ex_t3: "Excel", sop_m3_ex_t4: "Google Docs",
+                sop_m3_ex_col2: "Objectives",
+                sop_m3_ex_g1: "Track ownership", sop_m3_ex_g2: "Speed up handoffs", sop_m3_ex_g3: "Meet deadlines",
+                sop_m3_ex_col3: "Challenges",
+                sop_m3_ex_c1: "Visibility loss", sop_m3_ex_c2: "Isolated tools", sop_m3_ex_c3: "Missed deliveries",
+                sop_m3_ex_sec2: "DISCOVERY",
+                sop_m3_ex_ask_t: "Ask:",
+                sop_m3_ex_a1: '"Help me understand how teams keep track of tasks or handoffs."',
+                sop_m3_ex_a2: '"Can you share your process for keeping everyone aligned?"',
+                sop_m3_ex_a3: '"Where do blockers or delays typically arise?"',
+                sop_m3_ex_listen_t: "Listen to identify:",
+                sop_m3_ex_l1: "Workflow inefficiencies", sop_m3_ex_l2: "Tool or system limitations", sop_m3_ex_l3: "Cross-functional disconnects",
+                sop_m3_ex_follow_t: "Follow-up:",
+                sop_m3_ex_f1: '"What is most frustrating about how things are done now?"',
+                sop_m3_ex_f2: '"How does that impact your ability to deliver goals?"',
+                sop_m4_badge: "MEASURE THE WORK",
+                sop_m4_title: "Reporting: Realities & Discovery",
+                sop_m4_sec1: "COMMON REALITIES",
+                sop_m4_col1: "Tools",
+                sop_m4_t1: "Sheets", sop_m4_t2: "PowerPoint", sop_m4_t3: "Tableau", sop_m4_t4: "BI Dashboards",
+                sop_m4_col2: "Objectives",
+                sop_m4_g1: "Prove impact", sop_m4_g2: "Align KPIs", sop_m4_g3: "Real-time visibility",
+                sop_m4_col3: "Challenges",
+                sop_m4_c1: "Manual reporting", sop_m4_c2: "Inconsistent data", sop_m4_c3: "Misaligned metrics",
+                sop_m4_sec2: "DISCOVERY",
+                sop_m4_ask_t: "Ask:",
+                sop_m4_a1: '"Share how you report what is on time and what is at risk."',
+                sop_m4_a2: '"Tell me what kind of visibility stakeholders need."',
+                sop_m4_a3: '"Which tools do you rely on to share updates?"',
+                sop_m4_listen_t: "Listen to identify:",
+                sop_m4_l1: "Manual reporting processes", sop_m4_l2: "Delayed insights", sop_m4_l3: "Executive visibility gaps",
+                sop_m4_follow_t: "Follow-up:",
+                sop_m4_f1: '"What happens when data is unclear or late?"',
+                sop_m4_f2: '"How does that affect your forecasting or planning?"',
+                m4_ladder_title: "Infographic 7: The Impact Ladder",
+                m4_l1_title: "1. Technical Facts (The Walking)",
+                m4_l1_desc: "Today you use 15 spreadsheets and WhatsApp for GRC management.",
+                m4_l2_title: "2. Process Consequences (The Bottleneck)",
+                m4_l2_desc: "This creates Admin Debt. Your manager spends 12 hours a week just consolidating data.",
+                m4_l3_title: "3. Financial Impact/iARR (CFO Pain)",
+                m4_l3_desc: "Those 12 hours represent a 15% delay in contract delivery, costing you significant revenue.",
+                m4_click_hint: "Click to expand",
+                m4_calc_title: "Infographic 8: Cost of Status Quo",
+                m4_th_metric: "Loss Metric",
+                m4_th_current: "Current State (Chaos)",
+                m4_th_impact: "Impact (USD)",
+                m4_tr1_c1: "Unbilled Hours",
+                m4_tr1_c2: "Consultants lose 10h/mo reporting.",
+                m4_tr1_c3: "- $ 15,000 per consultant/year",
+                m4_tr2_c1: "SaaS-Bloat",
+                m4_tr2_c2: "Isolated Miro, Jira, and Slack costs.",
+                m4_tr2_c3: "- $ 8,000 in redundant licenses",
+                m4_tr3_c1: "Expansion Delay",
+                m4_tr3_c2: "Churn due to visibility lack.",
+                m4_tr3_c3: "- $ 120,000 in lost renewals",
+                m4_tr4_c1: "TOTAL RESULT: Risk of Inaction",
+                m4_tr4_c2: "~ $ 143,000 lost/year",
+                m4_closing_quote: '"Every month you delay the road implementation, your company loses productivity. The question is not ClickUp cost, but the cost of keeping walking."',
+                m4_btn_sourcing: "Validate Sourcing ARR",
+                sop_m5_title: "Gerardo-as-a-Service Protocol",
+                sop_m5_badge: "GOVERNANCE & CERTIFICATION",
+                sop_m5_sec1: "TECHNICAL READINESS GUIDELINES",
+                sop_m5_col1_title: "The Self-Sufficiency Mandate",
+                sop_m5_col1_i1_title: "100% Partner-Led Execution",
+                sop_m5_col1_i1_desc: "All product demos and technical engagements are led entirely by the partner.",
+                sop_m5_col1_i2_title: 'No "Demo-Rescue"',
+                sop_m5_col1_i2_desc: "GaaS does not act as backup for routine demos. Partners must demonstrate total mastery.",
+                sop_m5_col1_box_badge: "TRANSITION PHASE (Q1-Q2)",
+                sop_m5_col1_box_text: "<strong>Strategic Co-pilot:</strong> Active integration for knowledge transfer. <strong>Mandate effective in Q3.</strong>",
+                sop_m5_col2_title: "Performance SLA (72h)",
+                sop_m5_col2_i1_title: "Mandatory Technical Agility",
+                sop_m5_col2_i1_desc: "Max 72h response for any sales request (Discovery/Demos).",
+                sop_m5_col2_i2_title: "Momentum Guarantee",
+                sop_m5_col2_i2_desc: "Vital health indicator. Failures result in disqualification for strategic leads.",
+                sop_m5_col3_title: "Communication Protocol",
+                sop_m5_col3_i1_title: "PTA Exclusive Channel",
+                sop_m5_col3_i1_desc: "Arch questions handled only between PTA and Regional Lead.",
+                sop_m5_col3_i2_title: "Elite Forum",
+                sop_m5_col3_i2_desc: "Cadence meetings and roadmaps are exclusive for certified PTAs.",
+                sop_m5_col3_i3_title: "ClickUp Connect",
+                sop_m5_col3_i3_desc: "Exclusive official technical community chat.",
+                sop_m5_footer_title: "USAGE AUDIT (FOCO INITIATIVE)",
+                sop_m5_footer_text: "Engineering provides the data intelligence. Execution and normalization are led by <strong>Nathalie True (Principal CAE)</strong>.",
+                t4_main_title: "Solution Library",
+                t4_main_sub: "ClickUp is a Business Operating System. Address the 'Maturity Gap' by delivering Foundational Excellence.",
+                t4_badge_ai: "AI Powered",
+                t4_badge_jira: "Replaces Jira",
+                t4_badge_monday: "Replaces Monday",
+                t4_badge_shield: "Enterprise Shield",
+                t4_c1_title: "Super Agents",
+                t4_c1_desc: "End-to-end autonomous automation for complex corporate workflows.",
+                t4_c2_title: "Certified Agents",
+                t4_c2_desc: "Pre-validated agents for specific niche use cases.",
+                t4_c3_title: "Agile PMO Architect",
+                t4_c3_desc: "Blueprint for complex project portfolios and agile engineering teams.",
+                t4_c4_title: "Marketing Operations Hub",
+                t4_c4_desc: "Blueprint for campaign execution at scale and cross-functional visibility.",
+                t4_c5_title: "GRC & Security Standard",
+                t4_c5_desc: "Blueprint for compliance, risk management, and auditable security.",
+                t4_c6_title: "Add Blueprint",
+                t4_c6_desc: "Upload validated reference architectures.",
+                t4_banner_strong: "Strategic Value: Copy and Paste Success.",
+                t4_banner_span: "Ensures a predictable Future State across Brazil and Mexico operations."
+            },
+            pt: {
+                nav: ["HOME", "MANIFESTO", "A TRAVESSIA", "O MÉTODO", "ARQUÉTIPOS", "GOVERNANÇA"],
+                sub_nav: ["ESTRATÉGIA", "INTAKE", "EXECUTION", "REPORTING", "PTA"],
+                nav_ctrl_label: "Módulo 1",
+                home_title: "Bem-vindo à IMPULSO",
+                home_sub: "Metodologia e Go-To-Market da ClickUp. Feito sob medida para a América Latina.",
+                t1_title: "Liderança Técnica Estratégica",
+                t1_sub: "Fundamentos da Governança",
+                t1_b1_title: "AUTONOMIA", t1_b1_desc: "Equipes auto-gerenciáveis com liberdade estruturada.",
+                t1_b2_title: "ESCALA", t1_b2_desc: "Crescimento sustentável e modular.",
+                t1_b3_title: "VALOR", t1_b3_desc: "Entregas contínuas focadas no impacto real.",
+                t2_title: "A Travessia", t2_sub: "A Jornada de Maturidade",
+                t2_walk: "Operação Diaria", t2_ferrari: "Alta Performance", t2_phrase: "Otimização Contínua",
+                t3_main_title: "CLICKUP IMPULSO",
+                t3_main_sub: "Arquitetura de Soluções e Go-To-Market",
+                t3_lbl_key: "Ponto Chave", t3_lbl_deliverable: "Entregável", t3_lbl_content: "Conteúdo",
+                t3_m1_title: "Módulo 1: Estratégia e Jornada de Maturidade",
+                t3_m1_narrative: "A metodologia IER triplica a taxa de conversão através de engenharia de processos e alinhamento executivo.",
+                t3_m1_key: "Necessidade do cliente: Infraestrutura vs Inovação.",
+                t3_m2_title: "Módulo 2: Intake - Mapeamento de Fricção",
+                t3_m2_narrative: "Diagnóstico da Dívida Administrativa e fragmentação de dados em silos operacionais.",
+                t3_m2_key: "Quantificação de horas perdidas em processos manuais e retrabalho.",
+                t3_m3_title: "Módulo 3: Execução - CLICK UP ACCELERATE",
+                t3_m3_narrative: "Construção de uma Prova de Valor (PoV) em tempo real (2-4h) para validar a aderência técnica da solução.",
+                t3_m3_key: "Proposta formal de arquitetura visando a consolidação do fluxo de trabalho.",
+                t3_m4_title: "Módulo 4: Reporting - O Caso de Negócio",
+                t3_m4_narrative: "Tradução da arquitetura técnica em valor financeiro e impacto no iARR do cliente.",
+                t3_m4_key: "Business Case Executivo alinhado aos objetivos do CFO.",
+                t3_m5_title: "Módulo 5: Governança e Certificação PTA",
+                t3_m5_narrative: "Definição do papel do Partner Technical Architect e estabelecimento do SLA técnico de 48 horas.",
+                t3_m5_key: "Critérios de Handoff e validação técnica para arquiteturas complexas (Segmento ENT+).",
+                t5_title: "Contrato de Operação Regional",
+                t5_sub: "Protocolo de Aliança Regional",
+                gov_b1_title: "Critérios de Intervenção",
+                gov_b1_content: "O suporte técnico 1:1 do Gerardo-as-a-Service é priorizado para arquiteturas de alta complexidade, alinhado aos padrões globais de suporte.",
+                gov_b1_mandate: "Mandato: Os ciclos de vendas padrão são liderados com Autonomia do Parceiro, garantindo uma resposta ágil ao mercado.",
+                gov_b2_title: "Mandato de Ecossistema (100% Partner Powered)",
+                gov_b2_content: "100% dos negócios na LATAM são executados em colaboração com um Parceiro. Não existem ciclos de vendas isolados; a união entre o Fabricante e o Parceiro é o único caminho para a escala regional.",
+                gov_b3_title: "SLA de Performance (Partner Accountability)",
+                gov_b3_content: "O Parceiro compromete-se com uma resposta técnica inicial (Discovery/Demo) num máximo de 72 horas após a solicitação comercial. A agilidade é o principal indicador de saúde da aliança.",
+                gov_b4_title: "Iniciativa <span class='neon-foco'>CLICK UP FOCO</span>",
+                gov_b4_content: "A execução comercial e normalização de licenças é liderada exclusivamente pela equipe de Principal Channel Account Executives (CAEs).",
+                sop_m2_badge: "INICIAR O TRABALHO",
+                sop_m2_title: "Intake: Realidades & Discovery",
+                sop_m2_sec1: "REALIDADES COMUNES",
+                sop_m2_col1: "Ferramentas",
+                sop_m2_t1: "Slack / Teams", sop_m2_t2: "Email", sop_m2_t3: "Formulários de Intake", sop_m2_t4: "Planilhas",
+                sop_m2_col2: "Objetivos",
+                sop_m2_g1: "Solicitações claras", sop_m2_g2: "Repasse padronizado", sop_m2_g3: "Expectativas alinhadas",
+                sop_m2_col3: "Desafios",
+                sop_m2_c1: "Briefings vagos", sop_m2_c2: "Falta de contexto", sop_m2_c3: "Falta de responsabilidade", sop_m2_c4: "Trabalho duplicado",
+                sop_m2_sec2: "DISCOVERY",
+                sop_m2_ask_t: "Perguntar:",
+                sop_m2_a1: '"Me explique como um novo projeto ou solicitação normalmente começa."',
+                sop_m2_a2: '"Me ajude a entender quem está envolvido em definir ou aprovar o trabalho."',
+                sop_m2_a3: '"Me conte como você organiza ou prioriza o trabalho que chega."',
+                sop_m2_listen_t: "Ouvir para identificar:",
+                sop_m2_l1: "Lacunas na clareza do intake", sop_m2_l2: "Dores na priorização", sop_m2_l3: "Complexidade nas aprovações",
+                sop_m2_follow_t: "Acompanhamento:",
+                sop_m2_f1: '"Onde as coisas acabam se perdendo ou travando?"',
+                sop_m2_f2: '"Como isso afeta os prazos ou o foco da equipe?"',
+                sop_m3_badge: "PROCEDIMENTO PADRÃO",
+                sop_m3_col1_q: "O que é?",
+                sop_m3_col1_title: "A Estação de Construção",
+                sop_m3_col1_desc: "Uma sessão de trabalho técnico de alta intensidade (2 a 4 horas) projetada para transformar a arquitetura teórica em um protótipo funcional em tempo real.",
+                sop_m3_col1_action_title: "Hands-on-Keys",
+                sop_m3_col1_action_desc: "O Parceiro constrói, o SE valida, o Cliente seleciona.",
+                sop_m3_col2_q: "Quando usar?",
+                sop_m3_col2_title: "Filtro de Alta Prioridade",
+                sop_m3_col2_li1_strong: "Expansion Plays:",
+                sop_m3_col2_li1_span: "Contas com potencial de crescimento multidepartamental.",
+                sop_m3_col2_li2_strong: "Innovation Roadmaps:",
+                sop_m3_col2_li2_span: "Projetos que requerem validação de Agentes de IA e consumo de créditos.",
+                sop_m3_col2_li3_strong: "Strategic Selection:",
+                sop_m3_col2_li3_span: "Negócios onde a decisão técnica deve ser fechada em uma única sessão.",
+                sop_m3_col3_q: "Valor Estratégico",
+                sop_m3_col3_title: "O Acelerador de Fechamento",
+                sop_m3_col3_li1_strong: "Eliminação da Dúvida:",
+                sop_m3_col3_li1_span: "Prova tangível de que a solução ClickUp resolve a 'Dívida Administrativa'.",
+                sop_m3_col3_li2_strong: "Vendor Authority:",
+                sop_m3_col3_li2_span: "Posicionamento da ClickUp como parceiro estratégico, não apenas como provedor de licenças.",
+                sop_m3_col3_li3_strong: "Multi-Year Commitment:",
+                sop_m3_col3_li3_span: "Proporciona a confiança necessária para garantir contratos de 24 meses.",
+                sop_m3_footer_highlight: "\"O IER constrói a estrada. O ACCELERATE é o test-drive da Ferrari.\"",
+                sop_m3_ex_badge: "FAZER O TRABALHO",
+                sop_m3_ex_title: "Execução: Realidades & Discovery",
+                sop_m3_ex_sec1: "REALIDADES COMUNES",
+                sop_m3_ex_col1: "Ferramentas",
+                sop_m3_ex_t1: "Asana", sop_m3_ex_t2: "Jira", sop_m3_ex_t3: "Excel", sop_m3_ex_t4: "Google Docs",
+                sop_m3_ex_col2: "Objetivos",
+                sop_m3_ex_g1: "Rastrear responsabilidades", sop_m3_ex_g2: "Agilizar repasses", sop_m3_ex_g3: "Cumprir prazos",
+                sop_m3_ex_col3: "Desafios",
+                sop_m3_ex_c1: "Perda de visibilidade", sop_m3_ex_c2: "Ferramentas isoladas", sop_m3_ex_c3: "Entregas perdidas",
+                sop_m3_ex_sec2: "DISCOVERY",
+                sop_m3_ex_ask_t: "Perguntar:",
+                sop_m3_ex_a1: '"Me ajude a entender como as equipes mantêm o controle de tarefas, atualizações ou repasses."',
+                sop_m3_ex_a2: '"Você pode compartilhar seu processo para manter todos alinhados?"',
+                sop_m3_ex_a3: '"Onde os bloqueios ou atrasos normalmente surgem?"',
+                sop_m3_ex_listen_t: "Ouvir para identificar:",
+                sop_m3_ex_l1: "Ineficiências no fluxo de trabalho", sop_m3_ex_l2: "Limitações de ferramentas ou sistemas", sop_m3_ex_l3: "Desconexões multifuncionais",
+                sop_m3_ex_follow_t: "Acompanhamento:",
+                sop_m3_ex_f1: '"O que é mais frustrante na forma como as coisas são feitas agora?"',
+                sop_m3_ex_f2: '"Como isso impacto sua capacidade de entregar as metas?"',
+                sop_m4_badge: "MEDIR O TRABALHO",
+                sop_m4_title: "Relatórios: Realidades & Discovery",
+                sop_m4_sec1: "REALIDADES COMUNES",
+                sop_m4_col1: "Ferramentas",
+                sop_m4_t1: "Sheets", sop_m4_t2: "PowerPoint", sop_m4_t3: "Tableau", sop_m4_t4: "BI Dashboards",
+                sop_m4_col2: "Objetivos",
+                sop_m4_g1: "Comprovar impacto", sop_m4_g2: "Alinhar KPIs", sop_m4_g3: "Visibilidade em tempo real",
+                sop_m4_col3: "Desafios",
+                sop_m4_c1: "Relatórios manuais", sop_m4_c2: "Dados inconsistentes", sop_m4_c3: "Métricas desalinhadas",
+                sop_m4_sec2: "DISCOVERY",
+                sop_m4_ask_t: "Perguntar:",
+                sop_m4_a1: '"Compartilhe como você relata o que está dentro do prazo e o que está em risco."',
+                sop_m4_a2: '"Me conte que tipo de visibilidade seus diferentes stakeholders precisam."',
+                sop_m4_a3: '"Em quais ferramentas você confia para compartilhar atualizações?"',
+                sop_m4_listen_t: "Ouvir para identificar:",
+                sop_m4_l1: "Processos de relatórios manuais", sop_m4_l2: "Insights atrasados", sop_m4_l3: "Lacunas na visibilidade executiva",
+                sop_m4_follow_t: "Acompanhamento:",
+                sop_m4_f1: '"O que acontece quando os dados não são claros ou não chegam a tempo?"',
+                sop_m4_f2: '"Como isso afeta a previsão ou o planejamento de vocês?"',
+                m4_ladder_title: "Infográfico 7: A Escada do Impacto",
+                m4_l1_title: "1. Fatos Técnicos (A Caminhada)",
+                m4_l1_desc: "Hoje vocês usam 15 planilhas de Excel e o WhatsApp para gerir projetos de GRC.",
+                m4_l2_title: "2. Consequências de Processo (O Gargalo)",
+                m4_l2_desc: "Isso gera Dívida Administrativa. O seu gestor gasta 12 horas por semana apenas consolidando dados.",
+                m4_l3_title: "3. Impacto Financeiro/iARR (A Dor do CFO)",
+                m4_l3_desc: "Essas 12 horas perdidas representam um atraso de 15% na entrega dos contratos.",
+                m4_click_hint: "Clique para expandir",
+                m4_calc_title: "Infográfico 8: Custo do Status Quo",
+                m4_th_metric: "Métrica de Perda",
+                m4_th_current: "Estado Atual (Caos)",
+                m4_th_impact: "Impacto (BRL)",
+                m4_tr1_c1: "Horas Não Faturadas",
+                m4_tr1_c2: "Consultores perdem 10h/mês no reporte.",
+                m4_tr1_c3: "- R$ 15.000,00 por consultor/ano",
+                m4_tr2_c1: "SaaS-Bloat",
+                m4_tr2_c2: "Gastos com Jira, Miro e Slack isolados.",
+                m4_tr2_c3: "- R$ 8.000,00 em licenças redundantes",
+                m4_tr3_c1: "Atraso de Expansão",
+                m4_tr3_c2: "Churn por falta de visibilidade.",
+                m4_tr3_c3: "- R$ 120.000,00 em renovações perdidas",
+                m4_tr4_c1: "RESULTADO TOTAL: O Risco de não agir",
+                m4_tr4_c2: "~ R$ 143.000,00 perdidos/ano",
+                m4_closing_quote: '"Cada mês que você adia a implementação da estrada, sua empresa perde produtividade."',
+                m4_btn_sourcing: "Validar Sourcing ARR",
+                sop_m5_title: "Protocolo Gerardo-as-a-Service",
+                sop_m5_badge: "GOVERNANÇA E CERTIFICAÇÃO",
+                sop_m5_sec1: "DIRETRIZES DE PRONTIDÃO TÉCNICA",
+                sop_m5_col1_title: "O Mandato de Autossuficiência",
+                sop_m5_col1_i1_title: "Execução 100% Partner-Led",
+                sop_m5_col1_i1_desc: "Todas as demonstrações de produto e compromissos técnicos são liderados integralmente pelo sócio.",
+                sop_m5_col1_i2_title: 'Sem "Demo-Rescue"',
+                sop_m5_col1_i2_desc: "A expectativa é preparação total. GaaS não atua como backup para rotinas.",
+                sop_m5_col1_box_badge: "FASE DE TRANSIÇÃO (Q1-Q2)",
+                sop_m5_col1_box_text: "<strong>Co-piloto estratégico:</strong> Integração ativa para transferência de conhecimento. <strong>Mandato 100% exigível no Q3.</strong>",
+                sop_m5_col2_title: "SLA de Performance (72h)",
+                sop_m5_col2_i1_title: "Agilidade Técnica Mandatória",
+                sop_m5_col2_i1_desc: "Resposta máxima em 72 horas para qualquer solicitação comercial.",
+                sop_m5_col2_i2_title: "Garantia de Momentum",
+                sop_m5_col2_i2_desc: "Indicador vital de saúde. Falhas resultam em desqualificação para leads estratégicos.",
+                sop_m5_col3_title: "Protocolo de Comunicação",
+                sop_m5_col3_i1_title: "Canal Exclusivo PTA",
+                sop_m5_col3_i1_desc: "Dúvidas de arquitetura tratadas apenas entre o Partner Technical Architect e o regional lead.",
+                sop_m5_col3_i2_title: "Fórum de Elite",
+                sop_m5_col3_i2_desc: "Reuniões de cadência e roadmaps são de participação exclusiva para PTAs certificados.",
+                sop_m5_col3_i3_title: "ClickUp Connect",
+                sop_m5_col3_i3_desc: "Chat oficial exclusivo e dedicado à comunidade técnica.",
+                sop_m5_footer_title: "AUDITORIA DE USO (INICIATIVA FOCO)",
+                sop_m5_footer_text: "Engineering provê os dados. Negociação liderada por <strong>Nathalie True (Principal CAE)</strong>.",
+                t4_main_title: "Biblioteca de Soluções",
+                t4_main_sub: "O ClickUp é um Business Operating System. Aborde o 'Maturity Gap' entregando Excelência Fundacional.",
+                t4_badge_ai: "AI Powered",
+                t4_badge_jira: "Substitui Jira",
+                t4_badge_monday: "Substitui Monday",
+                t4_badge_shield: "Enterprise Shield",
+                t4_c1_title: "Super Agents",
+                t4_c1_desc: "Automação autônoma de ponta a ponta para fluxos de trabalho corporativos complexos.",
+                t4_c2_title: "Certified Agents",
+                t4_c2_desc: "Agentes pré-validados para casos de uso de nichos específicos.",
+                t4_c3_title: "Agile PMO Architect",
+                t4_c3_desc: "Blueprint para portfólios de projetos complexos e equipes ágeis.",
+                t4_c4_title: "Marketing Operations Hub",
+                t4_c4_desc: "Blueprint para execução de campanhas em escala e visibilidade multifuncional.",
+                t4_c5_title: "GRC & Security Standard",
+                t4_c5_desc: "Blueprint para conformidade, gestão de riscos e segurança auditável.",
+                t4_c6_title: "Adicionar Blueprint",
+                t4_c6_desc: "Faça o upload de novas arquiteturas de referência validadas.",
+                t4_banner_strong: "Valor Estratégico: Copiar e Colar o Sucesso.",
+                t4_banner_span: "Garante um Estado Futuro previsível em toda a operação."
+            },
+            es: {
+                nav: ["INICIO", "MANIFIESTO", "LA TRAVESÍA", "EL MÉTODO", "ARQUETIPOS", "GOBERNANZA"],
+                sub_nav: ["ESTRATEGIA", "INTAKE", "EXECUTION", "REPORTING", "PTA"],
+                nav_ctrl_label: "Módulo 1",
+                home_title: "Bienvenido a IMPULSO",
+                home_sub: "Metodología y Go-To-Market de ClickUp. Hecho a medida para América Latina.",
+                t1_title: "Liderazgo Técnico Estratégico",
+                t1_sub: "Fundamentos de la Gobernanza",
+                t1_b1_title: "AUTONOMÍA", t1_b1_desc: "Equipos autogestionados con libertad estructurada.",
+                t1_b2_title: "ESCALA", t1_b2_desc: "Crecimiento sostenible y modular.",
+                t1_b3_title: "VALOR", t1_b3_desc: "Entregas continuas enfocadas en el impacto real.",
+                t2_title: "La Travesía", t2_sub: "La Jornada de Madurez",
+                t2_walk: "Operación Diaria", t2_ferrari: "Alto Rendimiento", t2_phrase: "Optimización Continua",
+                t3_main_title: "CLICKUP IMPULSO",
+                t3_main_sub: "Arquitectura de Soluciones y Go-To-Market",
+                t3_lbl_key: "Punto Clave", t3_lbl_deliverable: "Entregable", t3_lbl_content: "Contenido",
+                t3_m1_title: "Módulo 1: Estrategia y Jornada de Madurez",
+                t3_m1_narrative: "El proceso IER triplica la tasa de cierre mediante ingeniería de procesos y alineación ejecutiva.",
+                t3_m1_key: "Requerimiento del cliente: Infraestructura versus Innovación.",
+                t3_m2_title: "Módulo 2: Intake - Mapeo de Fricción",
+                t3_m2_narrative: "Diagnóstico de la Deuda Administrativa y fragmentación de datos en silos operacionales.",
+                t3_m2_key: "Cuantificación de horas perdidas en procesos manuales y retrabajo.",
+                t3_m3_title: "Módulo 3: Ejecución - Workshop ACCELERATE",
+                t3_m3_narrative: "Construcción de una Prueba de Valor (PoV) en tiempo real (2-4h) para validar la solución.",
+                t3_m3_key: "Propuesta formal de arquitectura orientada a la consolidación.",
+                t3_m4_title: "Módulo 4: Reporting - El Caso de Negocio",
+                t3_m4_narrative: "Traducción de la arquitectura técnica en valor financiero e impacto en el iARR del cliente.",
+                t3_m4_key: "Business Case Ejecutivo alineado al CFO.",
+                t3_m5_title: "Módulo 5: Gobernanza y Certificación PTA",
+                t3_m5_narrative: "Rol del Partner Technical Architect y establecimiento del SLA técnico de 48h.",
+                t3_m5_key: "Requisitos técnicos para Handoff y validación técnica para arquitecturas ENT+.",
+                t5_title: "Contrato de Operación Regional",
+                t5_sub: "Protocolo de Alianza Regional",
+                gov_b1_title: "Criterios de Intervención",
+                gov_b1_content: "El soporte técnico 1:1 de Gerardo-as-a-Service está priorizado para arquitecturas de alta complejidad, alineado con los estándares globales de soporte.",
+                gov_b1_mandate: "Mandato: Los ciclos de venta estándar son liderados con Autonomía del Socio, asegurando una respuesta ágil al mercado.",
+                gov_b2_title: "Mandato de Ecosistema (100% Partner Power)",
+                gov_b2_content: "100% de los negocios en LATAM se ejecutan en colaboración con un Partner. La unión entre el Fabricante y el Socio es el único camino para la escala regional.",
+                gov_b3_title: "SLA de Performance (Partner Accountability)",
+                gov_b3_content: "El Partner se compromete a una respuesta técnica inicial (Discovery/Demo) en un máximo de 72 horas tras el requerimiento comercial. La agilidad es el indicador clave de salud de la alianza.",
+                gov_b4_title: "Iniciativa <span class='neon-foco'>CLICK UP FOCO</span>",
+                gov_b4_content: "La ejecución comercial y normalización de licencias es liderada exclusivamente por el equipo de Principal Channel Account Executives (CAEs).",
+                sop_m2_badge: "INICIAR EL TRABAJO",
+                sop_m2_title: "Intake: Realidades & Discovery",
+                sop_m2_sec1: "REALIDADES COMUNES",
+                sop_m2_col1: "Herramientas",
+                sop_m2_t1: "Slack / Teams", sop_m2_t2: "Email", sop_m2_t3: "Formularios de Intake", sop_m2_t4: "Hojas de Cálculo",
+                sop_m2_col2: "Objetivos",
+                sop_m2_g1: "Solicitudes claras", sop_m2_g2: "Traspaso estandarizado", sop_m2_g3: "Expectativas alineadas",
+                sop_m2_col3: "Desafíos",
+                sop_m2_c1: "Briefings ambiguos", sop_m2_c2: "Falta de contexto", sop_m2_c3: "Falta de propiedad", sop_m2_c4: "Trabajo duplicado",
+                sop_m2_sec2: "DISCOVERY",
+                sop_m2_ask_t: "Preguntar:",
+                sop_m2_a1: '"Explícame cómo suele empezar un nuevo proyecto o solicitud."',
+                sop_m2_a2: '"Ayúdame a entender quién está involucrado en definir o aprobar el trabajo."',
+                sop_m2_a3: '"Cuéntame cómo organizas o priorizas el trabajo entrante."',
+                sop_m2_listen_t: "Escuchar para detectar:",
+                sop_m2_l1: "Brechas en la claridad del intake", sop_m2_l2: "Puntos de dolor en priorización", sop_m2_l3: "Complejidad en aprobaciones",
+                sop_m2_follow_t: "Seguimiento:",
+                sop_m2_f1: '"¿Dónde se estancan o pierden las cosas?"',
+                sop_m2_f2: '"¿Cómo afecta eso a los tiempos o al enfoque del equipo?"',
+                sop_m3_badge: "PROCEDIMIENTO ESTÁNDAR",
+                sop_m3_col1_q: "¿Qué es?",
+                sop_m3_col1_title: "La Estación de Construcción",
+                sop_m3_col1_desc: "Una sesión de trabajo técnico de alta intensidad (2 a 4 horas) diseñada para transformar la arquitectura teórica en un prototipo funcional en tiempo real.",
+                sop_m3_col1_action_title: "Hands-on-Keys",
+                sop_m3_col1_action_desc: "El Partner construye, el SE valida, el Cliente selecciona.",
+                sop_m3_col2_q: "¿Cuándo usar?",
+                sop_m3_col2_title: "Filtro de Alta Prioridad",
+                sop_m3_col2_li1_strong: "Expansion Plays:",
+                sop_m3_col2_li1_span: "Cuentas con potencial de crecimiento multi-departamental.",
+                sop_m3_col2_li2_strong: "Innovation Roadmaps:",
+                sop_m3_col2_li2_span: "Proyectos que requieren validación de Agentes de IA y consumo de créditos.",
+                sop_m3_col2_li3_strong: "Strategic Selection:",
+                sop_m3_col2_li3_span: "Deals donde la decisión técnica debe cerrarse en una sola sesión.",
+                sop_m3_col3_q: "Valor Estratégico",
+                sop_m3_col3_title: "El Acelerador de Cierre",
+                sop_m3_col3_li1_strong: "Eliminación de la Duda:",
+                sop_m3_col3_li1_span: "Prueba tangible de que la solución ClickUp resuelve la 'Dívida Administrativa'.",
+                sop_m3_col3_li2_strong: "Vendor Authority:",
+                sop_m3_col3_li2_span: "Posicionamiento de la ClickUp como socio estratégico, no solo como proveedor de licencias.",
+                sop_m3_col3_li3_strong: "Multi-Year Commitment:",
+                sop_m3_col3_li3_span: "Proporciona la confianza necesaria para asegurar contratos de 24 meses.",
+                sop_m3_footer_highlight: "\"El IER construye el camino. ACCELERATE es el test-drive del Ferrari.\"",
+                sop_m3_ex_badge: "HACER EL TRABAJO",
+                sop_m3_ex_title: "Ejecución: Realidades & Discovery",
+                sop_m3_ex_sec1: "REALIDADES COMUNES",
+                sop_m3_ex_col1: "Herramientas",
+                sop_m3_ex_t1: "Asana", sop_m3_ex_t2: "Jira", sop_m3_ex_t3: "Excel", sop_m3_ex_t4: "Google Docs",
+                sop_m3_ex_col2: "Objetivos",
+                sop_m3_ex_g1: "Rastrear responsabilidades", sop_m3_ex_g2: "Agilizar traspasos", sop_m3_ex_g3: "Cumplir plazos",
+                sop_m3_ex_col3: "Desafíos",
+                sop_m3_ex_c1: "Pérdida de visibilidad", sop_m3_ex_c2: "Herramientas aisladas", sop_m3_ex_c3: "Entregas perdidas",
+                sop_m3_ex_sec2: "DISCOVERY",
+                sop_m3_ex_ask_t: "Preguntar:",
+                sop_m3_ex_a1: '"Ayúdame a entender cómo los equipos mantienen el control de tareas, actualizaciones o traspasos."',
+                sop_m3_ex_a2: '"¿Puedes compartir tu proceso para mantener a todos alineados?"',
+                sop_m3_ex_a3: '"¿Dónde surgen normalmente los bloqueos o retrasos?"',
+                sop_m3_ex_listen_t: "Escuchar para detectar:",
+                sop_m3_ex_l1: "Ineficiencias en el flujo de trabajo", sop_m3_ex_l2: "Limitaciones de herramientas o sistemas", sop_m3_ex_l3: "Desconexiones multifuncionales",
+                sop_m3_ex_follow_t: "Seguimiento:",
+                sop_m3_ex_f1: '"¿Qué es lo más frustrante de la forma en que se hacen las cosas ahora?"',
+                sop_m3_ex_f2: '"¿Cómo impacta esto en tu capacidad para alcanzar las metas?"',
+                sop_m4_badge: "MEDIR EL TRABAJO",
+                sop_m4_title: "Reportes: Realidades & Discovery",
+                sop_m4_sec1: "REALIDADES COMUNES",
+                sop_m4_col1: "Herramientas",
+                sop_m4_t1: "Hojas de cálculo (Sheets)", sop_m4_t2: "PowerPoint", sop_m4_t3: "Tableau", sop_m4_t4: "Dashboards de BI",
+                sop_m4_col2: "Objetivos",
+                sop_m4_g1: "Comprobar impacto", sop_m4_g2: "Alinear KPIs", sop_m4_g3: "Visibilidad en tiempo real",
+                sop_m4_col3: "Desafíos",
+                sop_m4_c1: "Reportes manuales", sop_m4_c2: "Datos inconsistentes", sop_m4_c3: "Métricas desalineadas",
+                sop_m4_sec2: "DISCOVERY",
+                sop_m4_ask_t: "Preguntar:",
+                sop_m4_a1: '"Comparte cómo reportas lo que está a tiempo y lo que está en riesgo."',
+                sop_m4_a2: '"Cuéntame qué tipo de visibilidad necesitan tus diferentes stakeholders."',
+                sop_m4_a3: '"¿En qué herramientas confías para compartir actualizaciones?"',
+                sop_m4_listen_t: "Escuchar para detectar:",
+                sop_m4_l1: "Procesos de reportes manuales", sop_m4_l2: "Insights retrasados", sop_m4_l3: "Brechas en la visibilidad ejecutiva",
+                sop_m4_follow_t: "Seguimiento:",
+                sop_m4_f1: '"¿Qué pasa cuando los datos no son claros o no llegan a tiempo?"',
+                sop_m4_f2: '"¿Cómo afecta eso a su previsión o planificación?"',
+                m4_ladder_title: "Infografía 7: La Escalera del Impacto",
+                m4_l1_title: "1. Hechos Técnicos (La Caminata)",
+                m4_l1_desc: "Hoy usan 15 hojas de Excel y WhatsApp para gestionar proyectos de GRC.",
+                m4_l2_title: "2. Consecuencias de Proceso (El Cuello de Botella)",
+                m4_l2_desc: "Esto genera Deuda Administrativa. Su gerente gasta 12 horas a la semana solo consolidando datos.",
+                m4_l3_title: "3. Impacto Financiero/iARR (El Dolor del CFO)",
+                m4_l3_desc: "Estas 12 horas perdidas representan un retraso del 15% en la entrega de contratos.",
+                m4_click_hint: "Haz clic para revelar",
+                m4_calc_title: "Infografía 8: Costo del Status Quo",
+                m4_th_metric: "Métrica de Pérdida",
+                m4_th_current: "Estado Actual (Caos)",
+                m4_th_impact: "Impacto (MXN)",
+                m4_tr1_c1: "Horas No Facturadas",
+                m4_tr1_c2: "Consultores pierden 10h/mes en reportes.",
+                m4_tr1_c3: "- $ 15.000,00 por consultor/año",
+                m4_tr2_c1: "SaaS-Bloat",
+                m4_tr2_c2: "Gastos con Jira, Miro y Slack aislados.",
+                m4_tr2_c3: "- $ 8.000,00 en licencias redundantes",
+                m4_tr3_c1: "Retraso de Expansión",
+                m4_tr3_c2: "Churn por falta de visibilidad.",
+                m4_tr3_c3: "- $ 120.000,00 en renovaciones perdidas",
+                m4_tr4_c1: "RESULTADO TOTAL: El Riesgo de no actuar",
+                m4_tr4_c2: "~ $ 143.000,00 perdidos/año",
+                m4_closing_quote: '"Cada mes que pospone la implementación del camino, su empresa pierde productividad."',
+                m4_btn_sourcing: "Validar Sourcing ARR",
+                sop_m5_title: "Protocolo Gerardo-as-a-Service",
+                sop_m5_badge: "GOBERNANZA Y CERTIFICACIÓN",
+                sop_m5_sec1: "DIRECTRICES DE PREPARACIÓN TÉCNICA",
+                sop_m5_col1_title: "El Mandato de Autosuficiencia",
+                sop_m5_col1_i1_title: "Ejecución 100% Partner-Led",
+                sop_m5_col1_i1_desc: "Todas las demostraciones de producto y compromisos técnicos son liderados íntegramente por el socio.",
+                sop_m5_col1_i2_title: 'Sin "Demo-Rescue"',
+                sop_m5_col1_i2_desc: "La expectativa es preparación total. GaaS no actúa como respaldo para rutinas.",
+                sop_m5_col1_box_badge: "FASE DE TRANSICIÓN (Q1-Q2)",
+                sop_m5_col1_box_text: "<strong>Copiloto estratégico:</strong> Integración activa para transferencia de conocimiento. <strong>Mandato 100% exigible en Q3.</strong>",
+                sop_m5_col2_title: "SLA de Rendimiento (72h)",
+                sop_m5_col2_i1_title: "Agilidad Técnica Obligatoria",
+                sop_m5_col2_i1_desc: "Respuesta máxima en 72 horas para cualquier solicitud comercial.",
+                sop_m5_col2_i2_title: "Garantía de Momentum",
+                sop_m5_col2_i2_desc: "Indicador vital de salud. Fallas resultan en descalificación para leads estratégicos.",
+                sop_m5_col3_title: "Protocolo de Comunicación",
+                sop_m5_col3_i1_title: "Canal Exclusivo PTA",
+                sop_m5_col3_i1_desc: "Dudas de arquitectura tratadas solo entre el Partner Technical Architect y el regional lead.",
+                sop_m5_col3_i2_title: "Foro de Élite",
+                sop_m5_col3_i2_desc: "Reuniones de cadencia y roadmaps son de participación exclusiva para PTAs certificados.",
+                sop_m5_col3_i3_title: "ClickUp Connect",
+                sop_m5_col3_i3_desc: "Chat oficial exclusivo y dedicado a la comunidad técnica.",
+                sop_m5_footer_title: "AUDITORÍA DE USO (INICIATIVA FOCO)",
+                sop_m5_footer_text: "Engineering provee los datos. Negociación liderada por <strong>Nathalie True (Principal CAE)</strong>.",
+                t4_main_title: "Biblioteca de Soluciones",
+                t4_main_sub: "ClickUp es un Sistema Operativo de Negocios. Aborda el 'Maturity Gap' entregando Excelencia Fundacional.",
+                t4_badge_ai: "AI Powered",
+                t4_badge_jira: "Reemplaza a Jira",
+                t4_badge_monday: "Reemplaza a Monday",
+                t4_badge_shield: "Enterprise Shield",
+                t4_c1_title: "Super Agents",
+                t4_c1_desc: "Automatización autónoma de extremo a extremo para flujos de trabajo empresariales complejos.",
+                t4_c2_title: "Certified Agents",
+                t4_c2_desc: "Agentes pre-validados para casos de uso de nicho específicos.",
+                t4_c3_title: "Agile PMO Architect",
+                t4_c3_desc: "Blueprint para portafolios de proyectos complejos y equipos ágiles.",
+                t4_c4_title: "Marketing Operations Hub",
+                t4_c4_desc: "Blueprint para ejecución de campañas a escala y visibilidad multifuncional.",
+                t4_c5_title: "GRC & Security Standard",
+                t4_c5_desc: "Blueprint para cumplimiento, gestión de riesgos y protocolos de seguridad auditables.",
+                t4_c6_title: "Añadir Blueprint",
+                t4_c6_desc: "Carga nuevas arquitecturas de referencia validadas.",
+                t4_banner_strong: "Valor Estratégico: Copiar y Pegar el Éxito.",
+                t4_banner_span: "Asegura un Estado Futuro predecible en toda la operación de Brasil y México."
+            }
+        };
+
+        let currentLang = 'pt';
+        let currentTab = 0;
+        let currentModuleIndex = 1;
+
+        function init() {
+            renderNav();
+            updateText();
+            setupLightbox();
+            setupHUD();
+            updateNeonTitle();
+            setTimeout(() => {
+                document.getElementById(`tab-0`).style.opacity = '1';
+                document.getElementById(`tab-0`).style.transform = 'translateY(0)';
+            }, 50);
+        }
+
+        function setupHUD() {
+            const slider = document.getElementById('hud-slider');
+            slider.addEventListener('input', (e) => updateHUD(e.target.value));
+            updateHUD(slider.value, true);
+        }
+
+        function updateHUD(level, isInit = false) {
+            const data = travesiaData[currentLang];
+            const lvlData = data.levels[level];
+            const container = document.getElementById('hud-container');
+            
+            if(!isInit) container.classList.add('hud-updating');
+            
+            // Update root variables for glow/colors
+            document.documentElement.style.setProperty('--hud-color', hudColors[level].hex);
+            document.documentElement.style.setProperty('--hud-color-rgb', hudColors[level].rgb);
+            
+            // Update labels
+            [1, 2, 3].forEach(num => {
+                const lbl = document.getElementById(`hud-lbl-lvl${num}`);
+                if (num == level) {
+                    lbl.classList.add('slider-lbl-active');
+                } else {
+                    lbl.classList.remove('slider-lbl-active');
+                }
+            });
+
+            const applyData = () => {
+                document.getElementById('hud-lbl-ctx').innerText = data.labels.ctx;
+                document.getElementById('hud-lbl-gap').innerText = data.labels.gap;
+                document.getElementById('hud-lbl-sol').innerText = data.labels.sol;
+                document.getElementById('hud-lbl-roi').innerText = data.labels.roi;
+                
+                document.getElementById('hud-main-icon').innerHTML = hudIcons[level];
+                document.getElementById('hud-stage-title').innerText = lvlData.stage_title;
+                document.getElementById('hud-stage-sub').innerText = lvlData.stage_sub;
+                
+                document.getElementById('hud-ctx-val').innerText = lvlData.ctx_val;
+                document.getElementById('hud-ctx-title').innerText = lvlData.ctx_title;
+                document.getElementById('hud-ctx-det').innerText = lvlData.ctx_det;
+                
+                document.getElementById('hud-gap-val').innerText = lvlData.gap_val;
+                document.getElementById('hud-gap-title').innerText = lvlData.gap_title;
+                document.getElementById('hud-gap-det').innerText = lvlData.gap_det;
+                
+                document.getElementById('hud-sol-val').innerText = lvlData.sol_val;
+                document.getElementById('hud-sol-title').innerText = lvlData.sol_title;
+                document.getElementById('hud-sol-det').innerText = lvlData.sol_det;
+                
+                document.getElementById('hud-roi-val').innerText = lvlData.roi_val;
+                document.getElementById('hud-roi-title').innerText = lvlData.roi_title;
+                document.getElementById('hud-roi-det').innerText = lvlData.roi_det;
+                
+                if(!isInit) container.classList.remove('hud-updating');
+            };
+
+            if (isInit) applyData();
+            else setTimeout(applyData, 400); // Wait for fade out
+        }
+
+        function renderNav() {
+            const navContainer = document.getElementById('nav-container');
+            navContainer.innerHTML = '';
+            translations[currentLang].nav.forEach((item, index) => {
+                const btn = document.createElement('button');
+                btn.className = `nav-btn ${index === currentTab ? 'active' : ''}`;
+                btn.innerText = item;
+                btn.onclick = () => switchTab(index);
+                navContainer.appendChild(btn);
+
+                // Submenu para "O Método" (índice 3)
+                if (index === 3) {
+                    const subContainer = document.createElement('div');
+                    subContainer.className = `sub-nav-container ${currentTab === 3 ? 'open' : ''}`;
+                    subContainer.id = 'method-sub-nav';
+                    
+                    translations[currentLang].sub_nav.forEach((subItem, subIndex) => {
+                        const subBtn = document.createElement('button');
+                        subBtn.className = 'sub-nav-btn';
+                        subBtn.innerText = subItem;
+                        subBtn.onclick = (e) => {
+                            e.stopPropagation(); 
+                            scrollToModule(subIndex + 1, subBtn);
+                        };
+                        subContainer.appendChild(subBtn);
+                    });
+                    navContainer.appendChild(subContainer);
+                }
+            });
+        }
+
+        function navigateModule(direction) {
+            currentModuleIndex += direction;
+            if (currentModuleIndex > 5) currentModuleIndex = 1;
+            if (currentModuleIndex < 1) currentModuleIndex = 5;
+            
+            const subBtns = document.querySelectorAll('.sub-nav-btn');
+            scrollToModule(currentModuleIndex, subBtns[currentModuleIndex-1]);
+        }
+
+        function scrollToModule(moduleNumber, btnElement) {
+            currentModuleIndex = moduleNumber;
+            if (currentTab !== 3) { switchTab(3); }
+            
+            document.querySelectorAll('.sub-nav-btn').forEach(b => b.classList.remove('active-sub'));
+            if(btnElement) { btnElement.classList.add('active-sub'); }
+
+            // Update display label
+            const labelKey = `Módulo ${moduleNumber}`;
+            document.getElementById('current-module-display').innerText = labelKey;
+
+            setTimeout(() => {
+                const moduleEl = document.getElementById(`modulo-${moduleNumber}`);
+                const container = document.querySelector('#tab-3 .method-container');
+                if (moduleEl && container) {
+                    const topPos = moduleEl.offsetTop - container.offsetTop - 80; 
+                    container.scrollTo({ top: topPos, behavior: 'smooth' });
+                    
+                    const originalShadow = moduleEl.style.boxShadow;
+                    const originalBorder = moduleEl.style.borderColor;
+                    moduleEl.style.transition = 'all 0.4s ease';
+                    moduleEl.style.borderColor = 'var(--theme-primary)';
+                    moduleEl.style.boxShadow = '0 0 20px var(--theme-primary)';
+                    
+                    setTimeout(() => {
+                        moduleEl.style.borderColor = originalBorder || '#E0E0E0';
+                        moduleEl.style.boxShadow = originalShadow || '0 4px 15px rgba(0,0,0,0.02)';
+                    }, 1500);
+                }
+            }, currentTab !== 3 ? 300 : 50);
+        }
+
+        function setupLightbox() {
+            const modal = document.getElementById('image-modal');
+            const modalImg = document.getElementById('modal-image-view');
+            const modalPlaceholder = document.getElementById('modal-placeholder-view');
+            const closeBtn = document.querySelector('.close-modal');
+            const prevBtn = document.querySelector('.prev-modal');
+            const nextBtn = document.querySelector('.next-modal');
+            
+            const galleryItems = Array.from(document.querySelectorAll('.slide-placeholder, .acc-sop-card'));
+            let currentIndex = 0;
+
+            const renderModalContent = (index) => {
+                if (index < 0) index = galleryItems.length - 1;
+                if (index >= galleryItems.length) index = 0;
+                currentIndex = index;
+
+                const ph = galleryItems[currentIndex];
+                let img = null;
+                if(currentLang === 'es' || currentLang === 'en') {
+                    img = ph.querySelector('img.img-es') || ph.querySelector('img');
+                } else {
+                    img = ph.querySelector('img.img-pt') || ph.querySelector('img');
+                }
+
+                if (img && img.src && !img.src.includes('URL_IMAGEN')) {
+                    modalImg.src = img.src; 
+                    modalImg.style.display = 'block'; 
+                    modalPlaceholder.style.display = 'none';
+                } else {
+                    modalImg.style.display = 'none'; 
+                    modalPlaceholder.innerHTML = ph.outerHTML; 
+                    modalPlaceholder.style.display = 'flex';
+                    if(modalPlaceholder.firstElementChild) {
+                        modalPlaceholder.firstElementChild.style.cursor = 'default';
+                        modalPlaceholder.firstElementChild.style.margin = '0';
+                    }
+                }
+            };
+
+            galleryItems.forEach((ph, index) => {
+                ph.addEventListener('click', () => {
+                    modal.style.display = 'flex';
+                    setTimeout(() => modal.classList.add('active'), 10);
+                    renderModalContent(index);
+                });
+            });
+
+            prevBtn.addEventListener('click', (e) => { e.stopPropagation(); renderModalContent(currentIndex - 1); });
+            nextBtn.addEventListener('click', (e) => { e.stopPropagation(); renderModalContent(currentIndex + 1); });
+
+            const closeModal = () => { modal.classList.remove('active'); setTimeout(() => modal.style.display = 'none', 300); };
+            closeBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+            window.addEventListener('keydown', (e) => { 
+                if (modal.classList.contains('active')) {
+                    if (e.key === 'Escape') closeModal();
+                    if (e.key === 'ArrowLeft') renderModalContent(currentIndex - 1);
+                    if (e.key === 'ArrowRight') renderModalContent(currentIndex + 1);
+                }
+            });
+        }
+
+        function setLang(lang) {
+            if(currentLang === lang) return;
+            currentLang = lang;
+            document.body.classList.remove('lang-pt', 'lang-es', 'lang-en');
+            document.body.classList.add(`lang-${lang}`);
+            
+            document.getElementById('btn-pt').classList.toggle('active', lang === 'pt');
+            document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            
+            renderNav();
+            updateText();
+            updateHUD(document.getElementById('hud-slider').value, true);
+            updateNeonTitle();
+        }
+
+        function updateNeonTitle() {
+            const title = document.querySelector('h1[data-i18n="t3_main_title"]');
+            if(title) {
+                title.classList.remove('neon-title-pt', 'neon-title-es', 'neon-title-en');
+                title.classList.add(`neon-title-${currentLang}`);
+            }
+        }
+
+        function updateText() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if(translations[currentLang][key]) {
+                    if (el.tagName.toLowerCase() === 'strong' || el.tagName.toLowerCase() === 'span') {
+                         el.innerHTML = translations[currentLang][key]; 
+                    } else {
+                         el.innerText = translations[currentLang][key];
+                    }
+                } else if (translations['es'][key]) {
+                    // Fallback to Spanish per instructions
+                     el.innerText = translations['es'][key];
+                }
+            });
+        }
+
+        function switchTab(index) {
+            if(index === currentTab) return;
+            const btns = document.querySelectorAll('.nav-btn');
+            btns[currentTab].classList.remove('active');
+            btns[index].classList.add('active');
+
+            const subNav = document.getElementById('method-sub-nav');
+            if (subNav) {
+                if (index === 3) { subNav.classList.add('open'); } 
+                else {
+                    subNav.classList.remove('open');
+                    document.querySelectorAll('.sub-nav-btn').forEach(b => b.classList.remove('active-sub'));
+                }
+            }
+
+            const oldTab = document.getElementById(`tab-${currentTab}`);
+            const newTab = document.getElementById(`tab-${index}`);
+            oldTab.style.opacity = '0'; oldTab.style.transform = 'translateY(10px)';
+            setTimeout(() => {
+                oldTab.classList.remove('active'); newTab.classList.add('active');
+                void newTab.offsetWidth; newTab.style.opacity = '1'; newTab.style.transform = 'translateY(0)';
+            }, 200); 
+            currentTab = index;
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
