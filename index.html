@@ -1007,7 +1007,7 @@
                     <p style="font-size: 1.5rem; color: var(--text-secondary); max-width: 600px; margin-bottom: 2rem;" data-i18n="home_sub"></p>
 
                     <!-- HOME VIDEO BUTTON -->
-                    <div class="neon-play-trigger" onclick="openVideoPlayer('z5bxVeaKtkg')">
+                    <div class="neon-play-trigger" onclick="openVideoPlayer(getHomeVideoId())">
                         <div class="play-pulse"></div>
                         <div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                         <span class="play-label" data-i18n="vid_label"></span>
@@ -2277,6 +2277,7 @@
                 nav_ctrl_label: "Módulo 1",
                 vid_label: "Vea el vídeo",
                 cert_label: "Tome el examen de IMPULSO",
+                home_video_id: "fRnY3GeSNPc",
                 home_title: "Bienvenido a IMPULSO",
                 home_sub: "Metodología y Go-To-Market de ClickUp. Hecho a medida para América Latina.",
                 t1_title: "Liderazgo Técnico Estratégico",
@@ -2745,6 +2746,15 @@
         window.addEventListener('DOMContentLoaded', init);
     
 /* --- VIDEO PLAYER & DRAG LOGIC --- */
+        function getHomeVideoId() {
+    if (document.body.classList.contains('lang-es')) {
+        return translations.es.home_video_id;
+    }
+    if (document.body.classList.contains('lang-en')) {
+        return translations.en.home_video_id;
+    }
+    return translations.pt?.home_video_id || translations.en.home_video_id;
+}
 function openVideoPlayer(videoId) {
     const overlay = document.getElementById('video-pip-overlay');
     const container = document.getElementById('video-frame-container');
