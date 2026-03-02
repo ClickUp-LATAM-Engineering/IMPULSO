@@ -1019,7 +1019,7 @@
             <div class="tab-content" id="tab-1">
                 <div style="display: flex; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap;">
                     <h1 data-i18n="t1_title" style="margin: 0; line-height: 1;"></h1>
-                    <div class="neon-play-trigger" onclick="openVideoPlayer('lMOwTQs2mUA')" style="margin-left:1.5rem;">
+                    <div class="neon-play-trigger" onclick="openVideoPlayer(getHomeVideoId())" style="margin-left:1.5rem;">
                         <div class="play-pulse"></div>
                         <div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                         <span class="play-label" data-i18n="vid_label"></span>
@@ -1888,6 +1888,7 @@
                 sub_nav: ["STRATEGY", "INTAKE", "EXECUTION", "REPORTING", "PTA"],
                 nav_ctrl_label: "Module 1",
                 vid_label: "Watch the video",
+                home_video_id: "lMOwTQs2mUA",
                 cert_label: "Take the IMPULSO exam",
                 home_title: "Welcome to IMPULSO",
                 home_sub: "ClickUp Methodology and Go-To-Market. Tailor-made for Latin America.",
@@ -2744,6 +2745,16 @@
         }
 
         window.addEventListener('DOMContentLoaded', init);
+
+        function getHomeVideoId() {
+    if (document.body.classList.contains('lang-es')) {
+        return translations.es.home_video_id;
+    }
+    if (document.body.classList.contains('lang-en')) {
+        return translations.en.home_video_id;
+    }
+    return translations.pt?.home_video_id || translations.en.home_video_id;
+}
     
 /* --- VIDEO PLAYER & DRAG LOGIC --- */
         function getHomeVideoId() {
