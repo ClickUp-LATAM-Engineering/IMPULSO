@@ -1276,9 +1276,10 @@
                             <!-- ACCELERATE SOP CARD INJECTION -->
                             <div class="acc-sop-wrapper">
                                 <div class="acc-sop-card sop-theme-accel">
-                                    <div class="acc-sop-header">
-                                        <h2 class="acc-sop-title">ClickUp ACCELERATE</h2>
-                                        <span class="acc-sop-badge" data-i18n="sop_m3_badge"></span>
+                                    <div class="acc-sop-header" style="display: flex; align-items: center; justify-content: space-between;">
+                                    <!-- Aquí el logo reemplaza al texto -->
+                                            <img src="ClickUpAccelerate.png" alt="Accelerate Logo" style="height: 35px; width: auto;">
+                                         <span class="acc-sop-badge" data-i18n="sop_m3_badge"></span>
                                     </div>
                                     <div class="acc-sop-body">
                                         <div class="acc-sop-col">
@@ -2659,6 +2660,9 @@
                 currentIndex = index;
 
                 const ph = galleryItems[currentIndex];
+                // DETECTOR: ¿Es una tarjeta SOP?
+                const isSopCard = ph.classList.contains('acc-sop-card');
+
                 let img = null;
                 if(currentLang === 'es' || currentLang === 'en') {
                     img = ph.querySelector('img.img-es') || ph.querySelector('img');
@@ -2666,7 +2670,9 @@
                     img = ph.querySelector('img.img-pt') || ph.querySelector('img');
                 }
 
-                if (img && img.src && !img.src.includes('URL_IMAGEN')) {
+                // Si NO es tarjeta y tiene imagen, zoom a la imagen.
+                // Si ES tarjeta, ignoramos la imagen y copiamos el HTML completo.
+                if (!isSopCard && img && img.src && !img.src.includes('URL_IMAGEN')) {
                     modalImg.src = img.src; 
                     modalImg.style.display = 'block'; 
                     modalPlaceholder.style.display = 'none';
@@ -2677,6 +2683,7 @@
                     if(modalPlaceholder.firstElementChild) {
                         modalPlaceholder.firstElementChild.style.cursor = 'default';
                         modalPlaceholder.firstElementChild.style.margin = '0';
+                        modalPlaceholder.firstElementChild.style.boxShadow = 'none';
                     }
                 }
             };
