@@ -966,7 +966,43 @@
 .play-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-primary); }
 @keyframes living-pulse { 0% { transform: scale(1); opacity: 0.8; } 70% { transform: scale(1.9); opacity: 0; } 100% { transform: scale(1); opacity: 0; } }
 
-</style>
+
+        /* ============ RESOURCES TAB ============ */
+        .resource-tile { cursor: pointer; position: relative; transition: all 0.3s var(--ease-apple); }
+        .resource-tile:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--theme-primary); }
+        .resource-tile-arrow { position: absolute; bottom: 1.2rem; right: 1.4rem; font-size: 1.4rem; color: var(--theme-primary); opacity: 0; transform: translateX(-8px); transition: all 0.3s var(--ease-apple); }
+        .resource-tile:hover .resource-tile-arrow { opacity: 1; transform: translateX(0); }
+
+        .resource-back-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-button); padding: 0.6rem 1.2rem; font-family: var(--font-stack); font-size: 0.95rem; color: var(--text-primary); cursor: pointer; transition: all 0.25s var(--ease-apple); backdrop-filter: blur(10px); }
+        .resource-back-btn:hover { border-color: var(--theme-primary); color: var(--theme-primary); transform: translateX(-3px); }
+        .resource-back-btn span:first-child { font-size: 1.1rem; }
+
+        .resource-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 0.5rem; }
+
+        .resource-card { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-card); overflow: hidden; cursor: pointer; transition: all 0.3s var(--ease-apple); backdrop-filter: blur(20px); display: flex; flex-direction: column; }
+        .resource-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--theme-primary); }
+
+        .resource-card-media { position: relative; height: 150px; background: var(--theme-gradient); display: flex; align-items: center; justify-content: center; }
+        .resource-card-media.media-deck { background: linear-gradient(135deg, #64748B 0%, #334155 100%); }
+        .resource-play-icon, .resource-doc-icon { color: rgba(255,255,255,0.95); transition: transform 0.3s var(--ease-apple); }
+        .resource-card:hover .resource-play-icon { transform: scale(1.15); }
+
+        .resource-type-badge { position: absolute; top: 0.75rem; left: 0.75rem; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.06em; padding: 3px 8px; border-radius: 5px; background: rgba(0,0,0,0.35); color: #fff; backdrop-filter: blur(4px); }
+        .resource-lang-badge { position: absolute; top: 0.75rem; right: 0.75rem; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.04em; padding: 3px 8px; border-radius: 5px; color: #fff; backdrop-filter: blur(4px); }
+        .resource-lang-badge.lang-es { background: rgba(5,179,244,0.85); }
+        .resource-lang-badge.lang-pt { background: rgba(0,138,68,0.85); }
+        .resource-lang-badge.lang-en { background: rgba(138,43,226,0.85); }
+
+        .resource-card-body { padding: 1.1rem 1.2rem 1.3rem; flex: 1; }
+        .resource-card-body h4 { margin: 0 0 0.4rem 0; font-size: 1.05rem; font-weight: 600; color: var(--text-primary); font-family: var(--font-method-head); }
+        .resource-card-body p { margin: 0; font-size: 0.85rem; line-height: 1.5; color: var(--text-secondary); }
+
+        @media (max-width: 768px) {
+            .resource-cards-grid { grid-template-columns: 1fr; }
+        }
+        /* ============ END RESOURCES TAB ============ */
+
+    </style>
 </head>
 <body>
 
@@ -1627,73 +1663,124 @@
                     <div class="method-header" style="border-bottom: none; padding-bottom: 0; margin-bottom: 1rem;">
                         <div style="display: flex; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap;">
                             <h1 data-i18n="t4_main_title" style="margin: 0; line-height: 1;"></h1>
-                            <div class="neon-play-trigger" onclick="openVideoPlayer('ZTgbD7zwLa8')" style="margin-left:1.5rem;">
-                                <div class="play-pulse"></div>
-                                <div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-                                <span class="play-label" data-i18n="vid_label"></span>
-                            </div>
                         </div>
                         <p data-i18n="t4_main_sub" style="font-size: 1.2rem; color: var(--text-secondary); max-width: 800px;"></p>
                     </div>
 
-                    <div class="solution-grid">
-                        <!-- Super Agents -->
-                        <div class="solution-card">
+                    <!-- ============ TILE SELECTOR VIEW ============ -->
+                    <div id="resources-tile-view" class="solution-grid">
+                        <!-- Tile 1: Demo Videos & Resources -->
+                        <div class="solution-card resource-tile" onclick="openResourceCategory('videos')">
                             <div class="card-icon super-agent-icon">
-                                <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                             </div>
-                            <span class="blueprint-badge ai-badge" data-i18n="t4_badge_ai"></span>
-                            <h3 data-i18n="t4_c1_title"></h3>
-                            <p data-i18n="t4_c1_desc"></p>
+                            <span class="blueprint-badge ai-badge" data-i18n="t4_tile1_badge"></span>
+                            <h3 data-i18n="t4_tile1_title"></h3>
+                            <p data-i18n="t4_tile1_desc"></p>
+                            <div class="resource-tile-arrow">→</div>
                         </div>
 
-                        <!-- Certified Agents -->
-                        <div class="solution-card">
+                        <!-- Tile 2: Sales -->
+                        <div class="solution-card resource-tile" onclick="openResourceCategory('sales')">
                             <div class="card-icon certified-agent-icon">
-                                <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                                <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                             </div>
-                            <span class="blueprint-badge ai-badge" data-i18n="t4_badge_ai"></span>
-                            <h3 data-i18n="t4_c2_title"></h3>
-                            <p data-i18n="t4_c2_desc"></p>
+                            <span class="blueprint-badge displace-badge" data-i18n="t4_tile2_badge"></span>
+                            <h3 data-i18n="t4_tile2_title"></h3>
+                            <p data-i18n="t4_tile2_desc"></p>
+                            <div class="resource-tile-arrow">→</div>
+                        </div>
+                    </div>
+
+                    <!-- ============ CATEGORY LIST VIEW ============ -->
+                    <div id="resources-list-view" style="display:none;">
+                        <button class="resource-back-btn" onclick="closeResourceCategory()">
+                            <span>←</span> <span data-i18n="t4_back_label"></span>
+                        </button>
+                        <h2 id="resource-category-title" style="margin: 1rem 0 1.5rem 0; font-family: var(--font-method-head);"></h2>
+
+                        <!-- VIDEOS CATEGORY -->
+                        <div id="resource-cards-videos" class="resource-cards-grid" style="display:none;">
+                            <!-- Card 1: REAL — Spanish demo -->
+                            <div class="resource-card" onclick="openVideoPlayer('17NnQyJoUQU')">
+                                <div class="resource-card-media">
+                                    <div class="resource-play-icon"><svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+                                    <span class="resource-type-badge type-video">VIDEO</span>
+                                    <span class="resource-lang-badge lang-es">ES</span>
+                                </div>
+                                <div class="resource-card-body">
+                                    <h4>Demo ClickUp — Español</h4>
+                                    <p>Demostración completa de la plataforma ClickUp en español para partners LATAM.</p>
+                                </div>
+                            </div>
+
+                            <!-- Card 2: PLACEHOLDER deck -->
+                            <div class="resource-card" onclick="window.open('PASTE_DOWNLOAD_URL_HERE','_blank')">
+                                <div class="resource-card-media media-deck">
+                                    <div class="resource-doc-icon"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
+                                    <span class="resource-type-badge type-deck">DECK</span>
+                                    <span class="resource-lang-badge lang-es">ES</span>
+                                </div>
+                                <div class="resource-card-body">
+                                    <h4>Guía de Implementación IER</h4>
+                                    <p>Metodología paso a paso para estructurar workspaces de clientes. [Editar título / pegar URL]</p>
+                                </div>
+                            </div>
+
+                            <!-- Card 3: PLACEHOLDER deck -->
+                            <div class="resource-card" onclick="window.open('PASTE_DOWNLOAD_URL_HERE','_blank')">
+                                <div class="resource-card-media media-deck">
+                                    <div class="resource-doc-icon"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
+                                    <span class="resource-type-badge type-deck">DECK</span>
+                                    <span class="resource-lang-badge lang-pt">PT</span>
+                                </div>
+                                <div class="resource-card-body">
+                                    <h4>Playbook de Onboarding de Parceiros</h4>
+                                    <p>Guia de ativação para novos parceiros no ecossistema ClickUp. [Editar título / colar URL]</p>
+                                </div>
+                            </div>
                         </div>
 
-                        <!-- Agile PMO Architect -->
-                        <div class="solution-card">
-                            <div class="card-icon pmo-icon">
-                                <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        <!-- SALES CATEGORY -->
+                        <div id="resource-cards-sales" class="resource-cards-grid" style="display:none;">
+                            <!-- Card 1: PLACEHOLDER deck -->
+                            <div class="resource-card" onclick="window.open('PASTE_DOWNLOAD_URL_HERE','_blank')">
+                                <div class="resource-card-media media-deck">
+                                    <div class="resource-doc-icon"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
+                                    <span class="resource-type-badge type-deck">DECK</span>
+                                    <span class="resource-lang-badge lang-es">ES</span>
+                                </div>
+                                <div class="resource-card-body">
+                                    <h4>Pitch Comercial ClickUp LATAM</h4>
+                                    <p>Presentación de ventas para prospectos empresariales en la región. [Editar título / pegar URL]</p>
+                                </div>
                             </div>
-                            <span class="blueprint-badge displace-badge" data-i18n="t4_badge_jira"></span>
-                            <h3 data-i18n="t4_c3_title"></h3>
-                            <p data-i18n="t4_c3_desc"></p>
-                        </div>
 
-                        <!-- Marketing Operations Hub -->
-                        <div class="solution-card">
-                            <div class="card-icon mkt-icon">
-                                <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path></svg>
+                            <!-- Card 2: PLACEHOLDER deck -->
+                            <div class="resource-card" onclick="window.open('PASTE_DOWNLOAD_URL_HERE','_blank')">
+                                <div class="resource-card-media media-deck">
+                                    <div class="resource-doc-icon"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
+                                    <span class="resource-type-badge type-deck">DECK</span>
+                                    <span class="resource-lang-badge lang-pt">PT</span>
+                                </div>
+                                <div class="resource-card-body">
+                                    <h4>Battlecard vs. Concorrência</h4>
+                                    <p>Comparativo competitivo contra Monday, Asana e Jira. [Editar título / colar URL]</p>
+                                </div>
                             </div>
-                            <span class="blueprint-badge displace-badge" data-i18n="t4_badge_monday"></span>
-                            <h3 data-i18n="t4_c4_title"></h3>
-                            <p data-i18n="t4_c4_desc"></p>
-                        </div>
 
-                        <!-- GRC & Security Standard -->
-                        <div class="solution-card">
-                            <div class="card-icon grc-icon">
-                                <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            <!-- Card 3: PLACEHOLDER video -->
+                            <div class="resource-card" onclick="openVideoPlayer('PASTE_YOUTUBE_ID')">
+                                <div class="resource-card-media">
+                                    <div class="resource-play-icon"><svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+                                    <span class="resource-type-badge type-video">VIDEO</span>
+                                    <span class="resource-lang-badge lang-en">EN</span>
+                                </div>
+                                <div class="resource-card-body">
+                                    <h4>How to Sell ClickUp — Masterclass</h4>
+                                    <p>Sales enablement session on positioning ClickUp to enterprise buyers. [Edit title / paste YouTube ID]</p>
+                                </div>
                             </div>
-                            <span class="blueprint-badge shield-badge" data-i18n="t4_badge_shield"></span>
-                            <h3 data-i18n="t4_c5_title"></h3>
-                            <p data-i18n="t4_c5_desc"></p>
-                        </div>
-
-                        <!-- Placeholder -->
-                        <div class="solution-card placeholder-card">
-                            <div class="card-icon placeholder-icon">
-                                <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                            </div>
-                            <h3 data-i18n="t4_c6_title"></h3>
-                            <p data-i18n="t4_c6_desc" style="color: #94A3B8;"></p>
                         </div>
                     </div>
 
@@ -1909,7 +1996,7 @@
 
         const translations = {
             en: {
-                nav: ["HOME", "MANIFESTO", "THE CROSSING", "THE METHOD", "ARCHETYPES", "GOVERNANCE"],
+                nav: ["HOME", "MANIFESTO", "THE CROSSING", "THE METHOD", "RESOURCES", "GOVERNANCE"],
                 sub_nav: ["STRATEGY", "INTAKE", "EXECUTION", "REPORTING", "PTA"],
                 nav_ctrl_label: "Module 1",
                 vid_label: "Watch the video",
@@ -2082,29 +2169,22 @@
                 sop_m5_col3_i3_desc: "Exclusive official technical community chat.",
                 sop_m5_footer_title: "USAGE AUDIT (FOCO INITIATIVE)",
                 sop_m5_footer_text: "Engineering provides the data intelligence. Execution and normalization are led by <strong>Nathalie True (Principal CAE)</strong>.",
-                t4_main_title: "Solution Library",
-                t4_main_sub: "ClickUp is a Business Operating System. Address the 'Maturity Gap' by delivering Foundational Excellence.",
-                t4_badge_ai: "AI Powered",
-                t4_badge_jira: "Replaces Jira",
-                t4_badge_monday: "Replaces Monday",
-                t4_badge_shield: "Enterprise Shield",
-                t4_c1_title: "Super Agents",
-                t4_c1_desc: "End-to-end autonomous automation for complex corporate workflows.",
-                t4_c2_title: "Certified Agents",
-                t4_c2_desc: "Pre-validated agents for specific niche use cases.",
-                t4_c3_title: "Agile PMO Architect",
-                t4_c3_desc: "Blueprint for complex project portfolios and agile engineering teams.",
-                t4_c4_title: "Marketing Operations Hub",
-                t4_c4_desc: "Blueprint for campaign execution at scale and cross-functional visibility.",
-                t4_c5_title: "GRC & Security Standard",
-                t4_c5_desc: "Blueprint for compliance, risk management, and auditable security.",
-                t4_c6_title: "Add Blueprint",
-                t4_c6_desc: "Upload validated reference architectures.",
+                t4_main_title: "Resources",
+                t4_main_sub: "Enablement library for LATAM partners. Demo videos, decks, and sales materials, all in one place.",
+                t4_tile1_title: "Demo Videos & Resources",
+                t4_tile1_desc: "Product demos, walkthroughs, and enablement decks for your team.",
+                t4_tile1_badge: "Enablement",
+                t4_tile2_title: "Sales",
+                t4_tile2_desc: "Pitch decks, battlecards, and commercial materials to help you close.",
+                t4_tile2_badge: "Commercial",
+                t4_back_label: "Back to Resources",
+                t4_cat_videos: "Demo Videos & Resources",
+                t4_cat_sales: "Sales",
                 t4_banner_strong: "Strategic Value: Copy and Paste Success.",
                 t4_banner_span: "Ensures a predictable Future State across Brazil and Mexico operations."
             },
             pt: {
-                nav: ["HOME", "MANIFESTO", "A TRAVESSIA", "O MÉTODO", "ARQUÉTIPOS", "GOVERNANÇA"],
+                nav: ["HOME", "MANIFESTO", "A TRAVESSIA", "O MÉTODO", "RECURSOS", "GOVERNANÇA"],
                 sub_nav: ["ESTRATÉGIA", "INTAKE", "EXECUTION", "REPORTING", "PTA"],
                 nav_ctrl_label: "Módulo 1",
                 vid_label: "Assista o vídeo",
@@ -2277,29 +2357,22 @@
                 sop_m5_col3_i3_desc: "Chat oficial exclusivo e dedicado à comunidade técnica.",
                 sop_m5_footer_title: "AUDITORIA DE USO (INICIATIVA FOCO)",
                 sop_m5_footer_text: "Engineering provê os dados. Negociação liderada por <strong>Nathalie True (Principal CAE)</strong>.",
-                t4_main_title: "Biblioteca de Soluções",
-                t4_main_sub: "O ClickUp é um Business Operating System. Aborde o 'Maturity Gap' entregando Excelência Fundacional.",
-                t4_badge_ai: "AI Powered",
-                t4_badge_jira: "Substitui Jira",
-                t4_badge_monday: "Substitui Monday",
-                t4_badge_shield: "Enterprise Shield",
-                t4_c1_title: "Super Agents",
-                t4_c1_desc: "Automação autônoma de ponta a ponta para fluxos de trabalho corporativos complexos.",
-                t4_c2_title: "Certified Agents",
-                t4_c2_desc: "Agentes pré-validados para casos de uso de nichos específicos.",
-                t4_c3_title: "Agile PMO Architect",
-                t4_c3_desc: "Blueprint para portfólios de projetos complexos e equipes ágeis.",
-                t4_c4_title: "Marketing Operations Hub",
-                t4_c4_desc: "Blueprint para execução de campanhas em escala e visibilidade multifuncional.",
-                t4_c5_title: "GRC & Security Standard",
-                t4_c5_desc: "Blueprint para conformidade, gestão de riscos e segurança auditável.",
-                t4_c6_title: "Adicionar Blueprint",
-                t4_c6_desc: "Faça o upload de novas arquiteturas de referência validadas.",
+                t4_main_title: "Recursos",
+                t4_main_sub: "Biblioteca de capacitação para parceiros LATAM. Vídeos demo, apresentações e materiais de vendas, tudo em um só lugar.",
+                t4_tile1_title: "Vídeos Demo e Recursos",
+                t4_tile1_desc: "Demonstrações de produto, tutoriais e apresentações de capacitação para sua equipe.",
+                t4_tile1_badge: "Capacitação",
+                t4_tile2_title: "Vendas",
+                t4_tile2_desc: "Apresentações comerciais, battlecards e materiais para ajudar você a fechar.",
+                t4_tile2_badge: "Comercial",
+                t4_back_label: "Voltar aos Recursos",
+                t4_cat_videos: "Vídeos Demo e Recursos",
+                t4_cat_sales: "Vendas",
                 t4_banner_strong: "Valor Estratégico: Copiar e Colar o Sucesso.",
                 t4_banner_span: "Garante um Estado Futuro previsível em toda a operação."
             },
             es: {
-                nav: ["INICIO", "MANIFIESTO", "LA TRAVESÍA", "EL MÉTODO", "ARQUETIPOS", "GOBERNANZA"],
+                nav: ["INICIO", "MANIFIESTO", "LA TRAVESÍA", "EL MÉTODO", "RECURSOS", "GOBERNANZA"],
                 sub_nav: ["ESTRATEGIA", "INTAKE", "EXECUTION", "REPORTING", "PTA"],
                 nav_ctrl_label: "Módulo 1",
                 vid_label: "Vea el vídeo",
@@ -2472,24 +2545,17 @@
                 sop_m5_col3_i3_desc: "Chat oficial exclusivo y dedicado a la comunidad técnica.",
                 sop_m5_footer_title: "AUDITORÍA DE USO (INICIATIVA FOCO)",
                 sop_m5_footer_text: "Engineering provee los datos. Negociación liderada por <strong>Nathalie True (Principal CAE)</strong>.",
-                t4_main_title: "Biblioteca de Soluciones",
-                t4_main_sub: " es un Sistema Operativo de Negocios. Aborda el 'Maturity Gap' entregando Excelencia Fundacional.",
-                t4_badge_ai: "AI Powered",
-                t4_badge_jira: "Reemplaza a Jira",
-                t4_badge_monday: "Reemplaza a Monday",
-                t4_badge_shield: "Enterprise Shield",
-                t4_c1_title: "Super Agents",
-                t4_c1_desc: "Automatización autónoma de extremo a extremo para flujos de trabajo empresariales complejos.",
-                t4_c2_title: "Certified Agents",
-                t4_c2_desc: "Agentes pre-validados para casos de uso de nicho específicos.",
-                t4_c3_title: "Agile PMO Architect",
-                t4_c3_desc: "Blueprint para portafolios de proyectos complejos y equipos ágiles.",
-                t4_c4_title: "Marketing Operations Hub",
-                t4_c4_desc: "Blueprint para ejecución de campañas a escala y visibilidad multifuncional.",
-                t4_c5_title: "GRC & Security Standard",
-                t4_c5_desc: "Blueprint para cumplimiento, gestión de riesgos y protocolos de seguridad auditables.",
-                t4_c6_title: "Añadir Blueprint",
-                t4_c6_desc: "Carga nuevas arquitecturas de referencia validadas.",
+                t4_main_title: "Recursos",
+                t4_main_sub: "Biblioteca de capacitación para partners LATAM. Videos demo, presentaciones y materiales de ventas, todo en un solo lugar.",
+                t4_tile1_title: "Videos Demo y Recursos",
+                t4_tile1_desc: "Demostraciones de producto, tutoriales y presentaciones de capacitación para tu equipo.",
+                t4_tile1_badge: "Capacitación",
+                t4_tile2_title: "Ventas",
+                t4_tile2_desc: "Presentaciones comerciales, battlecards y materiales para ayudarte a cerrar.",
+                t4_tile2_badge: "Comercial",
+                t4_back_label: "Volver a Recursos",
+                t4_cat_videos: "Videos Demo y Recursos",
+                t4_cat_sales: "Ventas",
                 t4_banner_strong: "Valor Estratégico: Copiar y Pegar el Éxito.",
                 t4_banner_span: "Asegura un Estado Futuro predecible en toda la operación de Brasil y México."
             }
@@ -2751,6 +2817,41 @@
             });
         }
 
+
+        // ============ RESOURCES TAB LOGIC ============
+        function openResourceCategory(category) {
+            document.getElementById('resources-tile-view').style.display = 'none';
+            const listView = document.getElementById('resources-list-view');
+            listView.style.display = 'block';
+
+            document.getElementById('resource-cards-videos').style.display = (category === 'videos') ? 'grid' : 'none';
+            document.getElementById('resource-cards-sales').style.display = (category === 'sales') ? 'grid' : 'none';
+
+            const t = translations[currentLang];
+            const titleKey = (category === 'videos') ? 't4_cat_videos' : 't4_cat_sales';
+            document.getElementById('resource-category-title').innerText = t[titleKey] || '';
+
+            listView.style.opacity = '0';
+            listView.style.transform = 'translateY(10px)';
+            void listView.offsetWidth;
+            listView.style.transition = 'all 0.35s var(--ease-apple)';
+            listView.style.opacity = '1';
+            listView.style.transform = 'translateY(0)';
+        }
+
+        function closeResourceCategory() {
+            document.getElementById('resources-list-view').style.display = 'none';
+            const tileView = document.getElementById('resources-tile-view');
+            tileView.style.display = 'grid';
+            tileView.style.opacity = '0';
+            tileView.style.transform = 'translateY(10px)';
+            void tileView.offsetWidth;
+            tileView.style.transition = 'all 0.35s var(--ease-apple)';
+            tileView.style.opacity = '1';
+            tileView.style.transform = 'translateY(0)';
+        }
+        // ============ END RESOURCES TAB LOGIC ============
+
         function switchTab(index) {
             if(index === currentTab) return;
             const btns = document.querySelectorAll('.nav-btn');
@@ -2774,6 +2875,12 @@
                 void newTab.offsetWidth; newTab.style.opacity = '1'; newTab.style.transform = 'translateY(0)';
             }, 200); 
             currentTab = index;
+            // Reset resources tab to tile view when navigating to it
+            if (index === 4) {
+                const tv = document.getElementById('resources-tile-view');
+                const lv = document.getElementById('resources-list-view');
+                if (tv && lv) { tv.style.display = 'grid'; lv.style.display = 'none'; }
+            }
         }
 
         window.addEventListener('DOMContentLoaded', init);
