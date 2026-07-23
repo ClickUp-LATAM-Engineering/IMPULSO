@@ -2947,55 +2947,6 @@ function makeDraggable(elmnt, handle) {
         <div class="video-aspect-ratio" id="video-frame-container"></div>
     </div>
 </div>
-<!-- ===== WIDGET BUSCADOR FAQ ===== -->
-<div id="faq-fab" onclick="toggleFaqChat()">
-  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fff" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-</div>
-
-<div id="faq-panel">
-  <div id="faq-header">
-    <div style="display:flex;align-items:center;gap:10px;">
-      <div id="faq-header-icon">✦</div>
-      <div>
-        <div id="faq-title" style="font-size:14px;font-weight:600;color:#fff;">Asistente ClickUp</div>
-        <div id="faq-subtitle" style="font-size:11px;color:rgba(255,255,255,0.75);">Resuelve tus dudas de producto</div>
-      </div>
-    </div>
-    <div id="faq-close" onclick="toggleFaqChat()">✕</div>
-  </div>
-  <div id="faq-messages"></div>
-  <div id="faq-suggestions"></div>
-  <div id="faq-input-row">
-    <input id="faq-input" type="text" placeholder="Escribe tu pregunta..." onkeydown="if(event.key==='Enter')faqAsk()">
-    <div id="faq-send" onclick="faqAsk()">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-    </div>
-  </div>
-</div>
-
-<style>
-#faq-fab{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#7b68ee;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 16px rgba(123,104,238,0.4);z-index:9998;transition:transform 0.2s;}
-#faq-fab:hover{transform:scale(1.08);}
-#faq-panel{position:fixed;bottom:92px;right:24px;width:380px;max-width:calc(100vw - 48px);height:520px;max-height:calc(100vh - 130px);background:#fff;border-radius:16px;box-shadow:0 12px 48px rgba(0,0,0,0.18);z-index:9999;display:none;flex-direction:column;overflow:hidden;}
-#faq-panel.open{display:flex;}
-#faq-header{background:#7b68ee;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;}
-#faq-header-icon{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;}
-#faq-close{color:#fff;cursor:pointer;font-size:16px;opacity:0.8;}
-#faq-close:hover{opacity:1;}
-#faq-messages{flex:1;padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;background:#f7f7fa;}
-.faq-msg{max-width:85%;padding:10px 13px;font-size:13px;line-height:1.55;border-radius:14px;}
-.faq-msg-bot{align-self:flex-start;background:#fff;border:0.5px solid #e5e5ee;color:#1a1a2e;border-top-left-radius:4px;}
-.faq-msg-user{align-self:flex-end;background:#7b68ee;color:#fff;border-top-right-radius:4px;}
-#faq-suggestions{padding:8px 12px;display:flex;flex-wrap:wrap;gap:6px;background:#fff;border-top:0.5px solid #eee;}
-.faq-chip{font-size:11px;padding:5px 11px;background:rgba(123,104,238,0.1);color:#5a4bc4;border-radius:20px;cursor:pointer;border:0.5px solid rgba(123,104,238,0.2);}
-.faq-chip:hover{background:rgba(123,104,238,0.18);}
-#faq-input-row{padding:12px;display:flex;gap:8px;align-items:center;border-top:0.5px solid #eee;background:#fff;}
-#faq-input{flex:1;border:0.5px solid #ddd;border-radius:20px;padding:9px 14px;font-size:13px;outline:none;font-family:inherit;}
-#faq-input:focus{border-color:#7b68ee;}
-#faq-send{width:36px;height:36px;border-radius:50%;background:#7b68ee;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
-</style>
-
-<script src="faq.js"></script>
 <script>
 const FAQ_UI = {
   es:{title:"Asistente ClickUp",subtitle:"Resuelve tus dudas de producto",placeholder:"Escribe tu pregunta...",greeting:"Hola 👋 Pregúntame sobre precios, Brain, Super Agents o el programa de partners.",noMatch:"No encontré una respuesta exacta. Prueba con estas preguntas:"},
@@ -3007,6 +2958,23 @@ function faqLang(){
   if(document.body.classList.contains('lang-pt'))return 'pt';
   if(document.body.classList.contains('lang-en'))return 'en';
   return 'es';
+}
+
+function faqNormalize(str){
+  return (str||'')
+    .toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[¿?¡!.,;:()"']/g,' ')
+    .replace(/\s+/g,' ')
+    .trim();
+}
+
+function faqTokens(str){
+  return faqNormalize(str).split(' ').filter(t=>t.length>2);
+}
+
+function faqStem(t){
+  return t.replace(/(aciones|acion|amiento|ando|ciones|cion|mente|ar|er|ir|as|os|es|a|o|s)$/,'');
 }
 
 function toggleFaqChat(){
@@ -3038,13 +3006,38 @@ function faqShowSuggestions(){
   const lang=faqLang();
   const box=document.getElementById('faq-suggestions');
   box.innerHTML='';
-  (window.FAQ_DATA||[]).slice(0,4).forEach(item=>{
+  (window.FAQ_DATA||[]).slice(0,4).forEach((item,idx)=>{
     const chip=document.createElement('div');
     chip.className='faq-chip';
     chip.textContent=item['q_'+lang]||item.q_es;
-    chip.onclick=()=>{document.getElementById('faq-input').value=chip.textContent;faqAsk();};
+    chip.onclick=()=>faqAnswerByIndex(idx);
     box.appendChild(chip);
   });
+}
+
+function faqAnswerByIndex(idx){
+  const lang=faqLang();
+  const item=(window.FAQ_DATA||[])[idx];
+  if(!item)return;
+  faqAddMsg(item['q_'+lang]||item.q_es,'user');
+  faqAddMsg(item['a_'+lang]||item.a_es,'bot');
+}
+
+function faqScore(item, queryTokens, queryNorm){
+  let score=0;
+  const kws=(item.keywords||[]).map(faqNormalize);
+  kws.forEach(k=>{ if(queryNorm.includes(k)||k.includes(queryNorm)) score+=3; });
+  const kwTokens=new Set();
+  kws.forEach(k=>k.split(' ').forEach(t=>{if(t.length>2)kwTokens.add(faqStem(t));}));
+  const lang=faqLang();
+  const qText=faqNormalize(item['q_'+lang]||item.q_es);
+  const qTextTokens=new Set(qText.split(' ').filter(t=>t.length>2).map(faqStem));
+  queryTokens.forEach(qt=>{
+    const st=faqStem(qt);
+    if(kwTokens.has(st)) score+=2;
+    if(qTextTokens.has(st)) score+=2;
+  });
+  return score;
 }
 
 function faqAsk(){
@@ -3054,14 +3047,14 @@ function faqAsk(){
   const lang=faqLang();
   faqAddMsg(q,'user');
   input.value='';
-  const ql=q.toLowerCase();
+  const queryNorm=faqNormalize(q);
+  const queryTokens=faqTokens(q);
   let best=null,bestScore=0;
   (window.FAQ_DATA||[]).forEach(item=>{
-    let score=0;
-    (item.keywords||[]).forEach(k=>{if(ql.includes(k.toLowerCase()))score++;});
-    if(score>bestScore){bestScore=score;best=item;}
+    const s=faqScore(item,queryTokens,queryNorm);
+    if(s>bestScore){bestScore=s;best=item;}
   });
-  if(best && bestScore>0){
+  if(best && bestScore>=2){
     faqAddMsg(best['a_'+lang]||best.a_es,'bot');
   }else{
     faqAddMsg(FAQ_UI[lang].noMatch,'bot');
@@ -3069,6 +3062,5 @@ function faqAsk(){
   }
 }
 </script>
-<!-- ===== FIN WIDGET FAQ ===== -->
 </body>
 </html>
