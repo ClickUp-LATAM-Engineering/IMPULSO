@@ -2592,6 +2592,12 @@
                 document.getElementById(`tab-0`).style.opacity = '1';
                 document.getElementById(`tab-0`).style.transform = 'translateY(0)';
             }, 50);
+
+            // Dispara el popup de bienvenida 1.5 segundos después de cargar
+            // ID: Dwnmo09G314 | Inicio: 98 segundos (1:38)
+            setTimeout(() => {
+                triggerWelcomePopup('Dwnmo09G314', 54); 
+            }, 1500);
         }
 
         function setupHUD() {
@@ -2953,7 +2959,38 @@ function makeDraggable(elmnt, handle) {
         };
     };
 }
+// --- FUNCIONES DEL POPUP DE BIENVENIDA ---
+function triggerWelcomePopup(videoId, startTime = 0) {
+    // Exibe apenas 1 vez por sessão para não bloquear a tela em todo reload
+    if(sessionStorage.getItem('welcomeVideoShown') === 'true') return;
+    sessionStorage.setItem('welcomeVideoShown', 'true');
 
+    const overlay = document.getElementById('welcome-overlay');
+    const container = document.getElementById('welcome-video-container');
+    
+    // Incluye el parámetro &start= para iniciar en el segundo exacto
+    const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&modestbranding=1&rel=0&start=${startTime}`;
+    
+    container.innerHTML = `<iframe width="100%" height="100%" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    
+    overlay.style.display = 'flex';
+    setTimeout(() => overlay.style.opacity = '1', 50);
+}
+
+function closeWelcomePopup() {
+    const overlay = document.getElementById('welcome-overlay');
+    const container = document.getElementById('welcome-video-container');
+    overlay.style.opacity = '0';
+    setTimeout(() => {
+        overlay.style.display = 'none';
+        container.innerHTML = ''; // Corta el video y el audio inmediatamente
+    }, 400);
+}
+
+function goToResources() {
+    closeWelcomePopup();
+    switchTab(4); // Redirige a la pestaña de recursos (Tab 4)
+}
 </script>
 
 <!-- DRAGGABLE PiP PLAYER CONTAINER -->
@@ -3228,7 +3265,28 @@ window.FAQ_TOPICS = {"precios": {"emoji": "💰", "es": "Precios y planes", "pt"
 </script>
 <!-- ===== FIN WIDGET ASISTENTE FAQ ===== -->
 
-
+<!-- =========================================
+     POPUP DE BOAS-VINDAS / BIENVENIDA (VÍDEO BLOQUEANTE)
+     ========================================= -->
+<div id="welcome-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); z-index: 999999; align-items: center; justify-content: center; flex-direction: column; opacity: 0; transition: opacity 0.4s ease;">
+    <div style="background: var(--bg-surface); padding: 2.5rem 2rem; border-radius: 24px; max-width: 800px; width: 90%; box-shadow: 0 30px 60px rgba(0,0,0,0.5); position: relative; border: 1px solid var(--border-color); text-align: center;">
+        
+        <!-- Botão de Fechar / Botón Cerrar [X] -->
+        <div onclick="closeWelcomePopup()" style="position: absolute; top: -15px; right: -15px; background: #EF4444; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4); z-index: 2; border: 2px solid white; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">&times;</div>
+        
+        <h2 style="font-family: var(--font-method-head); margin-bottom: 0.5rem; color: var(--text-primary); font-size: 1.8rem;">Novidade: Aba de Recursos!</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 1rem;">Assista ao vídeo para descobrir todos os materiais de vendas e capacitação que preparamos para você.</p>
+        
+        <!-- Container do iframe -->
+        <div style="width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);" id="welcome-video-container">
+        </div>
+        
+        <!-- Botão que fecha e leva para a aba -->
+        <button onclick="goToResources()" style="margin-top: 1.5rem; padding: 1rem 2.5rem; border: none; border-radius: 50px; background: var(--theme-gradient); color: white; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; font-size: 1rem; transition: transform 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            Acessar Recursos Agora
+        </button>
+    </div>
+</div>
 
 </body>
 </html>
