@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src https://www.youtube-nocookie.com https://www.youtube.com; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <link rel="icon" href="Logomark-gradient.svg" type="image/svg+xml">
     <title>IMPULSO ClickUp | Apresentação</title>
     <!-- Fontes: Playfair (Manifesto), Montserrat & Inter (Método), System (Resto) -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Sometype+Mono:wght@400;500&family=Playfair+Display:wght@600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
         /* Language toggles for images (EN falls back to ES images) */
         .img-es { display: none !important; }
@@ -16,6 +16,7 @@
         body.lang-es .img-es, body.lang-en .img-es { display: block !important; }
 
         /* Accelerate wordmark (replaces missing ClickUpAccelerate.png) */
+        .method-cert-cta { display: flex; justify-content: center; margin: 1rem 0 0.5rem; padding-top: 2rem; border-top: 2px solid #F0F0F0; }
         .acc-wordmark { font-family: var(--font-method-head); font-weight: 800; font-size: 1.6rem; line-height: 1;
             color: #FF0F7B; text-shadow: 0 0 12px rgba(255, 15, 123, 0.45); white-space: nowrap; }
 
@@ -959,7 +960,6 @@
             #current-module-display { min-width: 0; }
 
             /* Governance: video button below the title, not on top of it */
-            #tab-5 .neon-play-trigger { margin: 0.75rem 0 0 0 !important; }
 
             /* Logo moves left so it no longer sits under the assistant button */
             .global-partner-logo { right: auto; left: 1rem; bottom: 1rem; }
@@ -1044,6 +1044,127 @@
         }
         /* ============ END RESOURCES TAB ============ */
 
+
+        /* =====================================================================
+           BRAND REFRESH 2026: ClickUp Artifacts² look
+           Dark shell with per-language glow, light reading panel for content.
+           PT green -> blue · ES official purple -> blue · EN purple -> magenta
+           ===================================================================== */
+        :root, body.lang-pt {
+            --font-stack: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            --font-display: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+            --font-mono: 'Sometype Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+            --font-method-head: var(--font-display);
+            --font-method-body: 'Inter', system-ui, sans-serif;
+            --shell-bg: #101017;
+            --panel-bg: #F7F6FB;
+            --text-primary: #1C1C28;
+            --text-secondary: #5E5E73;
+            --border-color: rgba(28, 28, 40, 0.10);
+            --theme-primary: #0FA968;
+            --theme-secondary: #0091FF;
+            --theme-tertiary: #F5B700;
+            --theme-gradient: linear-gradient(90deg, #00894E 0%, #0FA968 55%, #0091FF 130%);
+            --accent-on-dark: #5FE3A5;
+        }
+        body.lang-es {
+            --theme-primary: #6647F0;
+            --theme-secondary: #0091FF;
+            --theme-tertiary: #FF02F0;
+            --theme-gradient: linear-gradient(90deg, #5B3DF0 0%, #6647F0 45%, #0091FF 110%);
+            --accent-on-dark: #9DB4FF;
+        }
+        body.lang-en {
+            --theme-primary: #8A2BE2;
+            --theme-secondary: #FF02F0;
+            --theme-tertiary: #FC6D2D;
+            --theme-gradient: linear-gradient(90deg, #5B2FE0 0%, #8A2BE2 45%, #FF02F0 120%);
+            --accent-on-dark: #E3A8FF;
+        }
+
+        body { background-color: var(--shell-bg); background-image: none; color: var(--text-primary); font-family: var(--font-stack); }
+        .aurora { opacity: 0.32; filter: blur(110px); }
+        .aurora-3 { opacity: 0.2; }
+
+        .app-window {
+            background: rgba(22, 22, 32, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+        }
+
+        /* Sidebar */
+        .sidebar { background: rgba(12, 12, 18, 0.55); border-right: 1px solid rgba(255, 255, 255, 0.08); }
+        .brand-header { flex-direction: row-reverse; justify-content: flex-end; gap: 12px; padding-left: 0.5rem; }
+        .brand h2 {
+            font-family: var(--font-display); font-weight: 800; font-size: 1.45rem; letter-spacing: -0.03em; line-height: 1;
+            background: none; -webkit-text-fill-color: #FFFFFF; color: #FFFFFF;
+        }
+        .brand h2 span {
+            display: block; margin-top: 6px; font-family: var(--font-mono); font-weight: 400; font-size: 11px;
+            letter-spacing: 2px; text-transform: uppercase; -webkit-text-fill-color: #9C9CB0; color: #9C9CB0;
+        }
+        .brand-logo { width: 34px; height: 34px; padding: 0; background: transparent; box-shadow: none; border-radius: 0; }
+        .nav-btn { color: #C9C9D6; font-family: var(--font-stack); font-size: 0.95rem; letter-spacing: -0.01em; border-radius: 999px; padding: 0.7rem 1rem; }
+        .nav-btn:hover { background: rgba(255, 255, 255, 0.06); color: #FFFFFF; }
+        .nav-btn.active { background: var(--theme-gradient); color: #FFFFFF; font-weight: 600; box-shadow: none; }
+        .sub-nav-container { border-left-color: rgba(255, 255, 255, 0.08); }
+        .sub-nav-btn { color: #8E8EA3; font-family: var(--font-mono); font-weight: 400; font-size: 0.72rem; letter-spacing: 0.12em; }
+        .sub-nav-btn:hover { background: rgba(255, 255, 255, 0.04); color: #FFFFFF; }
+        .sub-nav-btn.active-sub { color: var(--accent-on-dark); font-weight: 500; }
+        .segmented-control { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 999px; padding: 4px; }
+        .seg-btn { font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: 1.5px; color: #A9A9BC; border-radius: 999px; }
+        .seg-btn:hover { color: #FFFFFF; }
+        .seg-btn.active { background: var(--theme-gradient); color: #FFFFFF; box-shadow: none; }
+
+        /* Content: light reading panel inside the dark shell */
+        .content-area { background: var(--panel-bg); margin: 12px; border-radius: 18px; border: 1px solid rgba(255, 255, 255, 0.06); }
+        .content-area h1 { font-family: var(--font-display); font-weight: 800; letter-spacing: -0.045em; color: #16161F; }
+        .content-area h2 { font-family: var(--font-stack); }
+        .play-label { font-family: var(--font-mono); font-weight: 500; letter-spacing: 1.6px; }
+        .global-partner-logo { display: none !important; } /* ClickUp mark now lives in the sidebar */
+        #faq-fab { background: var(--theme-gradient) !important; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35) !important; }
+
+        /* Home: dark hero as in the approved prototype */
+        body[data-tab="0"] .content-area { background: transparent; border-color: transparent; }
+        .home-hero { display: flex; flex-wrap: wrap; align-items: center; gap: 48px; min-height: 100%; padding: 1rem 0.5rem; }
+        .home-copy { flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 22px; }
+        .home-eyebrow { font-family: var(--font-mono); font-size: 13px; letter-spacing: 2.4px; text-transform: uppercase; color: var(--accent-on-dark); }
+        .content-area h1.home-title { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.8rem, 6vw, 4.75rem); line-height: 0.98; letter-spacing: -0.045em; color: #FFFFFF; margin: 0; }
+        .home-sub { font-size: 1.3rem; line-height: 1.4; color: #B9B9C9; max-width: 30rem; margin: 0; }
+        .home-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
+        .home-video-btn { height: 52px; padding: 0 24px 0 10px; border: 0; border-radius: 999px; display: inline-flex; align-items: center; gap: 12px;
+            font: 600 1rem var(--font-stack); letter-spacing: -0.01em; color: #101017; background: #FFFFFF; cursor: pointer; transition: transform 0.2s ease; }
+        .home-video-btn:hover { transform: translateY(-1px); }
+        .home-play { width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: var(--theme-gradient); }
+        .home-play svg { width: 12px; height: 12px; fill: #FFFFFF; margin-left: 2px; }
+        .home-method { flex: 0 1 320px; min-width: 260px; padding: 22px 22px 10px; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 14px; background: rgba(18, 18, 26, 0.72); }
+        .home-method-label { font-family: var(--font-mono); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #9C9CB0; margin-bottom: 8px; }
+        .home-method-list { list-style: none; margin: 0; padding: 0; }
+        .home-method-list button { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 0;
+            border: 0; border-top: 1px solid rgba(255, 255, 255, 0.06); background: none; color: #F4F4F8; font: 500 1rem var(--font-stack); text-align: left; cursor: pointer; }
+        .home-method-list button:hover { color: #FFFFFF; }
+        .home-method-list button:hover .num { color: #FFFFFF; }
+        .home-method-list .num { font-family: var(--font-mono); font-size: 12px; color: var(--accent-on-dark); }
+        .home-method-list li:last-child .num { color: var(--theme-tertiary); }
+
+        /* Epic Release tab: full-bleed guide inside the panel */
+        body[data-tab="5"] .content-area { padding: 0; overflow: hidden; }
+        .epic-wrap { flex: 1; height: 100%; min-height: 0; border-radius: 18px; overflow: hidden; background: #F6F4FB; }
+        #epic-frame { display: block; width: 100%; height: 100%; border: 0; background: #F6F4FB; }
+
+        @media (max-width: 900px) {
+            .content-area { margin: 8px; border-radius: 14px; }
+            .brand h2 { font-size: 1.15rem; }
+            .brand h2 span { margin-top: 4px; font-size: 10px; }
+            .brand-logo { width: 28px; height: 28px; }
+            .nav-btn { padding: 0.55rem 0.9rem; font-size: 0.9rem; }
+            .home-hero { gap: 28px; padding: 0.5rem 0; }
+            .home-method { flex-basis: 100%; }
+            .epic-wrap { height: auto; min-height: 0; }
+            #epic-frame { height: max(520px, calc(100dvh - 230px)); }
+            body[data-tab="5"] #faq-fab { bottom: 96px; } /* stay clear of the guide's bottom bar */
+        }
     </style>
 </head>
 <body class="lang-pt">
@@ -1064,9 +1185,9 @@
             <div>
                 <div class="brand-header">
                     <div class="brand">
-                        <h2>IMPULSO<br><span>ClickUp</span></h2>
+                        <h2>IMPULSO<span>Partners LATAM</span></h2>
                     </div>
-                    <img src="Logomark-gradient.svg" alt="Logomark ClickUp" class="brand-logo">
+                    <img src="Logomark-gradient.svg" alt="ClickUp" class="brand-logo">
                 </div>
                 <nav class="nav-items" id="nav-container"></nav>
             </div>
@@ -1080,16 +1201,22 @@
         <main class="content-area" id="main-content">
             <!-- Tab 0: HOME -->
             <div class="tab-content active" id="tab-0">
-                <div style="height: 100%; min-height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
-                    <h1 style="font-size: 3.5rem; margin-bottom: 1rem; background: var(--theme-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" data-i18n="home_title"></h1>
-                    <p style="font-size: 1.5rem; color: var(--text-secondary); max-width: 600px; margin-bottom: 2rem;" data-i18n="home_sub"></p>
-
-                    <!-- HOME VIDEO BUTTON -->
-                    <div class="neon-play-trigger" role="button" tabindex="0" onclick="openVideoPlayer(getHomeVideoId())">
-                        <div class="play-pulse"></div>
-                        <div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-                        <span class="play-label" data-i18n="vid_label"></span>
+                <div class="home-hero">
+                    <div class="home-copy">
+                        <span class="home-eyebrow" data-i18n="home_eyebrow"></span>
+                        <h1 class="home-title" data-i18n="home_title"></h1>
+                        <p class="home-sub" data-i18n="home_sub"></p>
+                        <div class="home-actions">
+                            <button type="button" class="home-video-btn" onclick="openVideoPlayer(getHomeVideoId())">
+                                <span class="home-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4v16l13-8z"/></svg></span>
+                                <span data-i18n="vid_label"></span>
+                            </button>
+                        </div>
                     </div>
+                    <section class="home-method" aria-labelledby="home-method-label">
+                        <div class="home-method-label" id="home-method-label" data-i18n="home_method_label"></div>
+                        <ol class="home-method-list" id="home-method-list"></ol>
+                    </section>
                 </div>
             </div>
 
@@ -1696,6 +1823,15 @@
                             <div class="key-deliverable" style="margin-top:1rem;"><strong data-i18n="t3_lbl_content"></strong><span data-i18n="t3_m5_key"></span></div>
                         </div>
                     </div>
+
+                    <!-- CERTIFICATION EXAM: closes the Method journey -->
+                    <div class="method-cert-cta">
+                        <a href="https://ClickUp-latam-engineering.github.io/impulso-prova/" target="_blank" rel="noopener noreferrer" class="neon-play-trigger" style="text-decoration: none;">
+                            <div class="play-pulse"></div>
+                            <div class="play-circle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5z"/></svg></div>
+                            <span class="play-label" data-i18n="cert_label"></span>
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -1858,100 +1994,12 @@
             </div>
             </div><!-- /tab-4 (closing tag was missing) -->
 
-           <!-- Tab 5: GOVERNANÇA -->
-<div class="tab-content" id="tab-5" style="overflow: hidden;">
-
-    <div style="display: flex; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap;">
-        <h1 data-i18n="t5_title" style="margin: 0; line-height: 1;"></h1>
-
-        <div class="neon-play-trigger" role="button" tabindex="0" onclick="openVideoPlayer('bSgclP1J4Cc')" style="margin-left:1.5rem;">
-            <div class="play-pulse"></div>
-            <div class="play-circle">
-                <svg viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z"/>
-                </svg>
-            </div>
-            <span class="play-label" data-i18n="vid_label"></span>
-        </div>
-    </div>
-
-    <h2 data-i18n="t5_sub"></h2>
-
-    <div class="gov-grid">
-
-        <!-- Bloque 1 -->
-        <div class="gov-card">
-            <h3>
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                </svg>
-                <span data-i18n="gov_b1_title"></span>
-            </h3>
-            <p data-i18n="gov_b1_content"></p>
-            <div class="gov-mandate" data-i18n="gov_b1_mandate"></div>
-        </div>
-
-        <!-- Bloque 2 -->
-        <div class="gov-card">
-            <h3>
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
-                </svg>
-                <span data-i18n="gov_b2_title"></span>
-            </h3>
-            <p data-i18n="gov_b2_content"></p>
-        </div>
-
-        <!-- Bloque 3 -->
-        <div class="gov-card">
-            <h3>
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-                <span data-i18n="gov_b3_title"></span>
-            </h3>
-            <p data-i18n="gov_b3_content"></p>
-        </div>
-
-        <!-- Bloque 4 -->
-        <div class="gov-card">
-            <h3>
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
-                </svg>
-                <span data-i18n="gov_b4_title"></span>
-            </h3>
-            <p data-i18n="gov_b4_content"></p>
-        </div>
-
-    </div>
-
-    <!-- CERTIFICATION EXAM MINI CTA -->
-    <div style="margin-top: 1.25rem; display: flex; justify-content: center;">
-        <a href="https://ClickUp-latam-engineering.github.io/impulso-prova/"
-           target="_blank"
-           rel="noopener noreferrer"
-           class="neon-play-trigger"
-           style="transform: scale(0.85); text-decoration: none;">
-
-            <div class="play-pulse"></div>
-
-            <div class="play-circle">
-                <svg viewBox="0 0 24 24">
-                    <path d="M5 4h14v16H5z"/>
-                </svg>
-            </div>
-
-            <span class="play-label" data-i18n="cert_label"></span>
-
-        </a>
-    </div>
-
-</div><!-- /tab-5 -->
+           <!-- Tab 5: EPIC RELEASE (partner edition, served from /epic-release/) -->
+            <div class="tab-content" id="tab-5">
+                <div class="epic-wrap">
+                    <iframe id="epic-frame" title="EPIC November 4 Release, partner edition" referrerpolicy="same-origin"></iframe>
+                </div>
+            </div><!-- /tab-5 -->
         </main>
     </div><!-- /app-window -->
 
@@ -2062,13 +2110,15 @@
 
         const translations = {
             en: {
-                nav: ["HOME", "MANIFESTO", "THE CROSSING", "THE METHOD", "RESOURCES", "GOVERNANCE"],
+                nav: ["Home", "Manifesto", "The Crossing", "The Method", "Resources", "Epic Release"],
                 sub_nav: ["STRATEGY", "INTAKE", "EXECUTION", "REPORTING", "PTA"],
                 nav_ctrl_label: "Module 1",
                 vid_label: "Watch the video",
                 home_video_id: "FnyMpmrki2k",
                 cert_label: "Take the IMPULSO exam",
-                home_title: "Welcome to IMPULSO",
+                home_title: "Welcome to IMPULSO.",
+                home_eyebrow: "ClickUp Partners LATAM · Global",
+                home_method_label: "The method · 5 stages",
                 home_sub: "ClickUp Methodology and Go-To-Market. Tailor-made for Latin America.",
                 t1_title: "Strategic Technical Leadership",
                 t1_sub: "Governance Fundamentals",
@@ -2095,17 +2145,17 @@
                 t3_m5_title: "Module 5: Governance & PTA Certification",
                 t3_m5_narrative: "Defining the Partner Technical Architect role and 48h technical SLA.",
                 t3_m5_key: "Handoff criteria and technical validation for ENT+ architectures.",
-                t5_title: "Regional Operation Contract",
-                t5_sub: "Regional Alliance Protocol",
-                gov_b1_title: "Intervention Criteria",
-                gov_b1_content: "Gerardo-as-a-Service 1:1 support is prioritized for high-complexity architectures, aligned with global standards.",
-                gov_b1_mandate: "Mandate: Standard sales cycles are led with Partner Autonomy, ensuring agile market response.",
-                gov_b2_title: "Ecosystem Mandate (100% Partner Power)",
-                gov_b2_content: "100% of LATAM deals are executed in collaboration with a Partner. Manufacturer and Partner unity is the only path to regional scale.",
-                gov_b3_title: "Performance SLA (Partner Accountability)",
-                gov_b3_content: "Partner commits to an initial technical response (Discovery/Demo) within 72 hours of sales request. Agility is the health indicator.",
-                gov_b4_title: "Initiativa <span class='neon-foco'>ClickUp  FOCO</span>",
-                gov_b4_content: "Commercial execution and license normalization is exclusively led by the Principal Channel Account Executives (CAEs) team.",
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 sop_m2_badge: "START THE WORK",
                 sop_m2_title: "Intake: Realities & Discovery",
                 sop_m2_sec1: "COMMON REALITIES",
@@ -2251,13 +2301,15 @@
                 t4_banner_span: "Ensures a predictable Future State across Brazil and Mexico operations."
             },
             pt: {
-                nav: ["HOME", "MANIFESTO", "A TRAVESSIA", "O MÉTODO", "RECURSOS", "GOVERNANÇA"],
+                nav: ["Home", "Manifesto", "A Travessia", "O Método", "Recursos", "Epic Release"],
                 sub_nav: ["ESTRATÉGIA", "INTAKE", "EXECUTION", "REPORTING", "PTA"],
                 nav_ctrl_label: "Módulo 1",
                 vid_label: "Assista o vídeo",
                 cert_label: "Faça a PROVA IMPULSO",
                 home_video_id: "z5bxVeaKtkg",
-                home_title: "Bem-vindo à IMPULSO",
+                home_title: "Bem-vindo à IMPULSO.",
+                home_eyebrow: "ClickUp Partners LATAM · Brasil",
+                home_method_label: "O método · 5 etapas",
                 home_sub: "Metodologia e Go-To-Market da ClickUp. Feito sob medida para a América Latina.",
                 t1_title: "Liderança Técnica Estratégica",
                 t1_sub: "Fundamentos da Governança",
@@ -2284,17 +2336,17 @@
                 t3_m5_title: "Módulo 5: Governança e Certificação PTA",
                 t3_m5_narrative: "Definição do papel do Partner Technical Architect e estabelecimento do SLA técnico de 48 horas.",
                 t3_m5_key: "Critérios de Handoff e validação técnica para arquiteturas complexas (Segmento ENT+).",
-                t5_title: "Contrato de Operação Regional",
-                t5_sub: "Protocolo de Aliança Regional",
-                gov_b1_title: "Critérios de Intervenção",
-                gov_b1_content: "O suporte técnico 1:1 do Gerardo-as-a-Service é priorizado para arquiteturas de alta complexidade, alinhado aos padrões globais de suporte.",
-                gov_b1_mandate: "Mandato: Os ciclos de vendas padrão são liderados com Autonomia do Parceiro, garantindo uma resposta ágil ao mercado.",
-                gov_b2_title: "Mandato de Ecossistema (100% Partner Powered)",
-                gov_b2_content: "100% dos negócios na LATAM são executados em colaboração com um Parceiro. Não existem ciclos de vendas isolados; a união entre o Fabricante e o Parceiro é o único caminho para a escala regional.",
-                gov_b3_title: "SLA de Performance (Partner Accountability)",
-                gov_b3_content: "O Parceiro compromete-se com uma resposta técnica inicial (Discovery/Demo) num máximo de 72 horas após a solicitação comercial. A agilidade é o principal indicador de saúde da aliança.",
-                gov_b4_title: "Iniciativa <span class='neon-foco'>ClickUp FOCO</span>",
-                gov_b4_content: "A execução comercial e normalização de licenças é liderada exclusivamente pela equipe de Principal Channel Account Executives (CAEs).",
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 sop_m2_badge: "INICIAR O TRABALHO",
                 sop_m2_title: "Intake: Realidades & Discovery",
                 sop_m2_sec1: "REALIDADES COMUNES",
@@ -2440,13 +2492,15 @@
                 t4_banner_span: "Garante um Estado Futuro previsível em toda a operação."
             },
             es: {
-                nav: ["INICIO", "MANIFIESTO", "LA TRAVESÍA", "EL MÉTODO", "RECURSOS", "GOBERNANZA"],
+                nav: ["Inicio", "Manifiesto", "La Travesía", "El Método", "Recursos", "Epic Release"],
                 sub_nav: ["ESTRATEGIA", "INTAKE", "EXECUTION", "REPORTING", "PTA"],
                 nav_ctrl_label: "Módulo 1",
                 vid_label: "Vea el vídeo",
                 cert_label: "Tome el examen de IMPULSO",
                 home_video_id: "fRnY3GeSNPc",
-                home_title: "Bienvenido a IMPULSO",
+                home_title: "Bienvenido a IMPULSO.",
+                home_eyebrow: "ClickUp Partners LATAM · Hispanoamérica",
+                home_method_label: "El método · 5 etapas",
                 home_sub: "Metodología y Go-To-Market de ClickUp. Hecho a medida para América Latina.",
                 t1_title: "Liderazgo Técnico Estratégico",
                 t1_sub: "Fundamentos de la Gobernanza",
@@ -2473,17 +2527,17 @@
                 t3_m5_title: "Módulo 5: Gobernanza y Certificación PTA",
                 t3_m5_narrative: "Rol del Partner Technical Architect y establecimiento del SLA técnico de 48h.",
                 t3_m5_key: "Requisitos técnicos para Handoff y validación técnica para arquitecturas ENT+.",
-                t5_title: "Contrato de Operación Regional",
-                t5_sub: "Protocolo de Alianza Regional",
-                gov_b1_title: "Criterios de Intervención",
-                gov_b1_content: "El soporte técnico 1:1 de Gerardo-as-a-Service está priorizado para arquitecturas de alta complejidad, alineado con los estándares globales de soporte.",
-                gov_b1_mandate: "Mandato: Los ciclos de venta estándar son liderados con Autonomía del Socio, asegurando una respuesta ágil al mercado.",
-                gov_b2_title: "Mandato de Ecosistema (100% Partner Power)",
-                gov_b2_content: "100% de los negocios en LATAM se ejecutan en colaboración con un Partner. La unión entre el Fabricante y el Socio es el único camino para la escala regional.",
-                gov_b3_title: "SLA de Performance (Partner Accountability)",
-                gov_b3_content: "El Partner se compromete a una respuesta técnica inicial (Discovery/Demo) en un máximo de 72 horas tras el requerimiento comercial. La agilidad es el indicador clave de salud de la alianza.",
-                gov_b4_title: "Iniciativa <span class='neon-foco'>ClickUp FOCO</span>",
-                gov_b4_content: "La ejecución comercial y normalización de licencias es liderada exclusivamente por el equipo de Principal Channel Account Executives (CAEs).",
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 sop_m2_badge: "INICIAR EL TRABAJO",
                 sop_m2_title: "Intake: Realidades & Discovery",
                 sop_m2_sec1: "REALIDADES COMUNES",
@@ -2742,6 +2796,41 @@
                 }
             });
             keepActiveNavInView();
+            renderHomeMethod();
+        }
+
+        // Home card: the five Method stages, each opening its module
+        function renderHomeMethod() {
+            const list = document.getElementById('home-method-list');
+            if (!list) return;
+            list.replaceChildren();
+            translations[currentLang].sub_nav.forEach((label, i) => {
+                const nice = label.length <= 3 ? label : label.charAt(0) + label.slice(1).toLowerCase();
+                const li = document.createElement('li');
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                const name = document.createElement('span'); name.textContent = nice;
+                const num = document.createElement('span'); num.className = 'num'; num.textContent = String(i + 1).padStart(2, '0');
+                btn.append(name, num);
+                btn.onclick = () => scrollToModule(i + 1, document.querySelectorAll('.sub-nav-btn')[i]);
+                li.appendChild(btn); list.appendChild(li);
+            });
+        }
+
+        // Epic Release lives at /epic-release/ on the same (login-protected) site and is loaded on first visit
+        const EPIC_SRC = 'epic-release/index.html';
+        function loadEpicRelease() {
+            const f = document.getElementById('epic-frame');
+            if (!f || f.getAttribute('src')) return;
+            try { localStorage.setItem('epic-lang', currentLang); } catch (e) {}
+            f.setAttribute('src', EPIC_SRC);
+        }
+        function syncEpicLanguage(lang) {
+            try { localStorage.setItem('epic-lang', lang); } catch (e) {}
+            const f = document.getElementById('epic-frame');
+            if (f && f.getAttribute('src') && f.contentWindow) {
+                f.contentWindow.postMessage({ type: 'impulso-lang', lang: lang }, location.origin);
+            }
         }
 
         // On phones the menu is a horizontal strip: keep the active tab in view
@@ -2875,6 +2964,7 @@
             document.getElementById('btn-en').classList.toggle('active', lang === 'en');
             
             document.documentElement.lang = lang;
+            syncEpicLanguage(lang);
             renderNav();
             updateText();
             updateHUD(document.getElementById('hud-slider').value, true);
@@ -2890,19 +2980,36 @@
             }
         }
 
+        // Translations may contain light formatting (<strong>, <span>, <br>...). Render only an allow-list
+        // of tags with no attributes except class, so a translation can never inject markup or script.
+        const I18N_ALLOWED_TAGS = new Set(['STRONG', 'B', 'EM', 'I', 'SPAN', 'BR']);
+        function setI18nContent(el, value) {
+            if (!/[<&]/.test(value)) { el.textContent = value; return; }
+            const tpl = document.createElement('template');
+            tpl.innerHTML = value;
+            (function clean(node) {
+                [...node.childNodes].forEach(child => {
+                    if (child.nodeType === Node.ELEMENT_NODE) {
+                        if (child.tagName === 'SCRIPT' || child.tagName === 'STYLE') { child.remove(); return; }
+                        if (!I18N_ALLOWED_TAGS.has(child.tagName)) {
+                            child.replaceWith(document.createTextNode(child.textContent));
+                            return;
+                        }
+                        [...child.attributes].forEach(a => { if (a.name !== 'class') child.removeAttribute(a.name); });
+                        clean(child);
+                    } else if (child.nodeType !== Node.TEXT_NODE) {
+                        child.remove();
+                    }
+                });
+            })(tpl.content);
+            el.replaceChildren(tpl.content);
+        }
+
         function updateText() {
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                if(translations[currentLang][key]) {
-                    if (el.tagName.toLowerCase() === 'strong' || el.tagName.toLowerCase() === 'span') {
-                         el.innerHTML = translations[currentLang][key]; 
-                    } else {
-                         el.innerText = translations[currentLang][key];
-                    }
-                } else if (translations['es'][key]) {
-                    // Fallback to Spanish per instructions
-                     el.innerText = translations['es'][key];
-                }
+                const value = translations[currentLang][key] || translations['es'][key]; // Spanish fallback
+                if (value) setI18nContent(el, value);
             });
         }
 
@@ -2947,6 +3054,8 @@
             btns[currentTab].classList.remove('active');
             btns[index].classList.add('active');
             keepActiveNavInView();
+            document.body.dataset.tab = String(index);
+            if (index === 5) loadEpicRelease();
 
             const subNav = document.getElementById('method-sub-nav');
             if (subNav) {
@@ -2973,7 +3082,7 @@
             }
         }
 
-        window.addEventListener('DOMContentLoaded', init);
+        window.addEventListener('DOMContentLoaded', () => { document.body.dataset.tab = '0'; init(); });
 
 
 /* --- VIDEO PLAYER & DRAG LOGIC --- */
