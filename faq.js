@@ -468,3 +468,124 @@ window.FAQ_DATA = [
     a_en: "Bring them in when there is impact on pricing, contracts, executive escalation, security, compliance, or risk to closing the business. Waiting until the last minute usually makes everything worse. If the problem is already commercial, do not disguise it as technical support."
   }
 ];
+
+// Topic menu for the FAQ assistant. Each idx is a position in FAQ_DATA above;
+// keep these in sync if you add, remove or reorder questions.
+window.FAQ_TOPICS = {
+  "precios": {
+    "emoji": "💰",
+    "es": "Precios y planes",
+    "pt": "Preços e planos",
+    "en": "Pricing & plans",
+    "idx": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "producto": {
+    "emoji": "🚀",
+    "es": "Producto",
+    "pt": "Produto",
+    "en": "Product",
+    "idx": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ]
+  },
+  "ia": {
+    "emoji": "🤖",
+    "es": "Inteligencia Artificial",
+    "pt": "Inteligência Artificial",
+    "en": "Artificial Intelligence",
+    "idx": [
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+    ]
+  },
+  "partners": {
+    "emoji": "🤝",
+    "es": "Programa de Partners",
+    "pt": "Programa de Parceiros",
+    "en": "Partner Program",
+    "idx": [
+      22,
+      23,
+      24,
+      25,
+      26,
+      27
+    ]
+  },
+  "certificacion": {
+    "emoji": "🎓",
+    "es": "Certificación e IMPULSO",
+    "pt": "Certificação e IMPULSO",
+    "en": "Certification & IMPULSO",
+    "idx": [
+      28,
+      29,
+      30,
+      31,
+      32
+    ]
+  },
+  "implementar": {
+    "emoji": "🛠️",
+    "es": "Implementación",
+    "pt": "Implementação",
+    "en": "Implementation",
+    "idx": [
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39
+    ]
+  },
+  "competencia": {
+    "emoji": "📊",
+    "es": "Competencia",
+    "pt": "Concorrência",
+    "en": "Competition",
+    "idx": [
+      40,
+      41,
+      42,
+      43,
+      44,
+      45
+    ]
+  },
+  "soporte": {
+    "emoji": "🆘",
+    "es": "Soporte y escalaciones",
+    "pt": "Suporte e escalonamentos",
+    "en": "Support & escalations",
+    "idx": [
+      46,
+      47,
+      48,
+      49,
+      50,
+      51
+    ]
+  }
+};
