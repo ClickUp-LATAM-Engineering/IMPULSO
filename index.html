@@ -932,6 +932,38 @@
             }
 
             @keyframes energyFlow { 0% { top: -50%; } 100% { top: 100%; } } 
+
+            /* Compact sidebar: brand + horizontally scrolling menu + language, so content starts on screen one */
+            .sidebar { padding: 0.9rem 1rem; gap: 0.75rem; }
+            .brand-header { margin-bottom: 0.75rem; padding-left: 0; }
+            .brand h2 { font-size: 1.15rem; }
+            .brand-logo { width: 36px; height: 36px; padding: 6px; border-radius: 10px; }
+            .nav-items { flex-direction: row; flex-wrap: nowrap; overflow-x: auto; gap: 0.35rem; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
+            .nav-items::-webkit-scrollbar { display: none; }
+            .nav-btn { flex: 0 0 auto; white-space: nowrap; padding: 0.55rem 0.9rem; font-size: 0.9rem; }
+            .nav-items .sub-nav-container, .nav-items .sub-nav-container.open { display: none; }
+
+            /* Accelerate / SOP headers wrap instead of running off screen */
+            .acc-sop-header { flex-wrap: wrap; gap: 0.5rem; }
+            .acc-wordmark { font-size: 1.25rem; white-space: normal; }
+            .acc-sop-col { min-width: 0; overflow-wrap: break-word; }
+            .acc-sop-header, .acc-sop-body { padding: 1rem; }
+
+            /* Method tab: five nested boxes each had desktop padding, leaving ~46px for text on phones */
+            .content-area { padding: 1rem; }
+            .method-container { padding: 1.25rem 1rem; }
+            .timeline-container { padding-left: 1.25rem; }
+            .module-card { padding: 1.25rem 1rem; }
+            .module-card::before { left: -26px; }
+            .module-nav-controller { gap: 0.75rem; padding: 0.5rem 0.75rem; max-width: 100%; box-sizing: border-box; }
+            #current-module-display { min-width: 0; }
+
+            /* Governance: video button below the title, not on top of it */
+            #tab-5 .neon-play-trigger { margin: 0.75rem 0 0 0 !important; }
+
+            /* Logo moves left so it no longer sits under the assistant button */
+            .global-partner-logo { right: auto; left: 1rem; bottom: 1rem; }
+            #faq-fab { width: 50px; height: 50px; right: 16px; bottom: 16px; }
         }
     
 /* --- DRAGGABLE PiP VIDEO PLAYER --- */
@@ -1053,7 +1085,7 @@
                     <p style="font-size: 1.5rem; color: var(--text-secondary); max-width: 600px; margin-bottom: 2rem;" data-i18n="home_sub"></p>
 
                     <!-- HOME VIDEO BUTTON -->
-                    <div class="neon-play-trigger" onclick="openVideoPlayer(getHomeVideoId())">
+                    <div class="neon-play-trigger" role="button" tabindex="0" onclick="openVideoPlayer(getHomeVideoId())">
                         <div class="play-pulse"></div>
                         <div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                         <span class="play-label" data-i18n="vid_label"></span>
@@ -1065,7 +1097,7 @@
             <div class="tab-content" id="tab-1">
                 <div style="display: flex; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap;">
                     <h1 data-i18n="t1_title" style="margin: 0; line-height: 1;"></h1>
-                    <div class="neon-play-trigger" onclick="openVideoPlayer('lMOwTQs2mUA')" style="margin-left:1.5rem;">
+                    <div class="neon-play-trigger" role="button" tabindex="0" onclick="openVideoPlayer('lMOwTQs2mUA')" style="margin-left:1.5rem;">
                         <div class="play-pulse"></div>
                         <div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                         <span class="play-label" data-i18n="vid_label"></span>
@@ -1094,7 +1126,7 @@
             <div class="tab-content" id="tab-2">
                 <div style="display: flex; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap;">
                     <h1 data-i18n="t2_title" style="margin: 0; line-height: 1;"></h1>
-                    <div class="neon-play-trigger" onclick="openVideoPlayer('FuIQC63vUkI')" style="margin-left:1.5rem;">
+                    <div class="neon-play-trigger" role="button" tabindex="0" onclick="openVideoPlayer('FuIQC63vUkI')" style="margin-left:1.5rem;">
                         <div class="play-pulse"></div>
                         <div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                         <span class="play-label" data-i18n="vid_label"></span>
@@ -1208,7 +1240,7 @@
                         <div class="module-card" id="modulo-1">
                             <div style="display:flex; align-items:center; margin-bottom:0.8rem; flex-wrap:wrap;">
                                 <h3 data-i18n="t3_m1_title" style="margin:0;"></h3>
-                                <div class="neon-play-trigger" onclick="openVideoPlayer('NL0qGbuTlwQ')" style="margin-left: 1rem; transform: scale(0.85);">
+                                <div class="neon-play-trigger" role="button" tabindex="0" onclick="openVideoPlayer('NL0qGbuTlwQ')" style="margin-left: 1rem; transform: scale(0.85);">
                                     <div class="play-pulse"></div>
                                     <div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                                     <span class="play-label" data-i18n="vid_label"></span>
@@ -1226,7 +1258,7 @@
                         <div class="module-card" id="modulo-2">
                             <div style="display:flex; align-items:center; margin-bottom:0.8rem; flex-wrap:wrap;">
                                 <h3 data-i18n="t3_m2_title" style="margin:0;"></h3>
-                                <div class="neon-play-trigger" onclick="openVideoPlayer('BTFwDLEyh9M')" style="margin-left: 1rem; transform: scale(0.85);">
+                                <div class="neon-play-trigger" role="button" tabindex="0" onclick="openVideoPlayer('BTFwDLEyh9M')" style="margin-left: 1rem; transform: scale(0.85);">
                                     <div class="play-pulse"></div>
                                     <div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                                     <span class="play-label" data-i18n="vid_label"></span>
@@ -1308,7 +1340,7 @@
                         <div class="module-card" id="modulo-3">
                             <div style="display:flex; align-items:center; margin-bottom:0.8rem; flex-wrap:wrap;">
                                 <h3 data-i18n="t3_m3_title" style="margin:0;"></h3>
-                                <div class="neon-play-trigger" onclick="openVideoPlayer('PQEekAxpnFY')" style="margin-left: 1rem; transform: scale(0.85);">
+                                <div class="neon-play-trigger" role="button" tabindex="0" onclick="openVideoPlayer('PQEekAxpnFY')" style="margin-left: 1rem; transform: scale(0.85);">
                                     <div class="play-pulse"></div>
                                     <div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                                     <span class="play-label" data-i18n="vid_label"></span>
@@ -1429,7 +1461,7 @@
                         <div class="module-card" id="modulo-4">
                             <div style="display:flex; align-items:center; margin-bottom:0.8rem; flex-wrap:wrap;">
                                 <h3 data-i18n="t3_m4_title" style="margin:0;"></h3>
-                                <div class="neon-play-trigger" onclick="openVideoPlayer('q6cwmho0GWU')" style="margin-left: 1rem; transform: scale(0.85);">
+                                <div class="neon-play-trigger" role="button" tabindex="0" onclick="openVideoPlayer('q6cwmho0GWU')" style="margin-left: 1rem; transform: scale(0.85);">
                                     <div class="play-pulse"></div>
                                     <div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                                     <span class="play-label" data-i18n="vid_label"></span>
@@ -1505,17 +1537,17 @@
                             <div class="impact-section" style="margin-top: 3rem;">
                                 <h4 data-i18n="m4_ladder_title" style="font-size: 1.2rem; margin-bottom: 1rem; color: var(--text-primary);"></h4>
                                 <div class="impact-ladder">
-                                    <div class="ladder-step step-1" onclick="this.classList.toggle('active')">
+                                    <div class="ladder-step step-1" role="button" tabindex="0" onclick="this.classList.toggle('active')">
                                         <h5 data-i18n="m4_l1_title"></h5>
                                         <p class="ladder-desc" data-i18n="m4_l1_desc"></p>
                                         <span class="click-hint" data-i18n="m4_click_hint"></span>
                                     </div>
-                                    <div class="ladder-step step-2" onclick="this.classList.toggle('active')">
+                                    <div class="ladder-step step-2" role="button" tabindex="0" onclick="this.classList.toggle('active')">
                                         <h5 data-i18n="m4_l2_title"></h5>
                                         <p class="ladder-desc" data-i18n="m4_l2_desc"></p>
                                         <span class="click-hint" data-i18n="m4_click_hint"></span>
                                     </div>
-                                    <div class="ladder-step step-3" onclick="this.classList.toggle('active')">
+                                    <div class="ladder-step step-3" role="button" tabindex="0" onclick="this.classList.toggle('active')">
                                         <h5 data-i18n="m4_l3_title"></h5>
                                         <p class="ladder-desc" data-i18n="m4_l3_desc"></p>
                                         <span class="click-hint" data-i18n="m4_click_hint"></span>
@@ -1571,7 +1603,7 @@
                         <div class="module-card" id="modulo-5">
                             <div style="display:flex; align-items:center; margin-bottom:0.8rem; flex-wrap:wrap;">
                                 <h3 data-i18n="t3_m5_title" style="margin:0;"></h3>
-                                <div class="neon-play-trigger" onclick="openVideoPlayer('34nYwNloAZw')" style="margin-left: 1rem; transform: scale(0.85);">
+                                <div class="neon-play-trigger" role="button" tabindex="0" onclick="openVideoPlayer('34nYwNloAZw')" style="margin-left: 1rem; transform: scale(0.85);">
                                     <div class="play-pulse"></div>
                                     <div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                                     <span class="play-label" data-i18n="vid_label"></span>
@@ -1680,7 +1712,7 @@
                     <!-- ============ TILE SELECTOR VIEW ============ -->
                     <div id="resources-tile-view" class="solution-grid">
                         <!-- Tile 1: Demo Videos & Resources -->
-                        <div class="solution-card resource-tile" onclick="openResourceCategory('videos')">
+                        <div class="solution-card resource-tile" role="button" tabindex="0" onclick="openResourceCategory('videos')">
                             <div class="card-icon super-agent-icon">
                                 <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                             </div>
@@ -1691,7 +1723,7 @@
                         </div>
 
                         <!-- Tile 2: Sales -->
-                        <div class="solution-card resource-tile" onclick="openResourceCategory('sales')">
+                        <div class="solution-card resource-tile" role="button" tabindex="0" onclick="openResourceCategory('sales')">
                             <div class="card-icon certified-agent-icon">
                                 <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                             </div>
@@ -1832,7 +1864,7 @@
     <div style="display: flex; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap;">
         <h1 data-i18n="t5_title" style="margin: 0; line-height: 1;"></h1>
 
-        <div class="neon-play-trigger" onclick="openVideoPlayer('bSgclP1J4Cc')" style="margin-left:1.5rem;">
+        <div class="neon-play-trigger" role="button" tabindex="0" onclick="openVideoPlayer('bSgclP1J4Cc')" style="margin-left:1.5rem;">
             <div class="play-pulse"></div>
             <div class="play-circle">
                 <svg viewBox="0 0 24 24">
@@ -1929,7 +1961,7 @@
         <div class="modal-nav prev-modal">&#10094;</div>
         <div class="modal-nav next-modal">&#10095;</div>
         <div class="modal-content-wrapper">
-            <img id="modal-image-view" src="" style="display:none;">
+            <img id="modal-image-view" alt="" style="display:none;">
             <div id="modal-placeholder-view" style="display:none;"></div>
         </div>
     </div>
@@ -2709,6 +2741,16 @@
                     navContainer.appendChild(subContainer);
                 }
             });
+            keepActiveNavInView();
+        }
+
+        // On phones the menu is a horizontal strip: keep the active tab in view
+        function keepActiveNavInView() {
+            const nav = document.getElementById('nav-container');
+            const activeBtn = nav && nav.querySelector('.nav-btn.active');
+            if (!activeBtn || nav.scrollWidth <= nav.clientWidth) return;
+            const target = activeBtn.offsetLeft - (nav.clientWidth - activeBtn.offsetWidth) / 2;
+            nav.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
         }
 
         function navigateModule(direction) {
@@ -2904,6 +2946,7 @@
             const btns = document.querySelectorAll('.nav-btn');
             btns[currentTab].classList.remove('active');
             btns[index].classList.add('active');
+            keepActiveNavInView();
 
             const subNav = document.getElementById('method-sub-nav');
             if (subNav) {
@@ -3070,7 +3113,7 @@ function goToResources() {
 <div id="video-pip-overlay">
     <div class="video-pip-card" id="draggable-card">
         <div class="drag-handle" id="drag-header"></div>
-        <div class="close-pip" onclick="closeVideoPlayer()">&times;</div>
+        <div class="close-pip" role="button" tabindex="0" aria-label="Close video" onclick="closeVideoPlayer()">&times;</div>
         <div class="video-aspect-ratio" id="video-frame-container"></div>
     </div>
 </div>
@@ -3123,7 +3166,7 @@ function goToResources() {
 .faq-msg-user{align-self:flex-end;background:#7b68ee;color:#fff;border-top-right-radius:4px;}
 #faq-suggestions{padding:8px 12px;display:flex;flex-wrap:wrap;gap:6px;background:#fff;flex-shrink:0;max-height:160px;overflow-y:auto;}
 #faq-suggestions:empty{display:none;}
-.faq-chip{font-size:11px;padding:6px 11px;background:rgba(123,104,238,0.1);color:#5a4bc4;border-radius:20px;cursor:pointer;border:0.5px solid rgba(123,104,238,0.2);transition:background 0.15s;}
+.faq-chip{font-family:inherit;line-height:1.3;text-align:left;font-size:11px;padding:6px 11px;background:rgba(123,104,238,0.1);color:#5a4bc4;border-radius:20px;cursor:pointer;border:0.5px solid rgba(123,104,238,0.2);transition:background 0.15s;}
 .faq-chip:hover{background:rgba(123,104,238,0.18);}
 .faq-chip-topic{background:rgba(123,104,238,0.06);font-weight:500;}
 #faq-menu-bar{padding:6px 12px 0;background:#fff;flex-shrink:0;}
@@ -3188,7 +3231,8 @@ function goToResources() {
   function clearChips(){ el('faq-suggestions').innerHTML=''; }
 
   function chip(label, cls, onclick){
-    var c=document.createElement('div');
+    var c=document.createElement('button');
+    c.type='button';
     c.className='faq-chip'+(cls?' '+cls:'');
     c.textContent=label;
     c.onclick=onclick;
@@ -3257,12 +3301,17 @@ function goToResources() {
     var qText=norm(item['q_'+L]||item.q_es||'');
     var qStems={};
     qText.split(' ').forEach(function(t){if(t.length>2)qStems[stem(t)]=1;});
+    var hits=0;
     qTokens.forEach(function(qt){
       if(STOP[qt])return;
       var st=stem(qt);
       if(kwStems[st]) s+=2;
-      if(qStems[st]) s+=2;
+      if(qStems[st]){ s+=2; hits++; }
     });
+    // exact question wins outright; otherwise prefer the question with the fewest unmatched words
+    if(qText===qNorm) s+=20;
+    var n=Object.keys(qStems).length;
+    if(n) s+=2*hits/n;
     return s;
   }
 
