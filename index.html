@@ -1168,6 +1168,7 @@
 
         /* Epic Release resource tile */
         .resource-card-media.media-epic { background: linear-gradient(135deg, #5B3DF0 0%, #6647F0 45%, #FF02F0 120%); }
+        .resource-card-media.media-labs { background: linear-gradient(135deg, #0B7A55 0%, #0FA968 45%, #0091FF 120%); }
         .resource-card-featured { box-shadow: 0 0 0 2px rgba(102, 71, 240, 0.35), var(--shadow-md); }
 
         /* "New" dot on the Epic Release menu item until it has been opened */
@@ -1922,8 +1923,8 @@
 
                         <!-- VIDEOS CATEGORY -->
                         <div id="resource-cards-videos" class="resource-cards-grid" style="display:none;">
-                            <!-- Card 0: How to access the Epic Release (ES/PT captions) -->
-                            <div class="resource-card resource-card-featured" role="button" tabindex="0" onclick="openVideoPlayer('nFERWsb6d1s')">
+                            <!-- Card 0a: Epic Release walkthrough (ES/PT captions) -->
+                            <div class="resource-card resource-card-featured" role="button" tabindex="0" onclick="openVideoPlayer('vBTs0QBEP2k')">
                                 <div class="resource-card-media media-epic">
                                     <div class="resource-play-icon"><svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
                                     <span class="resource-type-badge type-video">VIDEO</span>
@@ -1932,6 +1933,18 @@
                                 <div class="resource-card-body">
                                     <h4 data-i18n="res_epic_title"></h4>
                                     <p data-i18n="res_epic_desc"></p>
+                                </div>
+                            </div>
+
+                            <!-- Card 0b: How to access ClickUp Labs -->
+                            <div class="resource-card resource-card-featured" role="button" tabindex="0" onclick="openVideoPlayer('nFERWsb6d1s')">
+                                <div class="resource-card-media media-labs">
+                                    <div class="resource-play-icon"><svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+                                    <span class="resource-type-badge type-video">VIDEO</span>
+                                </div>
+                                <div class="resource-card-body">
+                                    <h4 data-i18n="res_labs_title"></h4>
+                                    <p data-i18n="res_labs_desc"></p>
                                 </div>
                             </div>
 
@@ -2173,8 +2186,10 @@
                 home_video_id: "FnyMpmrki2k",
                 cert_label: "Take the IMPULSO exam",
                 home_title: "Welcome to IMPULSO.",
-                res_epic_title: "How to access the Epic Release",
-                res_epic_desc: "A 45-second walkthrough: sign in with your email, choose your language and open the Epic Release tab.",
+                res_epic_title: "Epic Release walkthrough",
+                res_epic_desc: "A 45-second walkthrough: sign in to IMPULSO with your email, choose your language and open the Epic Release tab.",
+                res_labs_title: "How to access ClickUp Labs",
+                res_labs_desc: "How to turn on ClickUp Labs for early access to Beta features like Creative Studio and Talk to Brain.",
                 coach_eyebrow: "New",
                 coach_title: "The Epic Release is here",
                 coach_body: "November's 9 releases, with ICP messaging and a cheat sheet, ready for the channel.",
@@ -2372,8 +2387,10 @@
                 cert_label: "Faça a PROVA IMPULSO",
                 home_video_id: "z5bxVeaKtkg",
                 home_title: "Bem-vindo à IMPULSO.",
-                res_epic_title: "Como acessar o Epic Release",
-                res_epic_desc: "Um passo a passo de 45 segundos: entre com seu e-mail, escolha o idioma e abra a aba Epic Release.",
+                res_epic_title: "Epic Release: passo a passo",
+                res_epic_desc: "Em 45 segundos: entre no IMPULSO com seu e-mail, escolha o idioma e abra a aba Epic Release.",
+                res_labs_title: "Como acessar o ClickUp Labs",
+                res_labs_desc: "Como ativar o ClickUp Labs para ter acesso antecipado a recursos Beta, como Creative Studio e Talk to Brain.",
                 coach_eyebrow: "Novidade",
                 coach_title: "O Epic Release chegou",
                 coach_body: "Os 9 lançamentos de novembro, com mensagens por ICP e guia rápida, prontos para o canal.",
@@ -2571,8 +2588,10 @@
                 cert_label: "Tome el examen de IMPULSO",
                 home_video_id: "fRnY3GeSNPc",
                 home_title: "Bienvenido a IMPULSO.",
-                res_epic_title: "Cómo acceder al Epic Release",
-                res_epic_desc: "Un paso a paso de 45 segundos: entra con tu correo, elige tu idioma y abre la pestaña Epic Release.",
+                res_epic_title: "Epic Release: paso a paso",
+                res_epic_desc: "En 45 segundos: entra a IMPULSO con tu correo, elige tu idioma y abre la pestaña Epic Release.",
+                res_labs_title: "Cómo acceder a ClickUp Labs",
+                res_labs_desc: "Cómo activar ClickUp Labs para tener acceso anticipado a funciones Beta, como Creative Studio y Talk to Brain.",
                 coach_eyebrow: "Novedad",
                 coach_title: "Llegó el Epic Release",
                 coach_body: "Los 9 lanzamientos de noviembre, con mensajes por ICP y guía rápida, listos para el canal.",
@@ -2780,7 +2799,7 @@
             }, 50);
 
             // Dispara el popup de bienvenida 1.5 segundos después de cargar
-            // "How to access the Epic Release" (ES/PT captions); shown once per browser session.
+            // "How to access ClickUp Labs"; shown once per browser session.
             // If it was already shown this session, go straight to the Epic Release coach mark.
             setTimeout(() => {
                 if (!triggerWelcomePopup('nFERWsb6d1s', 0)) maybeShowEpicCoach(400);
@@ -3244,9 +3263,9 @@ function makeDraggable(elmnt, handle) {
 }
 // --- FUNCIONES DEL POPUP DE BIENVENIDA ---
 const WELCOME_TEXT = {
-    pt: { title: 'Novidade: Epic Release', body: 'Veja em 45 segundos como acessar o Epic Release: tudo o que há de novo no ClickUp, explicado para o canal.', cta: 'Abrir Epic Release', close: 'Fechar' },
-    es: { title: 'Novedad: Epic Release', body: 'Mira en 45 segundos cómo acceder al Epic Release: todo lo nuevo de ClickUp, explicado para el canal.', cta: 'Abrir Epic Release', close: 'Cerrar' },
-    en: { title: 'New: Epic Release', body: 'Watch how to access the Epic Release in 45 seconds: everything new in ClickUp, explained for the channel.', cta: 'Open Epic Release', close: 'Close' }
+    pt: { title: 'Como acessar o ClickUp Labs', body: 'Veja como ativar o ClickUp Labs e ter acesso antecipado a recursos Beta, como Creative Studio e Talk to Brain. Os detalhes estão no Epic Release.', cta: 'Abrir Epic Release', close: 'Fechar' },
+    es: { title: 'Cómo acceder a ClickUp Labs', body: 'Mira cómo activar ClickUp Labs y tener acceso anticipado a funciones Beta, como Creative Studio y Talk to Brain. Los detalles están en el Epic Release.', cta: 'Abrir Epic Release', close: 'Cerrar' },
+    en: { title: 'How to access ClickUp Labs', body: 'See how to turn on ClickUp Labs and get early access to Beta features like Creative Studio and Talk to Brain. The details are in the Epic Release.', cta: 'Open Epic Release', close: 'Close' }
 };
 function safeSession(op, key, val) {
     try { return op === 'get' ? sessionStorage.getItem(key) : sessionStorage.setItem(key, val); }
