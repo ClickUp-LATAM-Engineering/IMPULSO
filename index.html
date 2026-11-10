@@ -1165,6 +1165,49 @@
             #epic-frame { height: max(520px, calc(100dvh - 230px)); }
             body[data-tab="5"] #faq-fab { bottom: 96px; } /* stay clear of the guide's bottom bar */
         }
+
+        /* Epic Release resource tile */
+        .resource-card-media.media-epic { background: linear-gradient(135deg, #5B3DF0 0%, #6647F0 45%, #FF02F0 120%); }
+        .resource-card-featured { box-shadow: 0 0 0 2px rgba(102, 71, 240, 0.35), var(--shadow-md); }
+
+        /* "New" dot on the Epic Release menu item until it has been opened */
+        body:not(.epic-seen) .nav-items .nav-btn:nth-of-type(6)::after {
+            content: ''; display: inline-block; width: 8px; height: 8px; margin-left: 8px; border-radius: 50%;
+            background: #FF02F0; box-shadow: 0 0 0 4px rgba(255, 2, 240, 0.18); vertical-align: middle;
+        }
+        body.epic-coach-on .nav-items .nav-btn:nth-of-type(6) { box-shadow: 0 0 0 2px #FFFFFF, 0 0 24px rgba(255, 255, 255, 0.35); animation: coach-pulse 1.8s ease-in-out infinite; }
+        @keyframes coach-pulse { 50% { box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.25), 0 0 30px rgba(255, 255, 255, 0.4); } }
+
+        /* Coach mark */
+        #epic-coach {
+            position: fixed; z-index: 99990; width: 300px; padding: 18px 18px 16px; border-radius: 16px;
+            background: #16161F; color: #F4F4F8; border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45); font-family: var(--font-stack);
+            opacity: 0; transform: translateX(-6px); transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        #epic-coach.show { opacity: 1; transform: none; }
+        #epic-coach[hidden] { display: none; }
+        #epic-coach::before { content: ''; position: absolute; width: 14px; height: 14px; background: #16161F; border-left: 1px solid rgba(255,255,255,0.12); border-bottom: 1px solid rgba(255,255,255,0.12); }
+        #epic-coach[data-side="right"]::before { left: -8px; top: 28px; transform: rotate(45deg); }
+        #epic-coach[data-side="below"]::before { top: -8px; left: calc(var(--arrow-x, 50%) - 7px); transform: rotate(135deg); }
+        #epic-coach::after { content: ''; position: absolute; inset: 0 0 auto 0; height: 3px; border-radius: 16px 16px 0 0; background: var(--theme-gradient); }
+        .coach-eyebrow { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-on-dark); margin-bottom: 8px; }
+        .coach-title { display: block; font-family: var(--font-display); font-weight: 800; font-size: 1.25rem; letter-spacing: -0.02em; line-height: 1.15; color: #FFFFFF; }
+        #epic-coach .coach-body { font-size: 0.92rem; line-height: 1.45; color: #B9B9C9; margin: 8px 0 14px; }
+        .coach-actions { display: flex; gap: 8px; }
+        .coach-open { flex: 1; height: 38px; border: 0; border-radius: 999px; background: var(--theme-gradient); color: #FFFFFF; font: 600 0.9rem var(--font-stack); cursor: pointer; }
+        .coach-later { height: 38px; padding: 0 14px; border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 999px; background: transparent; color: #C9C9D6; font: 500 0.9rem var(--font-stack); cursor: pointer; }
+        .coach-later:hover { color: #FFFFFF; }
+        @media (max-width: 900px) { #epic-coach { width: min(320px, calc(100vw - 24px)); } }
+
+        /* Welcome popup in the 2026 look */
+        #welcome-overlay { background: rgba(8, 8, 14, 0.78) !important; }
+        #welcome-overlay > div { background: #16161F !important; border: 1px solid rgba(255, 255, 255, 0.12) !important; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.55) !important; overflow: visible; }
+        #welcome-overlay > div::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 4px; border-radius: 24px 24px 0 0; background: var(--theme-gradient); }
+        #welcome-title { font-family: var(--font-display) !important; font-weight: 800 !important; letter-spacing: -0.03em; color: #FFFFFF !important; }
+        #welcome-body { color: #B9B9C9 !important; font-size: 1.05rem !important; }
+        #welcome-cta { font-family: var(--font-stack) !important; text-transform: none !important; letter-spacing: 0 !important; font-weight: 600 !important; }
+        #welcome-close { background: #2A2A36 !important; border: 1px solid rgba(255, 255, 255, 0.18) !important; color: #FFFFFF !important; }
     </style>
 </head>
 <body class="lang-pt">
@@ -1879,6 +1922,19 @@
 
                         <!-- VIDEOS CATEGORY -->
                         <div id="resource-cards-videos" class="resource-cards-grid" style="display:none;">
+                            <!-- Card 0: How to access the Epic Release (ES/PT captions) -->
+                            <div class="resource-card resource-card-featured" role="button" tabindex="0" onclick="openVideoPlayer('nFERWsb6d1s')">
+                                <div class="resource-card-media media-epic">
+                                    <div class="resource-play-icon"><svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+                                    <span class="resource-type-badge type-video">VIDEO</span>
+                                    <span class="resource-lang-badge lang-es">ES · PT</span>
+                                </div>
+                                <div class="resource-card-body">
+                                    <h4 data-i18n="res_epic_title"></h4>
+                                    <p data-i18n="res_epic_desc"></p>
+                                </div>
+                            </div>
+
                             <!-- Card 1: REAL — Spanish demo -->
                             <div class="resource-card" role="button" tabindex="0" onclick="openVideoPlayer('17NnQyJoUQU')">
                                 <div class="resource-card-media">
@@ -2117,6 +2173,14 @@
                 home_video_id: "FnyMpmrki2k",
                 cert_label: "Take the IMPULSO exam",
                 home_title: "Welcome to IMPULSO.",
+                res_epic_title: "How to access the Epic Release",
+                res_epic_desc: "A 45-second walkthrough: sign in with your email, choose your language and open the Epic Release tab.",
+                coach_eyebrow: "New",
+                coach_title: "The Epic Release is here",
+                coach_body: "November's 9 releases, with ICP messaging and a cheat sheet, ready for the channel.",
+                coach_open: "Open now",
+                coach_later: "Later",
+                nav_new: "New",
                 home_eyebrow: "ClickUp Partners LATAM · Global",
                 home_method_label: "The method · 5 stages",
                 home_sub: "ClickUp Methodology and Go-To-Market. Tailor-made for Latin America.",
@@ -2308,6 +2372,14 @@
                 cert_label: "Faça a PROVA IMPULSO",
                 home_video_id: "z5bxVeaKtkg",
                 home_title: "Bem-vindo à IMPULSO.",
+                res_epic_title: "Como acessar o Epic Release",
+                res_epic_desc: "Um passo a passo de 45 segundos: entre com seu e-mail, escolha o idioma e abra a aba Epic Release.",
+                coach_eyebrow: "Novidade",
+                coach_title: "O Epic Release chegou",
+                coach_body: "Os 9 lançamentos de novembro, com mensagens por ICP e guia rápida, prontos para o canal.",
+                coach_open: "Abrir agora",
+                coach_later: "Depois",
+                nav_new: "Novo",
                 home_eyebrow: "ClickUp Partners LATAM · Brasil",
                 home_method_label: "O método · 5 etapas",
                 home_sub: "Metodologia e Go-To-Market da ClickUp. Feito sob medida para a América Latina.",
@@ -2499,6 +2571,14 @@
                 cert_label: "Tome el examen de IMPULSO",
                 home_video_id: "fRnY3GeSNPc",
                 home_title: "Bienvenido a IMPULSO.",
+                res_epic_title: "Cómo acceder al Epic Release",
+                res_epic_desc: "Un paso a paso de 45 segundos: entra con tu correo, elige tu idioma y abre la pestaña Epic Release.",
+                coach_eyebrow: "Novedad",
+                coach_title: "Llegó el Epic Release",
+                coach_body: "Los 9 lanzamientos de noviembre, con mensajes por ICP y guía rápida, listos para el canal.",
+                coach_open: "Abrir ahora",
+                coach_later: "Después",
+                nav_new: "Nuevo",
                 home_eyebrow: "ClickUp Partners LATAM · Hispanoamérica",
                 home_method_label: "El método · 5 etapas",
                 home_sub: "Metodología y Go-To-Market de ClickUp. Hecho a medida para América Latina.",
@@ -2700,9 +2780,10 @@
             }, 50);
 
             // Dispara el popup de bienvenida 1.5 segundos después de cargar
-            // ID: Dwnmo09G314 | Start: 54 seconds (0:54)
+            // "How to access the Epic Release" (ES/PT captions); shown once per browser session.
+            // If it was already shown this session, go straight to the Epic Release coach mark.
             setTimeout(() => {
-                triggerWelcomePopup('Dwnmo09G314', 54); 
+                if (!triggerWelcomePopup('nFERWsb6d1s', 0)) maybeShowEpicCoach(400);
             }, 1500);
         }
 
@@ -2965,6 +3046,7 @@
             
             document.documentElement.lang = lang;
             syncEpicLanguage(lang);
+            if (typeof showEpicCoach === 'function' && !document.getElementById('epic-coach').hidden) showEpicCoach();
             renderNav();
             updateText();
             updateHUD(document.getElementById('hud-slider').value, true);
@@ -3055,7 +3137,8 @@
             btns[index].classList.add('active');
             keepActiveNavInView();
             document.body.dataset.tab = String(index);
-            if (index === 5) loadEpicRelease();
+            if (index === 5) { loadEpicRelease(); if (typeof markEpicSeen === 'function') markEpicSeen(); }
+            else if (typeof positionEpicCoach === 'function') setTimeout(positionEpicCoach, 50);
 
             const subNav = document.getElementById('method-sub-nav');
             if (subNav) {
@@ -3161,9 +3244,9 @@ function makeDraggable(elmnt, handle) {
 }
 // --- FUNCIONES DEL POPUP DE BIENVENIDA ---
 const WELCOME_TEXT = {
-    pt: { title: 'Novidade: Aba de Recursos!', body: 'Assista ao vídeo para descobrir todos os materiais de vendas e capacitação que preparamos para você.', cta: 'Acessar Recursos Agora', close: 'Fechar' },
-    es: { title: '¡Novedad: Pestaña de Recursos!', body: 'Mira el video para descubrir todos los materiales de ventas y capacitación que preparamos para ti.', cta: 'Ir a Recursos Ahora', close: 'Cerrar' },
-    en: { title: 'New: Resources Tab!', body: 'Watch the video to discover all the sales and enablement materials we prepared for you.', cta: 'Go to Resources Now', close: 'Close' }
+    pt: { title: 'Novidade: Epic Release', body: 'Veja em 45 segundos como acessar o Epic Release: tudo o que há de novo no ClickUp, explicado para o canal.', cta: 'Abrir Epic Release', close: 'Fechar' },
+    es: { title: 'Novedad: Epic Release', body: 'Mira en 45 segundos cómo acceder al Epic Release: todo lo nuevo de ClickUp, explicado para el canal.', cta: 'Abrir Epic Release', close: 'Cerrar' },
+    en: { title: 'New: Epic Release', body: 'Watch how to access the Epic Release in 45 seconds: everything new in ClickUp, explained for the channel.', cta: 'Open Epic Release', close: 'Close' }
 };
 function safeSession(op, key, val) {
     try { return op === 'get' ? sessionStorage.getItem(key) : sessionStorage.setItem(key, val); }
@@ -3171,13 +3254,13 @@ function safeSession(op, key, val) {
 }
 function triggerWelcomePopup(videoId, startTime = 0) {
     // Show only once per session so it doesn't block the screen on every reload
-    if (safeSession('get', 'welcomeVideoShown') === 'true') return;
-    safeSession('set', 'welcomeVideoShown', 'true');
+    if (safeSession('get', 'welcomeEpicShown') === 'true') return false;
+    safeSession('set', 'welcomeEpicShown', 'true');
 
     const overlay = document.getElementById('welcome-overlay');
     const container = document.getElementById('welcome-video-container');
     const frame = buildYouTubeIframe(videoId, startTime);
-    if (!frame) return;
+    if (!frame) return false;
 
     const t = WELCOME_TEXT[currentLang] || WELCOME_TEXT.pt;
     document.getElementById('welcome-title').textContent = t.title;
@@ -3189,6 +3272,7 @@ function triggerWelcomePopup(videoId, startTime = 0) {
     overlay.style.display = 'flex';
     setTimeout(() => overlay.style.opacity = '1', 50);
     document.getElementById('welcome-close').focus();
+    return true;
 }
 
 function closeWelcomePopup() {
@@ -3198,6 +3282,7 @@ function closeWelcomePopup() {
     setTimeout(() => {
         overlay.style.display = 'none';
         container.replaceChildren(); // stop video and audio immediately
+        maybeShowEpicCoach(300);
     }, 400);
 }
 
@@ -3214,8 +3299,72 @@ document.addEventListener('keydown', (e) => {
 
 function goToResources() {
     closeWelcomePopup();
-    switchTab(4); // Redirige a la pestaña de recursos (Tab 4)
+    switchTab(4);
 }
+function goToEpicRelease() {
+    markEpicSeen();
+    closeWelcomePopup();
+    switchTab(5);
+}
+
+/* ---------- Epic Release coach mark: invites partners to open the tab until they have ---------- */
+const EPIC_SEEN_KEY = 'impulsoEpicSeen';
+function epicSeen() { try { return localStorage.getItem(EPIC_SEEN_KEY) === '1'; } catch (e) { return false; } }
+function markEpicSeen() {
+    try { localStorage.setItem(EPIC_SEEN_KEY, '1'); } catch (e) {}
+    hideEpicCoach();
+    document.body.classList.add('epic-seen');
+}
+function epicNavButton() { return document.querySelectorAll('.nav-btn')[5] || null; }
+function maybeShowEpicCoach(delay) {
+    if (epicSeen() || safeSession('get', 'epicCoachLater') === 'true') return;
+    setTimeout(() => {
+        if (epicSeen() || currentTab === 5) return;
+        if (document.getElementById('welcome-overlay').style.display === 'flex') return;
+        showEpicCoach();
+    }, delay || 0);
+}
+function showEpicCoach() {
+    const coach = document.getElementById('epic-coach');
+    const t = translations[currentLang];
+    document.getElementById('coach-eyebrow').textContent = t.coach_eyebrow;
+    document.getElementById('coach-title').textContent = t.coach_title;
+    document.getElementById('coach-body').textContent = t.coach_body;
+    document.getElementById('coach-open').textContent = t.coach_open;
+    document.getElementById('coach-later').textContent = t.coach_later;
+    coach.hidden = false;
+    document.body.classList.add('epic-coach-on');
+    keepActiveNavInView && (() => { const b = epicNavButton(); const nav = document.getElementById('nav-container'); if (b && nav.scrollWidth > nav.clientWidth) nav.scrollTo({ left: b.offsetLeft - 16 }); })();
+    positionEpicCoach();
+    requestAnimationFrame(() => coach.classList.add('show'));
+}
+function hideEpicCoach() {
+    const coach = document.getElementById('epic-coach');
+    if (!coach || coach.hidden) return;
+    coach.classList.remove('show');
+    document.body.classList.remove('epic-coach-on');
+    setTimeout(() => { coach.hidden = true; }, 250);
+}
+function positionEpicCoach() {
+    const coach = document.getElementById('epic-coach'), b = epicNavButton();
+    if (!coach || coach.hidden || !b) return;
+    const r = b.getBoundingClientRect(), w = coach.offsetWidth, h = coach.offsetHeight, m = 12;
+    const side = window.innerWidth > 900;
+    let left, top;
+    if (side) { left = r.right + 18; top = r.top + r.height / 2 - 34; coach.dataset.side = 'right'; }
+    else { left = Math.min(Math.max(m, r.left + r.width / 2 - w / 2), window.innerWidth - w - m); top = r.bottom + 14; coach.dataset.side = 'below'; }
+    top = Math.min(Math.max(m, top), window.innerHeight - h - m);
+    coach.style.left = left + 'px'; coach.style.top = top + 'px';
+    coach.style.setProperty('--arrow-x', (r.left + r.width / 2 - left) + 'px');
+}
+window.addEventListener('resize', positionEpicCoach);
+document.addEventListener('DOMContentLoaded', () => {
+    if (epicSeen()) document.body.classList.add('epic-seen');
+    document.getElementById('coach-open').addEventListener('click', () => { markEpicSeen(); switchTab(5); });
+    document.getElementById('coach-later').addEventListener('click', () => { safeSession('set', 'epicCoachLater', 'true'); hideEpicCoach(); });
+    document.getElementById('nav-container').addEventListener('scroll', positionEpicCoach, { passive: true });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') hideEpicCoach(); });
+});
 </script>
 
 <!-- DRAGGABLE PiP PLAYER CONTAINER -->
@@ -3509,6 +3658,16 @@ function goToResources() {
 <!-- =========================================
      POPUP DE BOAS-VINDAS / BIENVENIDA (VÍDEO BLOQUEANTE)
      ========================================= -->
+<div id="epic-coach" role="dialog" aria-live="polite" aria-labelledby="coach-title" hidden>
+    <span class="coach-eyebrow" id="coach-eyebrow"></span>
+    <strong class="coach-title" id="coach-title"></strong>
+    <p class="coach-body" id="coach-body"></p>
+    <div class="coach-actions">
+        <button type="button" class="coach-open" id="coach-open"></button>
+        <button type="button" class="coach-later" id="coach-later"></button>
+    </div>
+</div>
+
 <div id="welcome-overlay" role="dialog" aria-modal="true" aria-labelledby="welcome-title" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); z-index: 999999; align-items: center; justify-content: center; flex-direction: column; opacity: 0; transition: opacity 0.4s ease;">
     <div style="background: var(--bg-surface); padding: 2.5rem 2rem; border-radius: 24px; max-width: 800px; width: 90%; box-shadow: 0 30px 60px rgba(0,0,0,0.5); position: relative; border: 1px solid var(--border-color); text-align: center;">
         
@@ -3523,7 +3682,7 @@ function goToResources() {
         </div>
         
         <!-- Botão que fecha e leva para a aba -->
-        <button type="button" id="welcome-cta" onclick="goToResources()" style="margin-top: 1.5rem; padding: 1rem 2.5rem; border: none; border-radius: 50px; background: var(--theme-gradient); color: white; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; font-size: 1rem; transition: transform 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <button type="button" id="welcome-cta" onclick="goToEpicRelease()" style="margin-top: 1.5rem; padding: 1rem 2.5rem; border: none; border-radius: 50px; background: var(--theme-gradient); color: white; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; font-size: 1rem; transition: transform 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
             Acessar Recursos Agora
         </button>
     </div>
