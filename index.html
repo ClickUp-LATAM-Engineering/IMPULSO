@@ -2799,10 +2799,10 @@
             }, 50);
 
             // Dispara el popup de bienvenida 1.5 segundos después de cargar
-            // "How to access ClickUp Labs"; shown once per browser session.
+            // Featured video: "What's new in ClickUp"; shown once per browser session.
             // If it was already shown this session, go straight to the Epic Release coach mark.
             setTimeout(() => {
-                if (!triggerWelcomePopup('nFERWsb6d1s', 0)) maybeShowEpicCoach(400);
+                if (!triggerWelcomePopup('oLkh3aAITqA', 0)) maybeShowEpicCoach(400);
             }, 1500);
         }
 
@@ -3263,9 +3263,9 @@ function makeDraggable(elmnt, handle) {
 }
 // --- FUNCIONES DEL POPUP DE BIENVENIDA ---
 const WELCOME_TEXT = {
-    pt: { title: 'Como acessar o ClickUp Labs', body: 'Veja como ativar o ClickUp Labs e ter acesso antecipado a recursos Beta, como Creative Studio e Talk to Brain. Os detalhes estão no Epic Release.', cta: 'Abrir Epic Release', close: 'Fechar' },
-    es: { title: 'Cómo acceder a ClickUp Labs', body: 'Mira cómo activar ClickUp Labs y tener acceso anticipado a funciones Beta, como Creative Studio y Talk to Brain. Los detalles están en el Epic Release.', cta: 'Abrir Epic Release', close: 'Cerrar' },
-    en: { title: 'How to access ClickUp Labs', body: 'See how to turn on ClickUp Labs and get early access to Beta features like Creative Studio and Talk to Brain. The details are in the Epic Release.', cta: 'Open Epic Release', close: 'Close' }
+    pt: { title: 'Novidades da ClickUp', body: 'Veja o que há de novo na ClickUp. Os detalhes de cada lançamento, com mensagens por ICP e guia rápida, estão no Epic Release.', cta: 'Abrir Epic Release', close: 'Fechar' },
+    es: { title: 'Novedades de ClickUp', body: 'Mira lo nuevo de ClickUp. Los detalles de cada lanzamiento, con mensajes por ICP y guía rápida, están en el Epic Release.', cta: 'Abrir Epic Release', close: 'Cerrar' },
+    en: { title: "What's new in ClickUp", body: 'See what is new in ClickUp. The details of every release, with ICP messaging and a cheat sheet, are in the Epic Release.', cta: 'Open Epic Release', close: 'Close' }
 };
 function safeSession(op, key, val) {
     try { return op === 'get' ? sessionStorage.getItem(key) : sessionStorage.setItem(key, val); }
@@ -3273,8 +3273,8 @@ function safeSession(op, key, val) {
 }
 function triggerWelcomePopup(videoId, startTime = 0) {
     // Show only once per session so it doesn't block the screen on every reload
-    if (safeSession('get', 'welcomeEpicShown') === 'true') return false;
-    safeSession('set', 'welcomeEpicShown', 'true');
+    if (safeSession('get', 'welcomeNewsShown') === 'true') return false;
+    safeSession('set', 'welcomeNewsShown', 'true');
 
     const overlay = document.getElementById('welcome-overlay');
     const container = document.getElementById('welcome-video-container');
