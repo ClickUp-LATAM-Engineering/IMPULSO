@@ -1168,6 +1168,8 @@
 
         /* Epic Release resource tile */
         .resource-card-media.media-epic { background: linear-gradient(135deg, #5B3DF0 0%, #6647F0 45%, #FF02F0 120%); }
+        .resource-card-media.media-news-es { background: linear-gradient(135deg, #5B3DF0 0%, #6647F0 45%, #0091FF 120%); }
+        .resource-card-media.media-news-pt { background: linear-gradient(135deg, #00703F 0%, #008A4F 50%, #0072C6 125%); }
         .resource-card-media.media-labs { background: linear-gradient(135deg, #0B7A55 0%, #0FA968 45%, #0091FF 120%); }
         .resource-card-featured { box-shadow: 0 0 0 2px rgba(102, 71, 240, 0.35), var(--shadow-md); }
 
@@ -1923,6 +1925,31 @@
 
                         <!-- VIDEOS CATEGORY -->
                         <div id="resource-cards-videos" class="resource-cards-grid" style="display:none;">
+                            <!-- What's new in ClickUp: Spanish and Portuguese versions -->
+                            <div class="resource-card resource-card-featured" role="button" tabindex="0" onclick="openVideoPlayer('BDpeL38mz54')">
+                                <div class="resource-card-media media-news-es">
+                                    <div class="resource-play-icon"><svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+                                    <span class="resource-type-badge type-video">VIDEO</span>
+                                    <span class="resource-lang-badge lang-es">ES</span>
+                                </div>
+                                <div class="resource-card-body">
+                                    <h4 data-i18n="res_news_es_title"></h4>
+                                    <p data-i18n="res_news_desc"></p>
+                                </div>
+                            </div>
+
+                            <div class="resource-card resource-card-featured" role="button" tabindex="0" onclick="openVideoPlayer('oLkh3aAITqA')">
+                                <div class="resource-card-media media-news-pt">
+                                    <div class="resource-play-icon"><svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+                                    <span class="resource-type-badge type-video">VIDEO</span>
+                                    <span class="resource-lang-badge lang-pt">PT</span>
+                                </div>
+                                <div class="resource-card-body">
+                                    <h4 data-i18n="res_news_pt_title"></h4>
+                                    <p data-i18n="res_news_desc"></p>
+                                </div>
+                            </div>
+
                             <!-- Card 0a: Epic Release walkthrough (ES/PT captions) -->
                             <div class="resource-card resource-card-featured" role="button" tabindex="0" onclick="openVideoPlayer('vBTs0QBEP2k')">
                                 <div class="resource-card-media media-epic">
@@ -2190,6 +2217,9 @@
                 res_epic_desc: "A 45-second walkthrough: sign in to IMPULSO with your email, choose your language and open the Epic Release tab.",
                 res_labs_title: "How to access ClickUp Labs",
                 res_labs_desc: "How to turn on ClickUp Labs for early access to Beta features like Creative Studio and Talk to Brain.",
+                res_news_es_title: "What's new in ClickUp (Spanish)",
+                res_news_pt_title: "What's new in ClickUp (Portuguese)",
+                res_news_desc: "The latest ClickUp releases in a short video, ready to share with customers to open conversations, warm up demos and follow up.",
                 coach_eyebrow: "New",
                 coach_title: "The Epic Release is here",
                 coach_body: "November's 9 releases, with ICP messaging and a cheat sheet, ready for the channel.",
@@ -2391,6 +2421,9 @@
                 res_epic_desc: "Em 45 segundos: entre no IMPULSO com seu e-mail, escolha o idioma e abra a aba Epic Release.",
                 res_labs_title: "Como acessar o ClickUp Labs",
                 res_labs_desc: "Como ativar o ClickUp Labs para ter acesso antecipado a recursos Beta, como Creative Studio e Talk to Brain.",
+                res_news_es_title: "Novidades da ClickUp (espanhol)",
+                res_news_pt_title: "Novidades da ClickUp (português)",
+                res_news_desc: "Os últimos lançamentos da ClickUp em um vídeo curto, pronto para compartilhar com clientes: abrir conversas, preparar demos e fazer follow-up.",
                 coach_eyebrow: "Novidade",
                 coach_title: "O Epic Release chegou",
                 coach_body: "Os 9 lançamentos de novembro, com mensagens por ICP e guia rápida, prontos para o canal.",
@@ -2592,6 +2625,9 @@
                 res_epic_desc: "En 45 segundos: entra a IMPULSO con tu correo, elige tu idioma y abre la pestaña Epic Release.",
                 res_labs_title: "Cómo acceder a ClickUp Labs",
                 res_labs_desc: "Cómo activar ClickUp Labs para tener acceso anticipado a funciones Beta, como Creative Studio y Talk to Brain.",
+                res_news_es_title: "Novedades de ClickUp (español)",
+                res_news_pt_title: "Novedades de ClickUp (portugués)",
+                res_news_desc: "Los últimos lanzamientos de ClickUp en un video corto, listo para compartir con clientes: abrir conversaciones, preparar demos y hacer seguimiento.",
                 coach_eyebrow: "Novedad",
                 coach_title: "Llegó el Epic Release",
                 coach_body: "Los 9 lanzamientos de noviembre, con mensajes por ICP y guía rápida, listos para el canal.",
@@ -2802,7 +2838,7 @@
             // Featured video: "What's new in ClickUp"; shown once per browser session.
             // If it was already shown this session, go straight to the Epic Release coach mark.
             setTimeout(() => {
-                if (!triggerWelcomePopup('oLkh3aAITqA', 0)) maybeShowEpicCoach(400);
+                if (!triggerWelcomePopup(newsVideoId(), 0)) maybeShowEpicCoach(400);
             }, 1500);
         }
 
@@ -3065,6 +3101,7 @@
             
             document.documentElement.lang = lang;
             syncEpicLanguage(lang);
+            if (typeof syncWelcomeLanguage === 'function') syncWelcomeLanguage();
             if (typeof showEpicCoach === 'function' && !document.getElementById('epic-coach').hidden) showEpicCoach();
             renderNav();
             updateText();
@@ -3270,6 +3307,25 @@ const WELCOME_TEXT = {
 function safeSession(op, key, val) {
     try { return op === 'get' ? sessionStorage.getItem(key) : sessionStorage.setItem(key, val); }
     catch (e) { return null; } // storage blocked (privacy mode / sandboxed iframe)
+}
+// "What's new in ClickUp": one localized video per language (EN uses the Spanish one)
+const NEWS_VIDEO = { pt: 'oLkh3aAITqA', es: 'BDpeL38mz54', en: 'BDpeL38mz54' };
+function newsVideoId(lang) { return NEWS_VIDEO[lang || currentLang] || NEWS_VIDEO.es; }
+// If the language changes while the welcome popup is open, swap to that language's video and copy
+function syncWelcomeLanguage() {
+    const overlay = document.getElementById('welcome-overlay');
+    if (!overlay || overlay.style.display !== 'flex') return;
+    const t = WELCOME_TEXT[currentLang] || WELCOME_TEXT.pt;
+    document.getElementById('welcome-title').textContent = t.title;
+    document.getElementById('welcome-body').textContent = t.body;
+    document.getElementById('welcome-cta').textContent = t.cta;
+    document.getElementById('welcome-close').setAttribute('aria-label', t.close);
+    const container = document.getElementById('welcome-video-container');
+    const current = container.querySelector('iframe');
+    const want = newsVideoId();
+    if (current && current.src.indexOf('/embed/' + want) !== -1) return;
+    const frame = buildYouTubeIframe(want, 0);
+    if (frame) container.replaceChildren(frame);
 }
 function triggerWelcomePopup(videoId, startTime = 0) {
     // Show only once per session so it doesn't block the screen on every reload
