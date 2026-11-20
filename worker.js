@@ -24,40 +24,51 @@ async function serveMedia(request, env, url) {
   try { key = decodeURIComponent(url.pathname.slice('/media/'.length)); } catch { key = ''; }
   if (!SAFE_KEY.test(key) || key.includes('..')) return new Response('Not found', { status: 404 });
 
-  // R2 parses the Range and conditional headers itself; video players need Range to seek.
-  const opts = { range: request.headers };
-  let object = await env.MEDIA.get(key, opts);
-  if (object === null) {
-    // Names typed in the dashboard often differ invisibly (double or trailing spaces,
-    // non-breaking spaces, case, a folder). Find the object whose normalised name matches.
+  // Resolve the stored name first (exact, else tolerant match), and get its size
+  let meta = await env.MEDIA.head(key);
+  if (!meta) {
     const real = await findKey(env, key);
-    if (real) object = await env.MEDIA.get(real, opts);
+    if (real) { key = real; meta = await env.MEDIA.head(real); }
   }
-  if (object === null) return new Response('Not found', { status: 404 });
+  if (!meta) return new Response('Not found', { status: 404 });
+  const size = meta.size;
 
   const headers = new Headers();
-  object.writeHttpMetadata(headers);
-  headers.set('etag', object.httpEtag);
+  meta.writeHttpMetadata(headers);
+  if (!headers.get('content-type') || headers.get('content-type') === 'application/octet-stream') {
+    headers.set('content-type', /\.mov$/i.test(key) ? 'video/quicktime' : 'video/mp4');
+  }
+  headers.set('etag', meta.httpEtag);
   headers.set('accept-ranges', 'bytes');
   headers.set('cache-control', 'private, no-store');
   headers.set('x-content-type-options', 'nosniff');
-  if (!headers.has('content-type') && /\.mp4$/i.test(key)) headers.set('content-type', 'video/mp4');
 
-
-  let status = 200;
-  let length = object.size;
-  const r = object.range;
-  if (r && request.headers.has('range')) {
-    let start, end;
-    if ('suffix' in r) { start = Math.max(0, object.size - r.suffix); end = object.size - 1; }
-    else { start = r.offset || 0; end = r.length !== undefined ? start + r.length - 1 : object.size - 1; }
-    end = Math.min(end, object.size - 1);
-    length = end - start + 1;
-    headers.set('content-range', `bytes ${start}-${end}/${object.size}`);
-    status = 206;
+  // Parse the Range header ourselves so the bytes, status and Content-Range always agree
+  const rh = request.headers.get('range');
+  let start = 0, end = size - 1, partial = false;
+  if (rh) {
+    const m = /^bytes=(\d*)-(\d*)$/.exec(rh.trim());
+    if (!m || (m[1] === '' && m[2] === '')) {
+      headers.set('content-range', `bytes */${size}`);
+      return new Response(null, { status: 416, headers });
+    }
+    if (m[1] === '') { start = Math.max(0, size - Number(m[2])); }
+    else { start = Number(m[1]); if (m[2] !== '') end = Math.min(Number(m[2]), size - 1); }
+    if (start >= size || start > end) {
+      headers.set('content-range', `bytes */${size}`);
+      return new Response(null, { status: 416, headers });
+    }
+    partial = true;
   }
+  const length = end - start + 1;
   headers.set('content-length', String(length));
-  return new Response(request.method === 'HEAD' ? null : object.body, { status, headers });
+  if (partial) headers.set('content-range', `bytes ${start}-${end}/${size}`);
+  const status = partial ? 206 : 200;
+  if (request.method === 'HEAD') return new Response(null, { status, headers });
+
+  const object = await env.MEDIA.get(key, { range: { offset: start, length } });
+  if (!object) return new Response('Not found', { status: 404 });
+  return new Response(object.body, { status, headers });
 }
 
 const norm = (name) => name.normalize('NFC')
