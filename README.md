@@ -10,6 +10,7 @@ and governance, plus a built-in FAQ assistant.
 | --- | --- |
 | `index.html` | The whole site: markup, styles, translations and scripts |
 | `faq.js` | FAQ assistant content (`FAQ_DATA`) and its topic menu (`FAQ_TOPICS`) |
+| `epic-release/index.html` | EPIC November 4 Release guide, partner edition (shown in the Epic Release tab) |
 | `*.png`, `*.jpg`, `*.svg` | Images. `_PT` / `_ES` pairs swap with the language toggle (EN uses ES) |
 
 There is no build step. Open `index.html` in a browser, or serve the folder:
@@ -32,6 +33,31 @@ python3 -m http.server 8000   # then open http://localhost:8000
   without giving it access to this page.
 - **Unfinished resource cards** are kept in a commented block in the Sales category of the Resources
   tab, with steps for publishing them.
+
+## Epic Release tab
+
+`epic-release/index.html` is an export of the internal ClickUp Artifact "The EPIC November 4 Release",
+edited to be partner ready: the confidentiality banner reads "Partner Ready", internal tools (Ask a
+question, Notes, Key points, Questions and answers, Admin/analytics) are hidden, employee names,
+internal-doc links, internal readiness notes and unannounced pricing plans were removed, and videos
+show a "localized video coming soon" placeholder. The tab loads it on first open and keeps it in the
+same language as IMPULSO (via the `epic-lang` browser setting and a message to the frame).
+
+To publish localized videos later, re-export the Artifact with the new video files and repeat the
+partner-ready edits, or ask for the placeholder layer (`#partner-ready-layer`) to be adjusted.
+
+## Dubbed videos (Cloudflare R2)
+
+Videos are stored in the R2 bucket `impulso-media` and served by `worker.js` at
+`/media/<file>`, behind the same Cloudflare Access login as the site. A copied
+`/media/` link does not work without signing in.
+
+- `wrangler.jsonc` binds the bucket as `MEDIA` and the site files as `ASSETS`.
+  Its `name` must stay `impulso-clickup`.
+- `.assetsignore` keeps `worker.js`, `wrangler.jsonc` and this README off the site.
+- File names: lower case, no spaces, e.g. `workflows-es.mp4`, `workflows-pt.mp4`.
+- Recommended encoding: 1080p H.264 MP4 (about 60 MB per minute). 4K works but
+  uses the 10 GB free storage roughly six times faster.
 
 ## Security notes
 

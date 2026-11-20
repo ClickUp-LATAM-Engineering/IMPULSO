@@ -1,0 +1,15 @@
+{
+  // Must match the Worker name in Cloudflare, or Git deploys create a second Worker
+  "name": "impulso-clickup",
+  "main": "worker.js",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS",
+    // Only /media/ goes through worker.js; every other path is served as a plain file
+    "run_worker_first": ["/media/*"]
+  },
+  "r2_buckets": [
+    { "binding": "MEDIA", "bucket_name": "impulso-media" }
+  ]
+}
