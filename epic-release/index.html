@@ -482,12 +482,48 @@ ${s.trim()}
     padding: 12px; text-align: center; color: #FFFFFF; font: 600 14px/1.3 Inter, system-ui, sans-serif;
     background: linear-gradient(135deg, rgba(102,71,240,0.55), rgba(0,145,255,0.35)); }
   .pr-soon svg { width: 22px; height: 22px; }
+  button.rd-poster.pr-dub-ready { cursor: pointer; }
+  button.rd-poster.pr-dub-ready img { filter: brightness(0.7); }
+  button.rd-poster.pr-dub-ready .pr-soon { background: linear-gradient(135deg, rgba(102,71,240,0.35), rgba(0,145,255,0.2)); }
+  button.rd-poster.pr-dub-ready .pr-soon svg { width: 44px; height: 44px; padding: 14px; border-radius: 50%; background: #FFFFFF; color: #101017; box-sizing: content-box; }
+  #pr-dub { position: fixed; inset: 0; z-index: 2147483000; background: rgba(8,8,14,0.82); display: flex; align-items: center; justify-content: center; padding: 24px; }
+  #pr-dub .pr-dub-box { position: relative; width: min(1100px, 100%); }
+  #pr-dub video { display: block; width: 100%; max-height: 80vh; border-radius: 14px; background: #000; }
+  #pr-dub .pr-dub-x { position: absolute; top: -18px; right: -18px; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.25); background: #2A2A36; color: #FFFFFF; font: 600 24px/1 Inter, system-ui, sans-serif; cursor: pointer; }
+  @media (max-width: 700px) { #pr-dub .pr-dub-x { top: -52px; right: 0; } }
 </style>
 <script id="partner-ready-layer">
 (function () {
   var SOON = { en: 'Localized video coming soon', es: 'Video localizado muy pronto', pt: 'Vídeo localizado em breve' };
+  // Dubbed walkthroughs in R2 (served by IMPULSO at /media/, behind the partner login).
+  // Keyed by the poster image of each launch's "Walkthrough for GTM" tile. EN uses the Spanish version.
+  var DUBBED = {
+    'asset-049a61e756d4b085': { es: 'ClickUp Labs ES 4k.mp4', pt: 'ClickUp Labs BR.mp4' },          // ClickUp Labs
+    'asset-8eb1e1ad55b3ef61': { es: 'Demo General de Controles de IA.mp4', pt: 'Demo Geral Controles da IA.mp4' } // AI admin controls
+  };
+  var WATCH = { en: 'Watch walkthrough (Spanish)', es: 'Ver walkthrough en español', pt: 'Assistir walkthrough em português' };
+  function dubFor(b) {
+    var img = b.querySelector('img'); var src = img ? (img.getAttribute('src') || '') : '';
+    for (var k in DUBBED) { if (src.indexOf(k) !== -1) return DUBBED[k]; }
+    return null;
+  }
+  function dubSrc(d) { var L = lang(); var f = d[L] || d.es; return '/media/' + encodeURIComponent(f); }
+  function openDub(d) {
+    closeDub();
+    var o = document.createElement('div'); o.id = 'pr-dub';
+    o.setAttribute('role', 'dialog'); o.setAttribute('aria-modal', 'true'); o.setAttribute('aria-label', WATCH[lang()] || WATCH.en);
+    var box = document.createElement('div'); box.className = 'pr-dub-box';
+    var x = document.createElement('button'); x.type = 'button'; x.className = 'pr-dub-x'; x.setAttribute('aria-label', 'Close'); x.textContent = '×';
+    var v = document.createElement('video'); v.controls = true; v.autoplay = true; v.playsInline = true; v.preload = 'metadata'; v.src = dubSrc(d);
+    box.appendChild(x); box.appendChild(v); o.appendChild(box); document.body.appendChild(o);
+    o.addEventListener('click', function (e) { if (e.target === o) closeDub(); });
+    x.addEventListener('click', closeDub); x.focus();
+  }
+  function closeDub() { var o = document.getElementById('pr-dub'); if (o) { var v = o.querySelector('video'); if (v) { v.pause(); v.removeAttribute('src'); v.load(); } o.remove(); } }
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeDub(); });
   var NAV_HIDE = ['Admin', 'Questions and answers', 'Preguntas y respuestas', 'Perguntas e respostas'];
   function lang() { try { return localStorage.getItem('epic-lang') || 'en'; } catch (e) { return 'en'; } }
+  var PLAY = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
   var CLOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
   function sweep() {
     var text = SOON[lang()] || SOON.en;
@@ -499,19 +535,23 @@ ${s.trim()}
         b.dataset.pr = '1';
         b.setAttribute('aria-disabled', 'true');
         var o = document.createElement('span'); o.className = 'pr-soon';
-        o.innerHTML = CLOCK + '<span class="pr-soon-text"></span>';
+        o.innerHTML = (dubFor(b) ? PLAY : CLOCK) + '<span class="pr-soon-text"></span>';
         b.appendChild(o);
       }
+      var d = dubFor(b);
+      var label = d ? (WATCH[lang()] || WATCH.en) : text;
+      b.classList.toggle('pr-dub-ready', !!d);
+      if (d) b.removeAttribute('aria-disabled'); else b.setAttribute('aria-disabled', 'true');
       var t = b.querySelector('.pr-soon-text');
-      if (t && t.textContent !== text) t.textContent = text;
-      if (b.getAttribute('aria-label') !== text) b.setAttribute('aria-label', text);
+      if (t && t.textContent !== label) t.textContent = label;
+      if (b.getAttribute('aria-label') !== label) b.setAttribute('aria-label', label);
     });
-    document.querySelectorAll('video').forEach(function (v) { v.removeAttribute('src'); v.load && v.load(); });
+    document.querySelectorAll('video').forEach(function (v) { if (v.closest('#pr-dub')) return; if (v.getAttribute('src')) { v.removeAttribute('src'); v.load && v.load(); } });
   }
   // Video tiles do nothing until localized videos are added
   document.addEventListener('click', function (e) {
     var b = e.target.closest && e.target.closest('button.rd-poster');
-    if (b) { e.preventDefault(); e.stopPropagation(); }
+    if (b) { e.preventDefault(); e.stopPropagation(); var d = dubFor(b); if (d) openDub(d); }
   }, true);
   var queued = false;
   function schedule() { if (queued) return; queued = true; requestAnimationFrame(function () { queued = false; sweep(); }); }
