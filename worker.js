@@ -4,7 +4,8 @@
 // The whole workers.dev hostname sits behind Cloudflare Access, so media needs the
 // same partner login as the site; a copied /media/ link does not work without it.
 
-const SAFE_KEY = /^[A-Za-z0-9][A-Za-z0-9._\/-]{0,200}$/;
+// Letters, digits, spaces and . _ - ( ) / (R2 names uploaded from the dashboard keep their spaces)
+const SAFE_KEY = /^[A-Za-z0-9][A-Za-z0-9 ._\/()-]{0,200}$/;
 
 export default {
   async fetch(request, env) {
@@ -23,7 +24,14 @@ async function serveMedia(request, env, url) {
   if (!SAFE_KEY.test(key) || key.includes('..')) return new Response('Not found', { status: 404 });
 
   // R2 parses the Range and conditional headers itself; video players need Range to seek.
-  const object = await env.MEDIA.get(key, { range: request.headers, onlyIf: request.headers });
+  const opts = { range: request.headers, onlyIf: request.headers };
+  let object = await env.MEDIA.get(key, opts);
+  if (object === null) {
+    // Names typed in the dashboard often differ invisibly (double or trailing spaces,
+    // non-breaking spaces, case, a folder). Find the object whose normalised name matches.
+    const real = await findKey(env, key);
+    if (real) object = await env.MEDIA.get(real, opts);
+  }
   if (object === null) return new Response('Not found', { status: 404 });
 
   const headers = new Headers();
@@ -51,4 +59,28 @@ async function serveMedia(request, env, url) {
   }
   headers.set('content-length', String(length));
   return new Response(request.method === 'HEAD' ? null : object.body, { status, headers });
+}
+
+const norm = (name) => name.normalize('NFC')
+  .replace(/[\s\u00A0\u2000-\u200B\u202F\u205F\u3000]+/g, ' ')
+  .replace(/\s+(\.[A-Za-z0-9]+)$/, '$1')
+  .trim().toLowerCase();
+const base = (name) => name.slice(name.lastIndexOf('/') + 1);
+
+let keyCache = null; // { at, keys } per isolate, refreshed every 5 minutes
+async function findKey(env, wanted) {
+  if (!keyCache || Date.now() - keyCache.at > 300000) {
+    const keys = [];
+    let cursor;
+    do {
+      const page = await env.MEDIA.list({ cursor, limit: 1000 });
+      for (const o of page.objects) keys.push(o.key);
+      cursor = page.truncated ? page.cursor : undefined;
+    } while (cursor && keys.length < 5000);
+    keyCache = { at: Date.now(), keys };
+  }
+  const w = norm(wanted), wb = norm(base(wanted));
+  return keyCache.keys.find((k) => norm(k) === w)
+    || keyCache.keys.find((k) => norm(base(k)) === wb)
+    || null;
 }
