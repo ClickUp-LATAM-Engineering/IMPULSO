@@ -19,12 +19,13 @@ async function serveMedia(request, env, url) {
   if (request.method !== 'GET' && request.method !== 'HEAD') {
     return new Response('Method not allowed', { status: 405, headers: { allow: 'GET, HEAD' } });
   }
+  if (url.pathname === '/media/_check') return checkMedia(env, url.searchParams.get('f') || '');
   let key;
   try { key = decodeURIComponent(url.pathname.slice('/media/'.length)); } catch { key = ''; }
   if (!SAFE_KEY.test(key) || key.includes('..')) return new Response('Not found', { status: 404 });
 
   // R2 parses the Range and conditional headers itself; video players need Range to seek.
-  const opts = { range: request.headers, onlyIf: request.headers };
+  const opts = { range: request.headers };
   let object = await env.MEDIA.get(key, opts);
   if (object === null) {
     // Names typed in the dashboard often differ invisibly (double or trailing spaces,
@@ -38,12 +39,10 @@ async function serveMedia(request, env, url) {
   object.writeHttpMetadata(headers);
   headers.set('etag', object.httpEtag);
   headers.set('accept-ranges', 'bytes');
-  headers.set('cache-control', 'private, max-age=3600');
+  headers.set('cache-control', 'private, no-store');
   headers.set('x-content-type-options', 'nosniff');
   if (!headers.has('content-type') && /\.mp4$/i.test(key)) headers.set('content-type', 'video/mp4');
 
-  // Precondition matched (e.g. If-None-Match): no body
-  if (!('body' in object)) return new Response(null, { status: 304, headers });
 
   let status = 200;
   let length = object.size;
@@ -84,3 +83,28 @@ async function findKey(env, wanted) {
     || keyCache.keys.find((k) => norm(base(k)) === wb)
     || null;
 }
+
+// Diagnostics (needs the partner login like everything else): which object a name
+// resolves to, its size and type, and the first bytes of the file.
+async function checkMedia(env, name) {
+  const out = { asked: name, bucketBound: !!env.MEDIA };
+  if (!env.MEDIA) return json(out);
+  let real = null;
+  const exact = await env.MEDIA.head(name);
+  if (exact) real = name; else real = await findKey(env, name);
+  out.resolvedTo = real;
+  if (real) {
+    const h = exact || await env.MEDIA.head(real);
+    out.size = h.size;
+    out.contentType = h.httpMetadata && h.httpMetadata.contentType;
+    const head = await env.MEDIA.get(real, { range: { offset: 0, length: 64 } });
+    const bytes = new Uint8Array(await head.arrayBuffer());
+    const ascii = Array.from(bytes, (b) => (b >= 32 && b < 127 ? String.fromCharCode(b) : '.')).join('');
+    out.firstBytes = ascii; // "ftyp" near the start = MP4/MOV container
+    out.moovFirst = ascii.indexOf('moov') !== -1 ? 'yes' : 'not in the first 64 bytes';
+  }
+  const list = await env.MEDIA.list({ limit: 100 });
+  out.bucket = list.objects.map((o) => ({ key: o.key, size: o.size }));
+  return json(out);
+}
+const json = (o) => new Response(JSON.stringify(o, null, 2), { headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' } });
